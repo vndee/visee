@@ -19,4 +19,4 @@ venv/
 /tests/test
 /tests/gtest/
 .idea/
-
+data/

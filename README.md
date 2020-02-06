@@ -1,1 +1,2 @@
-# product-seeker-api
+### ViSee - Visual Search Engine
+
