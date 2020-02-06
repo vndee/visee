@@ -1,0 +1,8 @@
+version: '2.1'
+
+services:
+  product-seeker-api:
+    image: product-seeker-api
+    build: .
+    ports:
+      - 5000:5000
