@@ -10,7 +10,7 @@ class Indexer:
     def __init__(self):
         self.kafka_consumer = None
         self.redis_connector = None
-
+    
     def add(self, data):
         '''
         Add retrieved data from kafka queue to elasticsearch and faisslib indexes.

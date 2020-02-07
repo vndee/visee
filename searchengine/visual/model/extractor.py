@@ -7,7 +7,8 @@ from io import BytesIO
 from torchvision import transforms
 
 from common.logger import app_logging
-from efficientnet import EfficientNet
+from searchengine.visual.model.efficientnet import EfficientNet
+
 
 class FeatureExtractor:
     def __init__(self, arch='efficientnet-b0'):
