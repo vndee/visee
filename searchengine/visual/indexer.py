@@ -1,14 +1,45 @@
 import os
 import faiss
 
+from common.logger import get_logger
+from common.config import AppConf
+from common.dbconnector import RedisConnector
 from searchengine.visual.model.extractor import FeatureExtractor
+
+logger = get_logger(logger_name=__name__)
 
 
 class FaissIndexer:
     def __init__(self):
         self.feature_dim = 128 if not os.getenv('FAISS_FEATURE_DIM') else int(os.getenv('FAISS_FEATURE_DIM'))
-        self.feature_extractor = FeatureExtractor()
-        self.faiss_index = faiss.IndexFlatL2(self.feature_dim)
+
+        try:
+            self.feature_extractor = FeatureExtractor()
+        except Exception as ex:
+            logger.error('An error occured while init feature extractor')
+            logger.exception(ex)
+            self.feature_extractor = None
+        finally:
+            logger.info('Init feature extractor success')
+
+        try:
+            self.faiss_index = faiss.IndexFlatL2(self.feature_dim)
+        except Exception as ex:
+            logger.error('An error occured while init faiss indexer')
+            logger.exception(ex)
+        finally:
+            logger.info('Init faiss indexer success')
+
+        try:
+            self.redis_cursor = RedisConnector(host=AppConf.redis_host,
+                                               port=AppConf.redis_port,
+                                               password=AppConf.redis_password,
+                                               db=AppConf.redis_db_idx)
+        except Exception as ex:
+            logger.error('An error occured while init redis cursor %d' % AppConf.redis_db_idx)
+            logger.exception(ex)
+        finally:
+            logger.info('Init redis cursor success on db %d' % AppConf.redis_db_idx)
 
     def add(self, key, value):
         '''

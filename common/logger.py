@@ -12,14 +12,10 @@ def get_logger(logger_name='default'):
     """
     log = logging.getLogger(logger_name)
     log.setLevel(logging.DEBUG)
-    log_format = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+    log_format = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
     ch = logging.StreamHandler(sys.stdout)
     ch.setFormatter(log_format)
     log.addHandler(ch)
 
     return log
-
-
-# create log as global variable
-app_logging = get_logger(logger_name='info')

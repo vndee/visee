@@ -1,10 +1,10 @@
-import faiss
+from datetime import datetime
+from elasticsearch import Elasticsearch
 
 
 class ElasticIndexer:
     def __init__(self):
-        self.kafka_consumer = None
-        self.redis_connector = None
+        self.elastic = Elasticsearch()
 
     def add(self, data):
         '''

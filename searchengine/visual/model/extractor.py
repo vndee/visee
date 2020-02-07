@@ -6,8 +6,10 @@ from PIL import Image
 from io import BytesIO
 from torchvision import transforms
 
-from common.logger import app_logging
+from common.logger import get_logger
 from searchengine.visual.model.efficientnet import EfficientNet
+
+logger = get_logger(logger_name=__name__)
 
 
 class FeatureExtractor:
@@ -16,13 +18,13 @@ class FeatureExtractor:
         Load pretrained model for EfficientNet features extractor.
         '''
 
-        app_logging.info('Load %s' % arch)
+        logger.info('Load %s' % arch)
         try:
             self.model = EfficientNet.from_pretrained(arch)
         except Exception as ex:
             self.model = None
-            app_logging.error('Failed to load %s' % arch)
-            app_logging.exception(ex)
+            logger.error('Failed to load %s' % arch)
+            logger.exception(ex)
 
         self.image_size = EfficientNet.get_image_size(arch)
 
@@ -31,12 +33,12 @@ class FeatureExtractor:
         Extract features in image, input must be a base64 encoded object.
         '''
         
-        app_logging.info('Start features extraction')
+        logger.info('Start features extraction')
         try:
             img = FeatureExtractor.base64toPIL(img)
         except Exception as ex:
-            app_logging.error('Input must be a base64 encoded object')
-            app_logging.exception(ex)
+            logger.error('Input must be a base64 encoded object')
+            logger.exception(ex)
             return None
 
         # preprocess image
@@ -53,6 +55,7 @@ class FeatureExtractor:
     @staticmethod
     def base64_verify(b64):
         return re.match(r'^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$', b64)
+
 
 if __name__ == '__main__':
     path = '/media/vndee/DATA/workspace/vndee/product-seeker/data/https_3A_2F_2Fgearlaunch-product-images.imgix.net_2Fimg_2Fproduct_2FUnisexCrew_FRONT_46be88da32_c5e5c699-c087-4cf9-8bcc-e4a9c0aea221_550x825.webp'

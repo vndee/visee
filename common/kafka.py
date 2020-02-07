@@ -1,6 +1,9 @@
 import ssl
 from kafka import KafkaProducer, KafkaConsumer
 from kafka.partitioner import DefaultPartitioner
+from common.logger import get_logger
+
+logger = get_logger(logger_name=__name__)
 
 
 def initial_ssl(username):
