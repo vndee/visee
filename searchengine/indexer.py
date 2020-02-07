@@ -1,5 +1,10 @@
 import faiss
 
+from searchengine.elastic.indexer import ElasticIndexer
+from searchengine.elastic.seeker import ElasticSeeker
+from searchengine.visual.indexer import VisualIndexer
+from searchengine.visual.seeker import VisualSeeker
+
 
 class Indexer:
     def __init__(self):
@@ -11,6 +16,14 @@ class Indexer:
         Add retrieved data from kafka queue to elasticsearch and faiss indexes.
         data is in json format
         '''
+
+        # retrieve product id from kafka queue
+
+        # retrieve product meta data from redis caching db
+
+        # add meta-data to elasticsearch
+
+        # 
         return True
 
     def update(self, key, value):

@@ -1,7 +1,7 @@
 import faiss
 
 
-class Indexer:
+class VisualIndexer:
     def __init__(self):
         self.kafka_consumer = None
         self.redis_connector = None

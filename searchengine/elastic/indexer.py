@@ -1,7 +1,7 @@
 import faiss
 
 
-class Indexer:
+class ElasticIndexer:
     def __init__(self):
         self.kafka_consumer = None
         self.redis_connector = None

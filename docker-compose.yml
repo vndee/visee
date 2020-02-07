@@ -1,8 +1,94 @@
-version: '2.1'
+version: '3.2'
 
 services:
-  product-seeker-api:
-    image: product-seeker-api
-    build: .
+  #************************************
+  #**              ELK               **
+  #************************************
+
+  visee_elasticsearch:
+    container_name: visee_elasticsearch
+    build:
+      context: docker/elk/elasticsearch/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - type: bind
+        source: ./docker/elk/elasticsearch/config/elasticsearch.yml
+        target: /usr/share/elasticsearch/config/elasticsearch.yml
+        read_only: true
+      - type: volume
+        source: ./docker/elk/elasticsearch
+        target: /usr/share/elasticsearch/data
     ports:
-      - 5000:5000
+      - "9200:9200"
+      - "9300:9300"
+    
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ELASTIC_PASSWORD: changeme
+      # Use single node discovery in order to disable production mode and avoid bootstrap checks
+      # see https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
+      discovery.type: single-node
+    
+    networks:
+      - elk
+
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  visee_logstash:
+    container_name: visee_logstash
+    build:
+      context: docker/elk/logstash/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - type: bind
+        source: ./docker/elk/logstash/config/logstash.yml
+        target: /usr/share/logstash/config/logstash.yml
+        read_only: true
+      - type: bind
+        source: ./docker/elk/logstash/pipeline
+        target: /usr/share/logstash/pipeline
+        read_only: true
+    ports:
+      - "5000:5000"
+      - "9600:9600"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - elk
+    depends_on:
+      - visee_elasticsearch
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  visee_kibana:
+    container_name: visee_kibana
+    build:
+      context: docker/elk/kibana/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - type: bind
+        source: ./docker/elk/kibana/config/kibana.yml
+        target: /usr/share/kibana/config/kibana.yml
+        read_only: true
+    ports:
+      - "5601:5601"
+    networks:
+      - elk
+    depends_on:
+      - visee_elasticsearch
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+networks:
+  elk:
+    driver: bridge
+
+volumes:
+  elasticsearch:

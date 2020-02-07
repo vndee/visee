@@ -1,4 +1,4 @@
-class Seeker:
+class ElasticSeeker:
     def __init__(self):
         self.seeker = None
 

@@ -1,5 +1,8 @@
 from config import *
 from flask import Flask, request, jsonify
+from searchengine.indexer import Indexer
+from searchengine.seeker import Seeker
+
 
 app = Flask(__name__)
 
@@ -15,6 +18,14 @@ def verify():
 
 @app.route('/api/rest/index/')
 def index():
+    headers = request.headers
+    auth = headers.get('api_key')
+
+    if auth != APIConf.api_key:
+        return jsonify({'Message': 'ERROR: Unauthorized'}), 401
+
+@app.route('/api/rest/search/')
+def search():
     headers = request.headers
     auth = headers.get('api_key')
 
