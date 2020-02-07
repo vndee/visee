@@ -1,16 +1,18 @@
 version: '3.2'
 
 services:
-  #************************************
-  #**              ELK               **
-  #************************************
+  #####################################
+  #                ELK                #
+  #####################################
 
-  visee_elasticsearch:
+  elasticsearch:
     container_name: visee_elasticsearch
-    build:
-      context: docker/elk/elasticsearch/
-      args:
-        ELK_VERSION: $ELK_VERSION
+    # comment image decleration if custom Dockerfile was provided
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
+    # build:
+    #   context: docker/elk/elasticsearch/
+    #   args:
+    #     ELK_VERSION: $ELK_VERSION
     volumes:
       - type: bind
         source: ./docker/elk/elasticsearch/config/elasticsearch.yml
@@ -22,27 +24,24 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
-    
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
       ELASTIC_PASSWORD: changeme
       # Use single node discovery in order to disable production mode and avoid bootstrap checks
       # see https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
       discovery.type: single-node
-    
     networks:
       - elk
+    restart: always
 
-    deploy:
-      restart_policy:
-        condition: on-failure
-
-  visee_logstash:
+  logstash:
     container_name: visee_logstash
-    build:
-      context: docker/elk/logstash/
-      args:
-        ELK_VERSION: $ELK_VERSION
+    # comment image decleration if custom Dockerfile was provided
+    image: docker.elastic.co/logstash/logstash:${ELK_VERSION}
+    # build:
+    #   context: docker/elk/logstash/
+    #   args:
+    #     ELK_VERSION: $ELK_VERSION
     volumes:
       - type: bind
         source: ./docker/elk/logstash/config/logstash.yml
@@ -60,17 +59,17 @@ services:
     networks:
       - elk
     depends_on:
-      - visee_elasticsearch
-    deploy:
-      restart_policy:
-        condition: on-failure
+      - elasticsearch
+    restart: always
 
-  visee_kibana:
+  kibana:
     container_name: visee_kibana
-    build:
-      context: docker/elk/kibana/
-      args:
-        ELK_VERSION: $ELK_VERSION
+    # comment image decleration if custom Dockerfile was provided
+    image: docker.elastic.co/kibana/kibana:${ELK_VERSION}
+    # build:
+    #   context: docker/elk/kibana/
+    #   args:
+    #     ELK_VERSION: $ELK_VERSION
     volumes:
       - type: bind
         source: ./docker/elk/kibana/config/kibana.yml
@@ -81,10 +80,64 @@ services:
     networks:
       - elk
     depends_on:
-      - visee_elasticsearch
-    deploy:
-      restart_policy:
-        condition: on-failure
+      - elasticsearch
+    restart: always
+  
+  #####################################
+  #              KAFKA                #
+  #####################################
+  
+  zookeeper:
+    container_name: visee_zookeeper
+    image: confluentinc/cp-zookeeper:${KAFKA_VERSION}
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      zk_id: "1"
+    ports:
+      - "2181:2181"
+    networks:
+      - elk
+    restart: always
+    
+  kafka:
+    container_name: visee_kafka
+    hostname: kafka
+    image: confluentinc/cp-kafka:${KAFKA_VERSION}
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://:9092"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks: 
+      - elk
+    restart: always
+
+  schema-registry:
+    container_name: visee_schema_registry
+    image: confluentinc/cp-schema-registry:${KAFKA_VERSION}
+    depends_on:
+      - kafka
+      - zookeeper
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: "zookeeper:2181"
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+    networks: 
+      - elk
+    restart: always
+
+  redis:
+    container_name: visee_redis
+    image: redis
+    ports:
+      - "6379:6379"
+    networks: 
+      - elk
+    restart: always
 
 networks:
   elk:

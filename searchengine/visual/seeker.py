@@ -1,4 +1,4 @@
-class VisualSeeker:
+class FaissSeeker:
     def __init__(self):
         self.seeker = None
 

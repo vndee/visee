@@ -1,14 +1,15 @@
+import os
 import faiss
 
 
-class VisualIndexer:
+class FaissIndexer:
     def __init__(self):
-        self.kafka_consumer = None
-        self.redis_connector = None
+        self.feature_dim = 128 if not os.getenv('FAISS_FEATURE_DIM') else int(os.getenv('FAISS_FEATURE_DIM'))
+        self.faiss_index = faiss.IndexFlatL2(self.feature_dim)
 
     def add(self, data):
         '''
-        Add retrieved data from kafka queue to elasticsearch and faiss indexes.
+        Add retrieved data from kafka queue to elasticsearch and faisslib indexes.
         data is in json format
         '''
         return True

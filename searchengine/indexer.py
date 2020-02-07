@@ -2,8 +2,8 @@ import faiss
 
 from searchengine.elastic.indexer import ElasticIndexer
 from searchengine.elastic.seeker import ElasticSeeker
-from searchengine.visual.indexer import VisualIndexer
-from searchengine.visual.seeker import VisualSeeker
+from searchengine.visual.indexer import FaissIndexer
+from searchengine.visual.seeker import FaissSeeker
 
 
 class Indexer:
@@ -13,7 +13,7 @@ class Indexer:
 
     def add(self, data):
         '''
-        Add retrieved data from kafka queue to elasticsearch and faiss indexes.
+        Add retrieved data from kafka queue to elasticsearch and faisslib indexes.
         data is in json format
         '''
 

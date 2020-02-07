@@ -8,7 +8,7 @@ class ElasticIndexer:
 
     def add(self, data):
         '''
-        Add retrieved data from kafka queue to elasticsearch and faiss indexes.
+        Add retrieved data from kafka queue to elasticsearch and faisslib indexes.
         data is in json format
         '''
         return True
