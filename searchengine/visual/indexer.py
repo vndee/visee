@@ -18,39 +18,3 @@ class Indexer:
         Update record
         '''
         return True
-
-
-class ElasticIndexer(Indexer):
-    def __init__(self):
-        super().__init__()
-        self.elastic_connector = None
-
-    def add(self, data):
-        '''
-        Add data to elasticsearch engine
-        '''
-        return True
-
-    def update(self, key, value):
-        '''
-        Update elasticsearch indexes
-        '''
-        return True
-
-
-class FaissIndexer(Indexer):
-    def __init__(self):
-        super().__init__()
-        self.faiss_connector = None
-
-    def add(self, data):
-        '''
-        Add data to faiss index
-        '''
-        return True
-
-    def update(self, key, value):
-        '''
-        Update faiss index
-        '''
-        return True
