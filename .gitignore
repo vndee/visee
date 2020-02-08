@@ -21,3 +21,6 @@ venv/
 /tests/gtest/
 .idea/
 data/
+/docker/elk/elasticsearch/nodes/
+crawler/application/__pycache__/
+searchengine/visual/faisslib/python/build/bdist.linux-x86_64/
