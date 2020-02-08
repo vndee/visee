@@ -3,7 +3,7 @@ import yaml
 import os
 import glob
 import json
-from crawler.application.crawler.environments import create_environments
+from application.crawler.environments import create_environments
 
 if __name__ == "__main__":
     config = create_environments()
@@ -28,3 +28,4 @@ if __name__ == "__main__":
             pages_rule_dict[key] = yaml_data
 
     redis_connect.set("pages_rule", json.dumps(pages_rule_dict))
+    redis_connect.set("obj_current_id", 0)

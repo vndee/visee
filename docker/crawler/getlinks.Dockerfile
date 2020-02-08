@@ -1,26 +1,25 @@
-FROM ubuntu:18.04
+FROM python:3.6-alpine3.7
 
-RUN apt-get update && apt-get install -y \
-	tk-dev apt-utils python3-pip tzdata locales
+# update apk repo
+RUN echo "http://dl-4.alpinelinux.org/alpine/v3.7/main" >> /etc/apk/repositories && \
+    echo "http://dl-4.alpinelinux.org/alpine/v3.7/community" >> /etc/apk/repositories
 
-RUN cd /usr/bin \
-  && ln -sf python3 python \
-  && ln -sf pip3 pip
+# install chromedriver
+RUN apk update
+RUN apk add chromium chromium-chromedriver
+RUN apk add --no-cache jpeg-dev zlib-dev
+RUN apk add --no-cache --virtual .build-deps build-base linux-headers gcc g++ musl-dev
+RUN apk add libxml2-dev libxslt-dev python3-dev
+RUN pip install cython
 
-ENV LANG C.UTF-8
+# upgrade pip
+RUN pip install --upgrade pip
 
-RUN locale-gen en_US.UTF-8
+# install selenium
+RUN pip install selenium
 
-# set locale
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
-ENV TZ=Asia/Ho_Chi_Minh
+WORKDIR /crawler
+COPY . /crawler
+RUN pip install -r requirements.txt
 
-RUN apt-get update && apt-get install -y --no-install-recommends
-
-COPY . .
-WORKDIR .
-RUN pip3 install -r requirements.txt
-
-CMD ["python3", "get_item_links.py"]
+CMD ["python", "get_item_links.py"]

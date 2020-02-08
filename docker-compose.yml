@@ -19,7 +19,7 @@ services:
         target: /usr/share/elasticsearch/config/elasticsearch.yml
         read_only: true
       - type: volume
-        source: ./docker/elk/elasticsearch
+        source: data
         target: /usr/share/elasticsearch/data
     ports:
       - "9200:9200"
@@ -139,9 +139,58 @@ services:
       - elk
     restart: always
 
+  #####################################
+  #              CRAWLER              #
+  #####################################
+
+  getlinks:
+    container_name: vis_getlinks
+    build:
+      context: crawler/
+      dockerfile: ../docker/crawler/getlinks.Dockerfile
+    environment:
+      KAFKA_HOSTS: $KAFKA_HOST
+      KAFKA_USER: $KAFKA_USER
+      KAFKA_PASSWORD: $KAFKA_PASSWORD
+      REDIS_HOST: $REDIS_HOST
+      REDIS_PORT: $REDIS_PORT
+      REDIS_PASSWORD: $REDIS_PASSWORD
+    volumes:
+      - type: volume
+        source: ./crawler
+        target: /crawler
+    depends_on:
+      - kafka
+    networks:
+      - elk
+    restart: always
+
+  itemscraper:
+    container_name: vis_itemscraper
+    build:
+      context: crawler/
+      dockerfile: ../docker/crawler/scraper.Dockerfile
+    environment:
+      KAFKA_HOSTS: $KAFKA_HOST
+      KAFKA_USER: $KAFKA_USER
+      KAFKA_PASSWORD: $KAFKA_PASSWORD
+      REDIS_HOST: $REDIS_HOST
+      REDIS_PORT: $REDIS_PORT
+      REDIS_PASSWORD: $REDIS_PASSWORD
+    volumes:
+      - type: volume
+        source: ./crawler
+        target: /crawler
+    depends_on:
+      - kafka
+    networks:
+      - elk
+    restart: always
+
 networks:
   elk:
     driver: bridge
 
 volumes:
-  elasticsearch:
+  data:
+  crawler:

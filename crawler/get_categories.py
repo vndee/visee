@@ -2,8 +2,8 @@ import re
 import os
 import json
 import yaml
-from crawler.application.crawler.scraper import BasicWebDriver
-from crawler.application.crawler.environments import create_environments
+from application.crawler.scraper import BasicWebDriver
+from application.crawler.environments import create_environments
 
 s1 = u'ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠạẢảẤấẦầẨẩẪẫẬậẮắẰằẲẳẴẵẶặ' \
      u'ẸẹẺẻẼẽẾếỀềỂểỄễỆệỈỉỊịỌọỎỏỐốỒồỔổỖỗỘộỚớỜờỞởỠỡỢợỤụỦủỨứỪừỬửỮữỰựỲỳỴỵỶỷỸỹ'

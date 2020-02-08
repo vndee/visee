@@ -1,7 +1,7 @@
 import os
 
 DEPLOY = 'local'
-DRIVER_PATH_DEFAULT = '/chromedriver'
+DRIVER_PATH_DEFAULT = 'chromedriver'
 
 if DEPLOY == 'local':
     '''
@@ -23,20 +23,6 @@ if DEPLOY == 'local':
     REDIS_PORT_DEFAULT = '6379'
     REDIS_DB_DEFAULT = '9'
     REDIS_PASSWORD_DEFAULT = None
-
-    # Postgre default info
-    PG_HOST_DEFAULT = 'localhost'
-    PG_PORT_DEFAULT = '5432'
-    PG_USER_DEFAULT = 'hoang'
-    PG_PASSWORD_DEFAULT = '4983'
-    PG_DB_DEFAULT = 'test_crawler'
-
-    # MongoDB default info
-    MONGO_HOST_DEFAULT = 'localhost'
-    MONGO_PORT_DEFAULT = 27017
-    MONGO_USER_DEFAULT = 'hoang'
-    MONGO_PASSWORD_DEFAULT = '4983'
-    MONGO_DB_DEFAULT = 'product_item'
 
     # Other info
     DOWNLOAD_IMAGES_DEFAULT = 'True'
@@ -65,20 +51,6 @@ elif DEPLOY == 'cloud':
     REDIS_PORT_DEFAULT = '6381'
     REDIS_DB_DEFAULT = '1'
     REDIS_PASSWORD_DEFAULT = None
-
-    # Postgre default info
-    PG_HOST_DEFAULT = 'localhost'
-    PG_PORT_DEFAULT = '5432'
-    PG_USER_DEFAULT = 'hoang'
-    PG_PASSWORD_DEFAULT = '4983'
-    PG_DB_DEFAULT = 'test_crawler'
-
-    # MongoDB default info
-    MONGO_HOST_DEFAULT = '192.168.1.5'
-    MONGO_PORT_DEFAULT = 27019
-    MONGO_USER_DEFAULT = 'hoang'
-    MONGO_PASSWORD_DEFAULT = '4983'
-    MONGO_DB_DEFAULT = 'product_item'
 
     # Other info
     DOWNLOAD_IMAGES_DEFAULT = 'True'
@@ -112,18 +84,6 @@ def create_environments():
     configs['redis_port'] = int(os.environ.get('REDIS_PORT', REDIS_PORT_DEFAULT))
     configs['redis_db'] = os.environ.get('REDIS_DB', REDIS_DB_DEFAULT)
     configs['redis_password'] = os.environ.get('REDIS_PASSWORD', REDIS_PASSWORD_DEFAULT)
-
-    configs['pg_host'] = os.environ.get('PG_HOST', PG_HOST_DEFAULT)
-    configs['pg_port'] = int(os.environ.get('PG_PORT', PG_PORT_DEFAULT))
-    configs['pg_user'] = os.environ.get('PG_USER', PG_USER_DEFAULT)
-    configs['pg_password'] = os.environ.get('PG_PASSWORD', PG_PASSWORD_DEFAULT)
-    configs['pg_db'] = os.environ.get('PG_DB', PG_DB_DEFAULT)
-
-    configs['mongo_host'] = os.environ.get('PG_HOST', MONGO_HOST_DEFAULT)
-    configs['mongo_port'] = int(os.environ.get('PG_PORT', MONGO_PORT_DEFAULT))
-    configs['mongo_user'] = os.environ.get('PG_USER', MONGO_USER_DEFAULT)
-    configs['mongo_password'] = os.environ.get('PG_PASSWORD', MONGO_PASSWORD_DEFAULT)
-    configs['mongo_db'] = os.environ.get('PG_DB', MONGO_DB_DEFAULT)
 
     # external info
     configs['yaml_folder'] = os.environ.get('YAML_FOLDER', YAML_FOLDER_DEFAULT)

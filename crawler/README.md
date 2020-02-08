@@ -2,7 +2,7 @@
 
 ## Configuration environment
 ```bash
-vi crawler/application/common/crawler/environments.py
+vi crawler/application/crawler/environments.py
 ```
 
 ## 

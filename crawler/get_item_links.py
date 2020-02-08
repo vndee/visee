@@ -5,9 +5,9 @@ import json
 import ssl
 import os
 from kafka import RoundRobinPartitioner, TopicPartition
-from crawler.application.helpers import logger
-from crawler.application.crawler.environments import create_environments
-from crawler.application.crawler.scraper import BasicWebDriver
+from application.helpers import logger
+from application.crawler.environments import create_environments
+from application.crawler.scraper import BasicWebDriver
 
 config = create_environments()
 
@@ -71,7 +71,7 @@ def scrape_links(_config):
     while True:
         logger.info_log.info("Start/Restart get item's links")
         web_driver = ItemLinkWebDriver(
-            executable_path=os.getcwd() + config.driver_path
+            executable_path=os.path.join(os.getcwd(), config.driver_path)
         )
         rules = json.loads(redis_connect.get("homepages"))
         for domain in rules:
