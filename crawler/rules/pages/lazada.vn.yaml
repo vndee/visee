@@ -1,0 +1,7 @@
+domain: lazada.vn
+title: span.pdp-mod-product-badge-title
+price: span.pdp-price_color_orange
+description: div.pdp-product-desc
+rating_point: div.score span.score-average
+rating_count: div.summary div.count
+image_holder: div.next-slick-list

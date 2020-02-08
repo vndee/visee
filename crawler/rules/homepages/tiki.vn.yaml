@@ -1,0 +1,22 @@
+categories:
+  bach_hoa_online: https://tiki.vn/bach-hoa-online/c4384?src=c.4384.hamburger_menu_fly_out_banner
+  dien_gia_dung: https://tiki.vn/dien-gia-dung/c1882?src=c.1882.hamburger_menu_fly_out_banner
+  dien_thoai_may_tinh_bang: https://tiki.vn/dien-thoai-may-tinh-bang/c1789?src=c.1789.hamburger_menu_fly_out_banner
+  hang_quoc_te: https://tiki.vn/hang-quoc-te/c17166?src=c.17166.hamburger_menu_fly_out_banner
+  lam_dep_suc_khoe: https://tiki.vn/lam-dep-suc-khoe/c1520?src=c.1520.hamburger_menu_fly_out_banner
+  laptop_may_vi_tinh: https://tiki.vn/laptop-may-vi-tinh/c1846?src=c.1846.hamburger_menu_fly_out_banner
+  may_anh: https://tiki.vn/may-anh/c1801?src=c.1801.hamburger_menu_fly_out_banner
+  me_va_be: https://tiki.vn/me-va-be/c2549?src=c.2549.hamburger_menu_fly_out_banner
+  nha_cua_doi_song: https://tiki.vn/nha-cua-doi-song/c1883?src=c.1883.hamburger_menu_fly_out_banner
+  nha_sach_tiki: https://tiki.vn/nha-sach-tiki/c8322?src=c.8322.hamburger_menu_fly_out_banner
+  o_to_xe_may_xe_dap: https://tiki.vn/o-to-xe-may-xe-dap/c8594?src=c.8594.hamburger_menu_fly_out_banner
+  the_thao: https://tiki.vn/the-thao/c1975?src=c.1975.hamburger_menu_fly_out_banner
+  thiet_bi_kts_phu_kien_so: https://tiki.vn/thiet-bi-kts-phu-kien-so/c1815?src=c.1815.hamburger_menu_fly_out_banner
+  thoi_trang: https://tiki.vn/thoi-trang/c914?src=c.914.hamburger_menu_fly_out_banner
+  tivi_thiet_bi_nghe_nhin: https://tiki.vn/tivi-thiet-bi-nghe-nhin/c4221?src=c.4221.hamburger_menu_fly_out_banner
+  voucher_dich_vu: https://tiki.vn/voucher-dich-vu/c11312?src=c.11312.hamburger_menu_fly_out_banner
+css_query_link: a
+domain: https://tiki.vn/
+item_class: product-item
+newest_script: ul.sort-list li:nth-of-type(1)
+next_page_script: document.getElementsByClassName('ico-arrow-next')[0].click()

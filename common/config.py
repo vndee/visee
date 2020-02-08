@@ -15,9 +15,8 @@ def get_env():
     conf['redis_db_cache'] = 0 if not os.getenv('REDIS_DB_CACHE') else int(os.getenv('REDIS_DB_CACHE'))
     conf['redis_db_idx'] = 1 if not os.getenv('REDIS_DB_IDX') else int(os.getenv('REDIS_DB_IDX'))
 
-    
-    return conf
+    return env
 
 
-conf = get_env()
-AppConf = namedtuple('AppConf', conf.keys())(*conf.values())
+env = get_env()
+AppConf = namedtuple('AppConf', env.keys())(*env.values())

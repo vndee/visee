@@ -1,0 +1,7 @@
+domain: tiki.vn
+title: h1#product-name
+price: span#span-price
+description: div#gioi-thieu
+rating_point: span.rating-box span
+rating_count: span.-reviews-count
+image_holder: div.product-feature-images:nth-of-type(1)
