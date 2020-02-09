@@ -22,4 +22,6 @@ WORKDIR /crawler
 COPY . /crawler
 RUN pip install -r requirements.txt
 
-CMD ["python", "item_scraper.py"]
+RUN chmod +x run_scraper.sh
+
+CMD ["./run_scraper.sh"]

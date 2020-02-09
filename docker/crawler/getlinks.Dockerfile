@@ -22,5 +22,6 @@ WORKDIR /crawler
 COPY . /crawler
 RUN pip install -r requirements.txt
 
-CMD ["python", "yaml_to_redis.py"]
-CMD ["python", "get_item_links.py"]
+RUN chmod +x run_getlinks.sh
+
+CMD ["./run_getlinks.sh"]
