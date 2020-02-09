@@ -107,8 +107,8 @@ class ItemWebDriver(BasicWebDriver):
     def run_scrap(self):
         for msg in self.kafka_link_consumer:
             item_scraped = self.scrap_link(msg.value['domain'], msg.value['link'])
-            print(item_scraped)
-            # push item_scraped to elastic search
+            # print(item_scraped)
+            #TODO: push item_scraped to elastic search
 
 
 if __name__ == "__main__":
