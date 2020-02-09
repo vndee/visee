@@ -25,7 +25,7 @@ class ItemWebDriver(BasicWebDriver):
         self.config = _config
         BasicWebDriver.__init__(
             self,
-            executable_path=os.path.join(os.getcwd(), self.config.driver_path),
+            executable_path=os.path.join(self.config.driver_path),
             timeout=timeout,
             wait=wait
         )

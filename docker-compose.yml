@@ -148,15 +148,15 @@ services:
     build:
       context: crawler/
       dockerfile: ../docker/crawler/getlinks.Dockerfile
-    environment:
-      KAFKA_HOSTS: $KAFKA_HOSTS
-      REDIS_HOST: $REDIS_HOST
+    depends_on:
+      - kafka
     volumes:
       - type: volume
         source: ./crawler
         target: /crawler
-    depends_on:
-      - kafka
+    environment:
+      KAFKA_HOSTS: visee_kafka:9092
+      REDIS_HOST: visee_redis
     networks:
       - elk
     restart: always
@@ -166,15 +166,15 @@ services:
     build:
       context: crawler/
       dockerfile: ../docker/crawler/scraper.Dockerfile
-    environment:
-      KAFKA_HOSTS: $KAFKA_HOSTS
-      REDIS_HOST: $REDIS_HOST
+    depends_on:
+      - kafka
     volumes:
       - type: volume
         source: ./crawler
         target: /crawler
-    depends_on:
-      - kafka
+    environment:
+      KAFKA_HOSTS: visee_kafka:9092
+      REDIS_HOST: visee_redis
     networks:
       - elk
     restart: always

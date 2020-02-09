@@ -71,7 +71,7 @@ def scrape_links(_config):
     while True:
         logger.info_log.info("Start/Restart get item's links")
         web_driver = ItemLinkWebDriver(
-            executable_path=os.path.join(os.getcwd(), config.driver_path)
+            executable_path=os.path.join(config.driver_path)
         )
         rules = json.loads(redis_connect.get("homepages"))
         for domain in rules:
