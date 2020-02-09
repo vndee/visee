@@ -83,6 +83,7 @@ def scrape_links(_config):
                 web_driver.get_html(rules[domain]['categories'][category])
 
                 if rules[domain]['newest_script'] is not None:
+                    time.sleep(3)
                     web_driver.execute_script(rules[domain]['newest_script'])
 
                 link_counter = 0
@@ -112,6 +113,7 @@ def scrape_links(_config):
                         time.sleep(1)
                         web_driver.execute_script(rules[domain]['next_page_script'])
                     except Exception as exception:
+                        time.sleep(3)
                         logger.error_log.error((str(exception)))
 
 

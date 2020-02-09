@@ -5,7 +5,8 @@ import glob
 import json
 from application.crawler.environments import create_environments
 
-if __name__ == "__main__":
+
+def push_data_to_redis():
     config = create_environments()
 
     redis_connect = redis.StrictRedis(
@@ -29,3 +30,7 @@ if __name__ == "__main__":
 
     redis_connect.set("pages_rule", json.dumps(pages_rule_dict))
     redis_connect.set("obj_current_id", 0)
+
+
+if __name__ == "__main__":
+    push_data_to_redis()

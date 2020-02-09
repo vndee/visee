@@ -31,7 +31,7 @@ if DEPLOY == 'local':
     YAML_FOLDER_DEFAULT = 'rules/'
     DEFAULT_DOWNLOAD_DIR = 'downloads/'
 
-elif DEPLOY == 'cloud':
+elif DEPLOY == 'dps':
     '''
     *******************************************
     ** Environment variable for CLOUD deploy **
@@ -59,6 +59,33 @@ elif DEPLOY == 'cloud':
     YAML_FOLDER_DEFAULT = 'rules/'
     DEFAULT_DOWNLOAD_DIR = 'downloads/'
 
+elif DEPLOY == 'cloud':
+    '''
+    *******************************************
+    ** Environment variable for CLOUD deploy **
+    *******************************************
+    '''
+    # Kafka default info
+    KAFKA_HOSTS_DEFAULT = '35.186.148.118:9092'
+    KAFKA_USER_DEFAULT = None
+    KAFKA_PASSWORD_DEFAULT = None
+    KAFKA_NUM_PARTITIONS_DEFAULT = '10'
+    KAFKA_LINK_TOPIC_DEFAULT = 'links_product'
+    KAFKA_OBJECT_TOPIC_DEFAULT = 'project_dict'
+    KAFKA_CONSUMER_GROUP_DEFAULT = 'default'
+
+    # Redis default info
+    REDIS_HOST_DEFAULT = '35.186.148.118'
+    REDIS_PORT_DEFAULT = '6379'
+    REDIS_DB_DEFAULT = '9'
+    REDIS_PASSWORD_DEFAULT = None
+
+    # Other info
+    DOWNLOAD_IMAGES_DEFAULT = 'True'
+    IMAGE_SIZE_DEFAULT = 1000
+    DEEP_CRAWL_DEFAULT = 'True'
+    YAML_FOLDER_DEFAULT = 'rules/'
+    DEFAULT_DOWNLOAD_DIR = 'downloads/'
 
 class ConfigDict(dict):
     __getattr__ = dict.__getitem__
