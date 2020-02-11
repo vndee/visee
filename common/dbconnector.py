@@ -1,5 +1,6 @@
 from common.logger import get_logger
 from redis import StrictRedis
+from common.config import AppConf
 
 logger = get_logger(__name__)
 
@@ -38,3 +39,35 @@ class RedisConnector:
             return False
         finally:
             return True
+
+
+class DualRedisConnector:
+    def __init__(self):
+        self.host = AppConf.redis_host
+        self.port = AppConf.redis_port
+        self.password = AppConf.redis_password
+        self.first_db = AppConf.redis_db_idx_first
+        self.second_db = AppConf.redis_db_idx_second
+        self.first_cursor = StrictRedis(host=self.host, port=self.port, db=self.first_db, password=self.password)
+        self.second_cursor = StrictRedis(host=self.host, port=self.port, db=self.second_db, password=self.password)
+
+    def set(self, first, second):
+        try:
+            self.first_cursor.set(first, second)
+            self.second_cursor.set(second, first)
+        except Exception as ex:
+            return False
+        return True
+
+    def get_by_id(self, id):
+        try:
+            return self.first_cursor.get(id)
+        except Exception as ex:
+            return None
+
+    def get_by_pos(self, pos):
+        try:
+            return self.second_cursor.get(pos)
+        except Exception as ex:
+            return None
+

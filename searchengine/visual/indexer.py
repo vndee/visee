@@ -11,7 +11,7 @@ logger = get_logger(logger_name=__name__)
 
 class FaissIndexer:
     def __init__(self):
-        self.feature_dim = 128 if not os.getenv('FAISS_FEATURE_DIM') else int(os.getenv('FAISS_FEATURE_DIM'))
+        self.feature_dim = 1280 if not os.getenv('FAISS_FEATURE_DIM') else int(os.getenv('FAISS_FEATURE_DIM'))
 
         try:
             self.feature_extractor = FeatureExtractor()
@@ -30,24 +30,25 @@ class FaissIndexer:
         finally:
             logger.info('Init faiss indexer success')
 
-        try:
-            self.redis_cursor = RedisConnector(host=AppConf.redis_host,
-                                               port=AppConf.redis_port,
-                                               password=AppConf.redis_password,
-                                               db=AppConf.redis_db_idx)
-        except Exception as ex:
-            logger.error('An error occured while init redis cursor %d' % AppConf.redis_db_idx)
-            logger.exception(ex)
-        finally:
-            logger.info('Init redis cursor success on db %d' % AppConf.redis_db_idx)
+        # try:
+        #     self.redis_cursor = RedisConnector(host=AppConf.redis_host,
+        #                                        port=AppConf.redis_port,
+        #                                        password=AppConf.redis_password,
+        #                                        db=AppConf.redis_db_idx)
+        # except Exception as ex:
+        #     logger.error('An error occured while init redis cursor %d' % AppConf.redis_db_idx)
+        #     logger.exception(ex)
+        # finally:
+        #     logger.info('Init redis cursor success on db %d' % AppConf.redis_db_idx)
 
-    def add(self, key, value):
+    def add(self, value):
         '''
         Add retrieved data from kafka queue to elasticsearch and faisslib indexes.
         data is in json format
         '''
+
         feature = self.feature_extractor.extract(value)
-        
+        self.faiss_index.add(feature)
         return True
 
     def update(self, key, value):
@@ -55,3 +56,11 @@ class FaissIndexer:
         Update record
         '''
         return True
+
+    def search(self, key, k):
+        '''
+        Search vector
+        @param key: vector
+        @param k: number of return items
+        @return: top k-item with the highest score of similarity
+        '''

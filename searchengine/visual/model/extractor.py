@@ -2,6 +2,7 @@ import re
 import cv2
 import base64
 import numpy as np
+import torch
 from PIL import Image
 from io import BytesIO
 from torchvision import transforms
@@ -46,7 +47,8 @@ class FeatureExtractor:
                                     transforms.ToTensor(), transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]), ])
         img = tfms(img).unsqueeze(0)
 
-        return self.model.extract_features(img)
+        feat = self.model.extract_features(img).squeeze(0)
+        return feat.mean(dim=1).mean(dim=1).detach().numpy()
 
     @staticmethod
     def base64toPIL(b64):
@@ -63,4 +65,6 @@ if __name__ == '__main__':
         encoded_string = base64.b64encode(img_file.read())
     
     fte = FeatureExtractor()
+    # ans = torch.flatten(fte.extract(encoded_string)).detach().numpy()
     ans = fte.extract(encoded_string)
+    print(ans.shape)

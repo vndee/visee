@@ -151,9 +151,7 @@ services:
     depends_on:
       - kafka
     volumes:
-      - type: volume
-        source: ./crawler
-        target: /crawler
+      - $PWD:/crawler
     environment:
       KAFKA_HOSTS: visee_kafka:9092
       REDIS_HOST: visee_redis
@@ -169,9 +167,7 @@ services:
     depends_on:
       - kafka
     volumes:
-      - type: volume
-        source: ./crawler
-        target: /crawler
+      - $PWD:/crawler
     environment:
       KAFKA_HOSTS: visee_kafka:9092
       REDIS_HOST: visee_redis
@@ -185,4 +181,4 @@ networks:
 
 volumes:
   data:
-  crawler:
+  .:

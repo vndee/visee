@@ -118,6 +118,6 @@ if __name__ == '__main__':
     wrapper = CategoriesWebDriver(
         list_website,
         dir_homepages,
-        executable_path=os.getcwd() + config.driver_path
+        executable_path=config.driver_path
     )
     wrapper.get_categories()

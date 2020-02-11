@@ -1,16 +1,19 @@
 import kafka
 import json
 import redis
+import ssl
 import os
 import re
 import requests
 import base64
+from kafka import TopicPartition, RoundRobinPartitioner
 from application.crawler.environments import create_environments
 from application.crawler.scraper import BasicWebDriver
 from application.helpers import logger
+from application.crawler.elastic import ElasticsearchWrapper
+
 
 config = create_environments()
-
 
 def get_image_tiki(img_url):
     return re.sub(
@@ -18,6 +21,41 @@ def get_image_tiki(img_url):
         '/' + str(config['image_size']) + 'x' + str(config['image_size']) + '/',
         img_url
     )
+
+def create_kafka_producer_connect_with_user(_config, partitions):
+    sasl_mechanism = 'PLAIN'
+    security_protocol = 'SASL_PLAINTEXT'
+    context = ssl.create_default_context()
+    context.options &= ssl.OP_NO_TLSv1
+    context.options &= ssl.OP_NO_TLSv1_1
+
+    return kafka.KafkaProducer(
+        bootstrap_servers=_config.kafka_hosts,
+        partitioner=RoundRobinPartitioner(partitions=partitions),
+        compression_type='gzip',
+        value_serializer=lambda x: json.dumps(
+            x, indent=4, sort_keys=True, default=str, ensure_ascii=False
+        ).encode('utf-8'),
+        sasl_plain_username=_config.kafka_user,
+        sasl_plain_password=_config.kafka_password,
+        security_protocol=security_protocol,
+        ssl_context=context,
+        sasl_mechanism=sasl_mechanism
+    )
+
+def create_kafka_producer_connect(_config):
+    partitions = [
+        TopicPartition(topic=_config.kafka_index_topic, partition=i) for i in range(0, _config.kafka_num_partitions)
+    ]
+
+    return kafka.KafkaProducer(
+        bootstrap_servers=_config.kafka_hosts,
+        partitioner=RoundRobinPartitioner(partitions=partitions),
+        value_serializer=lambda x: json.dumps(
+            x, indent=4, sort_keys=True, default=str, ensure_ascii=False
+        ).encode('utf-8'),
+        compression_type='gzip'
+    ) if _config.kafka_user is None else create_kafka_producer_connect_with_user(_config, partitions)
 
 
 class ItemWebDriver(BasicWebDriver):
@@ -29,12 +67,22 @@ class ItemWebDriver(BasicWebDriver):
             timeout=timeout,
             wait=wait
         )
-        self.redis_connecttion = self.create_redis_connection()
+
+        self.elastic_cursor = ElasticsearchWrapper()
+        self.redis_connection = self.create_redis_connection()
+        self.redis_image_caching = redis.StrictRedis(
+            host=self.config.redis_host,
+            port=self.config.redis_port,
+            db=self.config.redis_cache_db,
+            password=self.config.redis_password
+        )
+
         self.kafka_link_consumer = self.create_kafka_consummer()
-        self.rules = json.loads(self.redis_connecttion.get('pages_rule'))
+        self.kafka_index_producer = create_kafka_producer_connect(config)
+        self.rules = json.loads(self.redis_connection.get('pages_rule'))
 
     def update_rule(self):
-        self.rules = json.loads(self.redis_connecttion.get('pages_rule'))
+        self.rules = json.loads(self.redis_connection.get('pages_rule'))
 
     def create_kafka_consummer(self):
         return kafka.KafkaConsumer(
@@ -87,8 +135,8 @@ class ItemWebDriver(BasicWebDriver):
         if config['download_images']:
             image_holder = self.driver.find_element_by_css_selector(self.rules[_domain]['image_holder'])
             dict_item['images'] = list()
-            dict_item['id'] = int(self.redis_connecttion.get('obj_current_id'))
-            self.redis_connecttion.set('obj_current_id', int(dict_item['id']) + 1)
+            dict_item['id'] = int(self.redis_connection.get('obj_current_id'))
+            self.redis_connection.set('obj_current_id', int(dict_item['id']) + 1)
             for img_tag in image_holder.find_elements_by_tag_name('img'):
 
                 if _domain == 'tiki.vn':
@@ -107,8 +155,9 @@ class ItemWebDriver(BasicWebDriver):
     def run_scrap(self):
         for msg in self.kafka_link_consumer:
             item_scraped = self.scrap_link(msg.value['domain'], msg.value['link'])
-            # print(item_scraped)
-            #TODO: push item_scraped to elastic search
+            response = self.elastic_cursor.add(index=config.elastic_index, body=item_scraped)
+            self.kafka_index_producer.send(config.kafka_index_topic, {'item_id': response['_id']})
+            self.redis_image_caching.set(response['_id'], item_scraped['images'])
 
 
 if __name__ == "__main__":

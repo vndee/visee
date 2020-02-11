@@ -13,7 +13,8 @@ def get_env():
     conf['redis_port'] = 6379 if not os.getenv('REDIS_PORT') else int(os.getenv('REDIS_PORT'))
     conf['redis_password'] = '' if not os.getenv('REDIS_PASSWORD') else os.getenv('REDIS_PASSWORD')
     conf['redis_db_cache'] = 0 if not os.getenv('REDIS_DB_CACHE') else int(os.getenv('REDIS_DB_CACHE'))
-    conf['redis_db_idx'] = 1 if not os.getenv('REDIS_DB_IDX') else int(os.getenv('REDIS_DB_IDX'))
+    conf['redis_db_idx_first'] = 2 if not os.getenv('REDIS_DB_IDX_FIRST') else int(os.getenv('REDIS_DB_IDX_FIRST'))
+    conf['redis_db_idx_second'] = 3 if not os.getenv('REDIS_DB_IDX_SECOND') else int(os.getenv('REDIS_DB_IDX_SECOND'))
 
     return conf
 

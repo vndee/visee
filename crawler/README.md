@@ -1,8 +1,8 @@
-# DPS_Web_Crawler_Project
+### Visee Crawler
 
-## Configuration environment
+2020 @ VISE Technologies
+
+#### Configuration environment
 ```bash
 vi crawler/application/crawler/environments.py
 ```
-
-## 
