@@ -15,11 +15,11 @@ services:
     #     ELK_VERSION: $ELK_VERSION
     volumes:
       - type: bind
-        source: ../docker/elk/elasticsearch/config/elasticsearch.yml
+        source: ./docker/elk/elasticsearch/config/elasticsearch.yml
         target: /usr/share/elasticsearch/config/elasticsearch.yml
         read_only: true
       - type: bind
-        source: ./data/elastic-data
+        source: ./data/elastic
         target: /usr/share/elasticsearch/data
     ports:
       - "9200:9200"
@@ -139,7 +139,7 @@ services:
     networks:
      - elk
     volumes: 
-     - ./data/redis-data:/data
+     - ./data/redis:/data
     restart: always
 
   #####################################
