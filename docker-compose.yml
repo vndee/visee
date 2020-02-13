@@ -15,11 +15,11 @@ services:
     #     ELK_VERSION: $ELK_VERSION
     volumes:
       - type: bind
-        source: ./docker/elk/elasticsearch/config/elasticsearch.yml
+        source: ../docker/elk/elasticsearch/config/elasticsearch.yml
         target: /usr/share/elasticsearch/config/elasticsearch.yml
         read_only: true
-      - type: volume
-        source: data
+      - type: bind
+        source: ./data/elastic-data
         target: /usr/share/elasticsearch/data
     ports:
       - "9200:9200"
@@ -133,10 +133,13 @@ services:
   redis:
     container_name: visee_redis
     image: redis
+    command: ["redis-server", "--appendonly", "yes"]
     ports:
       - "6379:6379"
     networks:
      - elk
+    volumes: 
+     - ./data/redis-data:/data
     restart: always
 
   #####################################
@@ -183,7 +186,7 @@ services:
       - "8080:8080"
     volumes:
       - type: bind
-        source: ./docker/visual/milvus/db
+        source: ./data/milvus/db
         target: /var/lib/milvus/db
       - type: bind
         source: ./docker/visual/milvus/conf
@@ -200,6 +203,3 @@ services:
 networks:
  elk:
    driver: bridge
-
-volumes:
-  data:
