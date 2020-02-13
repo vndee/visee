@@ -23,5 +23,5 @@ COPY . /crawler
 RUN pip install -r requirements.txt
 
 RUN chmod +x run_getlinks.sh
-
+RUN echo $PWD
 CMD ["./run_getlinks.sh"]

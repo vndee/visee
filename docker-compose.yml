@@ -1,9 +1,9 @@
-version: '3.2'
+version: '2.3'
 
 services:
   #####################################
   #                ELK                #
-  #####################################
+  ####################################
 
   elasticsearch:
     container_name: visee_elasticsearch
@@ -31,7 +31,7 @@ services:
       # see https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
       discovery.type: single-node
     networks:
-      - elk
+     - elk
     restart: always
 
   logstash:
@@ -57,7 +57,7 @@ services:
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
-      - elk
+     - elk
     depends_on:
       - elasticsearch
     restart: always
@@ -78,7 +78,7 @@ services:
     ports:
       - "5601:5601"
     networks:
-      - elk
+     - elk
     depends_on:
       - elasticsearch
     restart: always
@@ -96,7 +96,7 @@ services:
     ports:
       - "2181:2181"
     networks:
-      - elk
+     - elk
     restart: always
     
   kafka:
@@ -109,10 +109,10 @@ services:
       - "9092:9092"
     environment:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://:9092"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://localhost:9092"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    networks: 
-      - elk
+    networks:
+     - elk
     restart: always
 
   schema-registry:
@@ -126,8 +126,8 @@ services:
     environment:
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: "zookeeper:2181"
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
-    networks: 
-      - elk
+    networks:
+     - elk
     restart: always
 
   redis:
@@ -135,8 +135,8 @@ services:
     image: redis
     ports:
       - "6379:6379"
-    networks: 
-      - elk
+    networks:
+     - elk
     restart: always
 
   #####################################
@@ -150,13 +150,11 @@ services:
       dockerfile: ../docker/crawler/getlinks.Dockerfile
     depends_on:
       - kafka
-    volumes:
-      - $PWD:/crawler
     environment:
       KAFKA_HOSTS: visee_kafka:9092
       REDIS_HOST: visee_redis
     networks:
-      - elk
+     - elk
     restart: always
 
   itemscraper:
@@ -166,19 +164,42 @@ services:
       dockerfile: ../docker/crawler/scraper.Dockerfile
     depends_on:
       - kafka
-    volumes:
-      - $PWD:/crawler
     environment:
       KAFKA_HOSTS: visee_kafka:9092
       REDIS_HOST: visee_redis
+    networks:
+     - elk
+    restart: always
+
+  #####################################
+  #              VISUAL               #
+  #####################################
+  milvus:
+    container_name: visee_milvus
+    image: milvusdb/milvus:0.6.0-gpu-d120719-2b40dd
+    runtime: nvidia
+    ports:
+      - "19530:19530"
+      - "8080:8080"
+    volumes:
+      - type: bind
+        source: ./docker/visual/milvus/db
+        target: /var/lib/milvus/db
+      - type: bind
+        source: ./docker/visual/milvus/conf
+        target: /var/lib/milvus/conf
+      - type: bind
+        source: ./docker/visual/milvus/logs
+        target: /var/lib/milvus/logs
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
     networks:
       - elk
     restart: always
 
 networks:
-  elk:
-    driver: bridge
+ elk:
+   driver: bridge
 
 volumes:
   data:
-  .:

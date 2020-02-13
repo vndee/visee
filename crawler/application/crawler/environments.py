@@ -1,6 +1,6 @@
 import os
 
-DEPLOY = 'dps'
+DEPLOY = 'local'
 DRIVER_PATH_DEFAULT = 'chromedriver'
 
 if DEPLOY == 'local':
@@ -10,7 +10,7 @@ if DEPLOY == 'local':
     *******************************************
     '''
     # Kafka default info
-    KAFKA_HOSTS_DEFAULT = 'localhost:9092'
+    KAFKA_HOSTS_DEFAULT = '172.24.0.4:9092'
     KAFKA_USER_DEFAULT = None
     KAFKA_PASSWORD_DEFAULT = None
     KAFKA_NUM_PARTITIONS_DEFAULT = '10'

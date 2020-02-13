@@ -15,12 +15,14 @@ from application.crawler.elastic import ElasticsearchWrapper
 
 config = create_environments()
 
+
 def get_image_tiki(img_url):
     return re.sub(
         r'/\d+x\d+/',
         '/' + str(config['image_size']) + 'x' + str(config['image_size']) + '/',
         img_url
     )
+
 
 def create_kafka_producer_connect_with_user(_config, partitions):
     sasl_mechanism = 'PLAIN'
@@ -42,6 +44,7 @@ def create_kafka_producer_connect_with_user(_config, partitions):
         ssl_context=context,
         sasl_mechanism=sasl_mechanism
     )
+
 
 def create_kafka_producer_connect(_config):
     partitions = [

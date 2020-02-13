@@ -4,6 +4,7 @@ beautifulsoup4==4.8.0
 certifi==2019.9.11
 chardet==3.0.4
 cssselect==1.1.0
+elasticsearch==7.5.1
 feedfinder2==0.0.4
 feedparser==5.2.1
 idna==2.8

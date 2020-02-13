@@ -105,6 +105,7 @@ def scrape_links(_config):
                                     'link': item_link,
                                     'domain': domain,
                                 }
+                                print('Sending')
                                 links_producer.send(_config.kafka_link_topic, payload)
                             except:
                                 continue
