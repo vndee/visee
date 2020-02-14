@@ -16,6 +16,10 @@ def get_env():
     conf['redis_db_idx_first'] = 2 if not os.getenv('REDIS_DB_IDX_FIRST') else int(os.getenv('REDIS_DB_IDX_FIRST'))
     conf['redis_db_idx_second'] = 3 if not os.getenv('REDIS_DB_IDX_SECOND') else int(os.getenv('REDIS_DB_IDX_SECOND'))
 
+    conf['milvus_host'] = 'localhost' if not os.getenv('MILVUS_HOST') else os.getenv('MILVUS_HOST')
+    conf['milvus_port'] = '19530' if not os.getenv('MILVUS_PORT') else os.getenv('MILVUS_PORT')
+    conf['milvus_table_name'] = 'visee' if not os.getenv('MILVUS_TABLE_NAME') else os.getenv('MILVUS_TABLE_NAME')
+
     return conf
 
 

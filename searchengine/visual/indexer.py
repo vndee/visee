@@ -1,6 +1,5 @@
 import os
-import faiss
-
+import milvus
 from common.logger import get_logger
 from common.config import AppConf
 from common.dbconnector import RedisConnector
@@ -9,26 +8,35 @@ from searchengine.visual.model.extractor import FeatureExtractor
 logger = get_logger(logger_name=__name__)
 
 
-class FaissIndexer:
+class MilvusIndexer:
     def __init__(self):
-        self.feature_dim = 1280 if not os.getenv('FAISS_FEATURE_DIM') else int(os.getenv('FAISS_FEATURE_DIM'))
+        self.feature_dim = 1280 if not os.getenv('FEATURE_DIM') else int(os.getenv('FEATURE_DIM'))
+        self.milvus_host = AppConf.milvus_host
+        self.milvus_port = AppConf.milvus_port
 
         try:
             self.feature_extractor = FeatureExtractor()
         except Exception as ex:
-            logger.error('An error occured while init feature extractor')
+            logger.error('An error occurred while init feature extractor')
             logger.exception(ex)
             self.feature_extractor = None
         finally:
             logger.info('Init feature extractor success')
 
         try:
-            self.faiss_index = faiss.IndexFlatL2(self.feature_dim)
+            self.milvus_instace = milvus.Milvus()
+            self.milvus_instace.connect(host=self.milvus_host, port=self.milvus_port)
+            param = {'table_name': AppConf.milvus_table_name, 'dimension': self.feature_dim,
+                     'index_file_size': 1024, 'metric_type': milvus.MetricType.L2}
+            response = self.milvus_instace.create_table(param)
+            logger.info(response.message)
+
         except Exception as ex:
-            logger.error('An error occured while init faiss indexer')
+            logger.error("An error occurred while init milvus instance")
             logger.exception(ex)
+            self.milvus_instace = None
         finally:
-            logger.info('Init faiss indexer success')
+            logger.info('Init milvus instance success')
 
         # try:
         #     self.redis_cursor = RedisConnector(host=AppConf.redis_host,
@@ -48,7 +56,7 @@ class FaissIndexer:
         '''
 
         feature = self.feature_extractor.extract(value)
-        self.faiss_index.add(feature)
+
         return True
 
     def update(self, key, value):
