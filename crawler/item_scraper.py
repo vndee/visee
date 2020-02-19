@@ -159,7 +159,6 @@ class ItemWebDriver(BasicWebDriver):
 
 
 if __name__ == "__main__":
-
     # create webdriver
     scraper = ItemWebDriver(AppConf)
     scraper.run_scrap()
