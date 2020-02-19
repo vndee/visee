@@ -83,15 +83,22 @@ services:
     
   kafka:
     container_name: visee_kafka
-    build: 
-      context: ./docker/stream/kafka
+    image: wurstmeister/kafka
     depends_on:
       - zookeeper
     ports:
-      - "9092"
+      - "9092:9092"
+      - "9094:9094"
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: PLAINTEXT://9092, PLAINTEXT://visee_kafka:9092
+      KAFKA_LISTENERS: INSIDE://0.0.0.0:9092,OUTSIDE://0.0.0.0:9094
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://visee_kafka:9092,OUTSIDE://localhost:9094
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LOG_RETENTION_MINUTES: 10
+      KAFKA_LOG_SEGMENT_BYTES: 107374182
+      KAFKA_NUM_PARTITIONS: 12
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
@@ -119,16 +126,17 @@ services:
     build:
       context: crawler/
       dockerfile: ../docker/crawler/getlinks.Dockerfile
+    command: ['./crawler/run_getlinks.sh']
     depends_on:
       - kafka
       - redis
     environment:
       KAFKA_HOSTS: visee_kafka:9092
       REDIS_HOST: visee_redis
-    entrypoint: ./crawler/run_getlinks.sh
+    # entrypoint: ./crawler/run_getlinks.sh
     volumes: 
       - type: bind
-        source: ./crawler
+        source: .
         target: /crawler
     networks:
       - elk
@@ -139,16 +147,17 @@ services:
     build:
       context: crawler/
       dockerfile: ../docker/crawler/scraper.Dockerfile
+    command: ['./crawler/run_scraper.sh']
     depends_on:
       - kafka
       - redis
     environment:
       KAFKA_HOSTS: visee_kafka:9092
       REDIS_HOST: visee_redis
-    entrypoint: ./crawler/run_scraper.sh
+    # entrypoint: ./crawler/run_scraper.sh
     volumes: 
       - type: bind
-        source: ./crawler
+        source: .
         target: /crawler
     networks:
       - elk
@@ -183,6 +192,3 @@ services:
 networks:
  elk:
    driver: bridge
-
-volumes:
-  crawler:
