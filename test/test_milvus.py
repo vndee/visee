@@ -1,5 +1,5 @@
 import unittest
-from searchengine.visual.indexer import MilvusIndexer
+from indexer.mwrapper import MilvusIndexer
 
 
 class MilvusTestCase(unittest.TestCase):

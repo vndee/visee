@@ -1,5 +1,5 @@
 import unittest
-from searchengine.visual.indexer import FaissIndexer
+from indexer.mwrapper import FaissIndexer
 
 
 class VisualTestCase(unittest.TestCase):

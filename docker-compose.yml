@@ -174,10 +174,10 @@ services:
         source: ./data/milvus/db
         target: /var/lib/milvus/db
       - type: bind
-        source: ./docker/visual/milvus/conf
+        source: ./docker/feature_extractor/milvus/conf
         target: /var/lib/milvus/conf
       - type: bind
-        source: ./docker/visual/milvus/logs
+        source: ./docker/feature_extractor/milvus/logs
         target: /var/lib/milvus/logs
     environment:
       - NVIDIA_VISIBLE_DEVICES=all

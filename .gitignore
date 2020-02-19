@@ -23,7 +23,7 @@ venv/
 data/
 /docker/elk/elasticsearch/nodes/
 crawler/application/__pycache__/
-searchengine/visual/faisslib/python/build/bdist.linux-x86_64/
+indexer/feature_extractor/faisslib/python/build/bdist.linux-x86_64/
 vscode.code-workspace
 .pytest_cache/
 crawler/chromedriver

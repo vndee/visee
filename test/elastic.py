@@ -1,6 +1,6 @@
 import unittest
-from searchengine.elastic.indexer import ElasticIndexer
-from searchengine.elastic.seeker import ElasticSeeker
+from indexer.elastic.indexer import ElasticIndexer
+from indexer.elastic.seeker import ElasticSeeker
 
 
 class ElasticsearchTestCase(unittest.TestCase):
