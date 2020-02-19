@@ -1,6 +1,6 @@
 import os
 
-DEPLOY = 'dps'
+DEPLOY = 'local'
 DRIVER_PATH_DEFAULT = 'chromedriver'
 
 if DEPLOY == 'local':
@@ -23,7 +23,6 @@ if DEPLOY == 'local':
     REDIS_HOST_DEFAULT = 'localhost'
     REDIS_PORT_DEFAULT = '6379'
     REDIS_DB_DEFAULT = '1'
-    REDIS_DB_CACHE_DEFAULT = '0'
     REDIS_PASSWORD_DEFAULT = None
 
     # Other info
@@ -32,6 +31,7 @@ if DEPLOY == 'local':
     DEEP_CRAWL_DEFAULT = 'True'
     YAML_FOLDER_DEFAULT = 'rules/'
     DEFAULT_DOWNLOAD_DIR = 'downloads/'
+    REDIS_DB_CACHE_DEFAULT = 0
 
     # Elasticsearch
     ELASTIC_HOST_DEFAULT = 'localhost'

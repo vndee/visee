@@ -126,42 +126,38 @@ services:
     build:
       context: crawler/
       dockerfile: ../docker/crawler/getlinks.Dockerfile
-    command: ['./crawler/run_getlinks.sh']
     depends_on:
       - kafka
       - redis
     environment:
       KAFKA_HOSTS: visee_kafka:9092
       REDIS_HOST: visee_redis
-    # entrypoint: ./crawler/run_getlinks.sh
+    entrypoint: ./run_getlinks.sh
     volumes: 
-      - type: bind
-        source: .
-        target: /crawler
+      - ${PWD}/crawler:/crawler
+    working_dir: /crawler
     networks:
       - elk
-    restart: always
+    # restart: always
 
   itemscraper:
     container_name: visee_itemscraper
     build:
       context: crawler/
       dockerfile: ../docker/crawler/scraper.Dockerfile
-    command: ['./crawler/run_scraper.sh']
     depends_on:
       - kafka
       - redis
     environment:
       KAFKA_HOSTS: visee_kafka:9092
       REDIS_HOST: visee_redis
-    # entrypoint: ./crawler/run_scraper.sh
+    entrypoint: ./run_scraper.sh
     volumes: 
-      - type: bind
-        source: .
-        target: /crawler
+      - ${PWD}/crawler:/crawler
+    working_dir: /crawler
     networks:
       - elk
-    restart: always
+    # restart: always
 
   #####################################
   #              VISUAL               #
