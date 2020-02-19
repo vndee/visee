@@ -1,10 +1,6 @@
 version: '2.3'
 
 services:
-  #####################################
-  #                ELK                #
-  #####################################
-
   elasticsearch:
     container_name: visee_elasticsearch
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
@@ -67,11 +63,7 @@ services:
     depends_on:
       - elasticsearch
     restart: always
-  
-  #####################################
-  #              KAFKA                #
-  #####################################
-  
+
   zookeeper:
     container_name: visee_zookeeper
     image: wurstmeister/zookeeper
@@ -117,10 +109,6 @@ services:
       - ./data/redis:/data
     restart: always
 
-  #####################################
-  #              CRAWLER              #
-  #####################################
-
   getlinks:
     container_name: visee_getlinks
     build:
@@ -159,9 +147,6 @@ services:
       - elk
     restart: always
 
-  #####################################
-  #              VISUAL               #
-  #####################################
   milvus:
     container_name: visee_milvus
     image: milvusdb/milvus:0.6.0-gpu-d120719-2b40dd
