@@ -3,15 +3,15 @@ import yaml
 import os
 import glob
 import json
-from application.crawler.environments import create_environments
+
+from common.config import AppConf
 
 
 def push_data_to_redis():
-    config = create_environments()
-
     redis_connect = redis.StrictRedis(
-        host=config.redis_host, port=config.redis_port, db=config.redis_db, password=config.redis_password
+        host=AppConf.redis_host, port=AppConf.redis_port, db=AppConf.redis_categories_db, password=AppConf.redis_password
     )
+
     homepages_dict = dict()
     for yaml_file in glob.glob('rules/homepages/*.yaml'):
         with open(yaml_file, 'r') as stream:

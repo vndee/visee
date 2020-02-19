@@ -5,11 +5,11 @@ import json
 import ssl
 import os
 from kafka import RoundRobinPartitioner, TopicPartition
-from application.helpers import logger
-from application.crawler.environments import create_environments
-from application.crawler.scraper import BasicWebDriver
+from common.config import AppConf
+from common.logger import get_logger
+from crawler.application.scraper import BasicWebDriver
 
-config = create_environments()
+logger = get_logger(__name__)
 
 
 class ItemLinkWebDriver(BasicWebDriver):
@@ -23,7 +23,7 @@ def create_redis_connection(_config):
     return redis.StrictRedis(
         host=_config.redis_host,
         port=_config.redis_port,
-        db=_config.redis_db,
+        db=_config.redis_link2scrape_db,
         password=_config.redis_password
     )
 
@@ -69,13 +69,13 @@ def scrape_links(_config):
     redis_connect = create_redis_connection(_config)
     links_producer = create_kafka_producer_connect(_config)
     while True:
-        logger.info_log.info("Start/Restart get item's links")
+        logger.info("Start/Restart get item's links")
         web_driver = ItemLinkWebDriver(
-            executable_path=os.path.join(config.driver_path)
+            executable_path=os.path.join(os.getcwd(), _config.chromedriver_path)
         )
         rules = json.loads(redis_connect.get("homepages"))
         for domain in rules:
-            logger.info_log.info("Processing {}".format(domain))
+            logger.info("Processing {}".format(domain))
             if domain in []:
                 continue
 
@@ -106,21 +106,22 @@ def scrape_links(_config):
                                     'domain': domain,
                                 }
                                 links_producer.send(_config.kafka_link_topic, payload)
-                            except:
+                            except Exception as ex:
+                                logger.exception(ex)
                                 continue
 
-                        logger.info_log.info("Pushed {} link(s) from {} to kafka".format(all_items.__len__(), domain))
+                        logger.info("Pushed {} link(s) from {} to kafka".format(all_items.__len__(), domain))
                         time.sleep(1)
                         web_driver.execute_script(rules[domain]['next_page_script'])
                     except Exception as exception:
                         time.sleep(3)
-                        logger.error_log.error((str(exception)))
+                        logger.error((str(exception)))
 
 
 if __name__ == '__main__':
     try:
-        scrape_links(config)
+        scrape_links(AppConf)
     except Exception as ex:
-        logger.error_log.error("Some thing went wrong. Application will stop after 1200 seconds")
-        logger.error_log.exception(str(ex))
+        logger.error("Some thing went wrong. Application will stop after 1200 seconds")
+        logger.exception(str(ex))
         time.sleep(1)

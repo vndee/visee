@@ -18,5 +18,5 @@ categories:
 css_query_link: a
 domain: https://tiki.vn/
 item_class: product-item
-newest_script: ul.sort-list li:nth-of-type(1)
+newest_script: document.querySelector('ul.sort-list li:nth-of-type(1)').click()
 next_page_script: document.getElementsByClassName('ico-arrow-next')[0].click()

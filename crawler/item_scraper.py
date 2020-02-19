@@ -7,19 +7,19 @@ import re
 import requests
 import base64
 from kafka import RoundRobinPartitioner
-from application.crawler.environments import create_environments
-from application.crawler.scraper import BasicWebDriver
-from application.helpers import logger
-from application.crawler.elastic import ElasticsearchWrapper
+from common.logger import get_logger
+from common.config import AppConf
+from crawler.application.scraper import BasicWebDriver
+from common.elastic import ElasticsearchWrapper
+from indexer.mwrapper import MilvusWrapper
 
-
-config = create_environments()
+logger = get_logger(__name__)
 
 
 def get_image_tiki(img_url):
     return re.sub(
         r'/\d+x\d+/',
-        '/' + str(config['image_size']) + 'x' + str(config['image_size']) + '/',
+        '/' + str(AppConf.image_size) + 'x' + str(AppConf.image_size) + '/',
         img_url
     )
 
@@ -68,22 +68,15 @@ class ItemWebDriver(BasicWebDriver):
         self.config = _config
         BasicWebDriver.__init__(
             self,
-            executable_path=os.path.join(self.config.driver_path),
+            executable_path=os.path.join(os.getcwd(), self.config.chromedriver_path),
             timeout=timeout,
             wait=wait
         )
 
         self.elastic_cursor = ElasticsearchWrapper()
         self.redis_connection = self.create_redis_connection()
-        self.redis_image_caching = redis.StrictRedis(
-            host=self.config.redis_host,
-            port=self.config.redis_port,
-            db=self.config.redis_cache_db,
-            password=self.config.redis_password
-        )
-
         self.kafka_link_consumer = self.create_kafka_consummer()
-        self.kafka_index_producer = create_kafka_producer_connect(config)
+        self.milvus_indexer = MilvusWrapper()
         self.rules = json.loads(self.redis_connection.get('pages_rule'))
 
     def update_rule(self):
@@ -101,12 +94,12 @@ class ItemWebDriver(BasicWebDriver):
         return redis.StrictRedis(
             host=self.config.redis_host,
             port=self.config.redis_port,
-            db=self.config.redis_db,
+            db=self.config.redis_link2scrape_db,
             password=self.config.redis_password
         )
 
     def scrap_link(self, _domain, _link):
-        logger.info_log.info("Processing {}".format(_link))
+        logger.info("Processing {}".format(_link))
         self.get_html(_link)
 
         dict_item = {
@@ -134,10 +127,10 @@ class ItemWebDriver(BasicWebDriver):
                     dict_item[key] = self.driver.find_element_by_css_selector(self.rules[_domain][key]).text
 
             except Exception as exception:
-                logger.error_log.error((str(exception)))
+                logger.error((str(exception)))
                 dict_item[key] = None
 
-        if config['download_images']:
+        if AppConf.download_image:
             image_holder = self.driver.find_element_by_css_selector(self.rules[_domain]['image_holder'])
             dict_item['images'] = list()
             dict_item['id'] = int(self.redis_connection.get('obj_current_id'))
@@ -158,23 +151,15 @@ class ItemWebDriver(BasicWebDriver):
         return dict_item
 
     def run_scrap(self):
+        logger.info('Waiting for links.')
         for msg in self.kafka_link_consumer:
             item_scraped = self.scrap_link(msg.value['domain'], msg.value['link'])
-            response = self.elastic_cursor.add(index=config.elastic_index, body=item_scraped)
-            self.kafka_index_producer.send(config.kafka_index_topic, {'item_id': response['_id']})
-            self.redis_image_caching.set(response['_id'], item_scraped['images'])
+            response = self.elastic_cursor.add(index=AppConf.elastic_index, body=item_scraped)
+            self.milvus_indexer.add(item_scraped['images'], response['_id'])
 
 
 if __name__ == "__main__":
 
-    # time.sleep(60)
-    # item_producer = kafka.KafkaProducer(
-    #     bootstrap_servers=config.kafka_hosts,
-    #     value_serializer=lambda x: json.dumps(
-    #         x, indent=4, sort_keys=True, default=str, ensure_ascii=False
-    #     ).encode('utf-8')
-    # )
-
     # create webdriver
-    scraper = ItemWebDriver(config)
+    scraper = ItemWebDriver(AppConf)
     scraper.run_scrap()
