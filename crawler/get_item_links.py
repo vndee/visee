@@ -106,8 +106,7 @@ def scrape_links(_config):
                                     'domain': domain,
                                 }
                                 links_producer.send(_config.kafka_link_topic, payload)
-                            except Exception as ex:
-                                logger.error_log.error(ex)
+                            except:
                                 continue
 
                         logger.info_log.info("Pushed {} link(s) from {} to kafka".format(all_items.__len__(), domain))

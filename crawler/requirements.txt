@@ -4,12 +4,11 @@ beautifulsoup4==4.8.0
 certifi==2019.9.11
 chardet==3.0.4
 cssselect==1.1.0
-elasticsearch==7.5.1
 feedfinder2==0.0.4
 feedparser==5.2.1
 idna==2.8
 jieba3k==0.35.1
-kafka-python==1.4.6
+kafka-python==2.0.0
 lxml==4.4.1
 newspaper3k==0.2.8
 nltk==3.4.5

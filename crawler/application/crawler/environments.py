@@ -1,6 +1,6 @@
 import os
 
-DEPLOY = 'local'
+DEPLOY = 'dps'
 DRIVER_PATH_DEFAULT = 'chromedriver'
 
 if DEPLOY == 'local':
@@ -10,7 +10,7 @@ if DEPLOY == 'local':
     *******************************************
     '''
     # Kafka default info
-    KAFKA_HOSTS_DEFAULT = 'visee_kafka:9092'
+    KAFKA_HOSTS_DEFAULT = 'localhost:9092'
     KAFKA_USER_DEFAULT = None
     KAFKA_PASSWORD_DEFAULT = None
     KAFKA_NUM_PARTITIONS_DEFAULT = '10'
@@ -20,7 +20,7 @@ if DEPLOY == 'local':
     KAFKA_INDEX_TOPIC_DEFAULT = 'indexes'
 
     # Redis default info
-    REDIS_HOST_DEFAULT = 'visee_redis'
+    REDIS_HOST_DEFAULT = 'localhost'
     REDIS_PORT_DEFAULT = '6379'
     REDIS_DB_DEFAULT = '1'
     REDIS_DB_CACHE_DEFAULT = '0'

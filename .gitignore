@@ -26,3 +26,4 @@ crawler/application/__pycache__/
 searchengine/visual/faisslib/python/build/bdist.linux-x86_64/
 vscode.code-workspace
 .pytest_cache/
+crawler/chromedriver

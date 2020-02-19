@@ -18,10 +18,5 @@ RUN pip install --upgrade pip
 # install selenium
 RUN pip install selenium
 
-WORKDIR /crawler
-COPY . /crawler
+ADD requirements.txt .
 RUN pip install -r requirements.txt
-
-RUN chmod +x run_getlinks.sh
-RUN echo $PWD
-CMD ["./run_getlinks.sh"]

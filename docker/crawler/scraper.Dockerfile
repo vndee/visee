@@ -18,10 +18,5 @@ RUN pip install --upgrade pip
 # install selenium
 RUN pip install selenium
 
-WORKDIR /crawler
-COPY . /crawler
+ADD requirements.txt .
 RUN pip install -r requirements.txt
-
-RUN chmod +x run_scraper.sh
-
-CMD ["./run_scraper.sh"]

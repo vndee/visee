@@ -6,7 +6,7 @@ import os
 import re
 import requests
 import base64
-from kafka import TopicPartition, RoundRobinPartitioner
+from kafka import RoundRobinPartitioner
 from application.crawler.environments import create_environments
 from application.crawler.scraper import BasicWebDriver
 from application.helpers import logger
@@ -48,7 +48,9 @@ def create_kafka_producer_connect_with_user(_config, partitions):
 
 def create_kafka_producer_connect(_config):
     partitions = [
-        TopicPartition(topic=_config.kafka_index_topic, partition=i) for i in range(0, _config.kafka_num_partitions)
+        kafka.TopicPartition(topic=_config.kafka_index_topic, partition=i)
+        for i in
+        range(0, _config.kafka_num_partitions)
     ]
 
     return kafka.KafkaProducer(

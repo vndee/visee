@@ -25,7 +25,7 @@ categories:
   tui_vi: https://shopee.vn/T%C3%BAi-V%C3%AD-cat.162
   voucher_dich_vu: https://shopee.vn/Voucher-D%E1%BB%8Bch-v%E1%BB%A5-cat.12938
 domain: https://shopee.vn/
-newest_script: document.querySelector('div.shopee-sort-by-options__option:nth-of-type(2)').click();
+newest_script: div.shopee-sort-by-options__option:nth-of-type(2).click();
 next_page_script: document.getElementsByClassName('shopee-mini-page-controller__next-btn')[0].click();
 item_class: shopee-search-item-result__item
 css_query_link: a
