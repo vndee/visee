@@ -7,7 +7,7 @@ services:
 
   elasticsearch:
     container_name: visee_elasticsearch
-    # comment image decleration if custom Dockerfile was provided
+    # comment image decleration if custom wsgi.Dockerfile was provided
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
     # build:
     #   context: docker/elk/elasticsearch/
@@ -36,7 +36,7 @@ services:
 
   logstash:
     container_name: visee_logstash
-    # comment image decleration if custom Dockerfile was provided
+    # comment image decleration if custom wsgi.Dockerfile was provided
     image: docker.elastic.co/logstash/logstash:${ELK_VERSION}
     # build:
     #   context: docker/elk/logstash/
@@ -64,7 +64,7 @@ services:
 
   kibana:
     container_name: visee_kibana
-    # comment image decleration if custom Dockerfile was provided
+    # comment image decleration if custom wsgi.Dockerfile was provided
     image: docker.elastic.co/kibana/kibana:${ELK_VERSION}
     # build:
     #   context: docker/elk/kibana/
