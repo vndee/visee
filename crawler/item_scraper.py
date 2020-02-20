@@ -153,9 +153,13 @@ class ItemWebDriver(BasicWebDriver):
     def run_scrap(self):
         logger.info('Waiting for links.')
         for msg in self.kafka_link_consumer:
-            item_scraped = self.scrap_link(msg.value['domain'], msg.value['link'])
-            response = self.elastic_cursor.add(index=AppConf.elastic_index, body=item_scraped)
-            self.milvus_indexer.add(item_scraped['images'], response['_id'])
+            try:
+                item_scraped = self.scrap_link(msg.value['domain'], msg.value['link'])
+                response = self.elastic_cursor.add(index=AppConf.elastic_index, body=item_scraped)
+                self.milvus_indexer.add(item_scraped['images'], response['_id'])
+                logger.info('Index {} completely.'.format(response['_id']))
+            except Exception as ex:
+                logger.exception(ex)
 
 
 if __name__ == "__main__":

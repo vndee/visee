@@ -113,7 +113,7 @@ services:
     container_name: visee_getlinks
     build:
       context: .
-      dockerfile: ./docker/crawler/getlinks.Dockerfile
+      dockerfile: ./docker/crawler/Dockerfile
     depends_on:
       - kafka
       - redis
@@ -121,7 +121,7 @@ services:
       KAFKA_HOSTS: visee_kafka:9092
       REDIS_HOST: visee_redis
     entrypoint: ./run_getlinks.sh
-    volumes: 
+    volumes:
       - ${PWD}:/visee
     working_dir: /visee
     networks:
@@ -132,7 +132,7 @@ services:
     container_name: visee_itemscraper
     build:
       context: .
-      dockerfile: ./docker/crawler/scraper.Dockerfile
+      dockerfile: ./docker/crawler/Dockerfile
     depends_on:
       - kafka
       - redis
@@ -159,10 +159,10 @@ services:
         source: ./data/milvus/db
         target: /var/lib/milvus/db
       - type: bind
-        source: ./docker/feature_extractor/milvus/conf
+        source: ./docker/visual/milvus/conf
         target: /var/lib/milvus/conf
       - type: bind
-        source: ./docker/feature_extractor/milvus/logs
+        source: ./docker/visual/milvus/logs
         target: /var/lib/milvus/logs
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
