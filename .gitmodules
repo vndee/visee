@@ -1,6 +1,1 @@
-[submodule "searchengine/visual/searchengine/visual/faiss"]
-	path = searchengine/visual/searchengine/visual/faiss
-	url = https://github.com/facebookresearch/faiss
-[submodule "searchengine/visual/faiss"]
-	path = searchengine/visual/faiss
-	url = https://github.com/facebookresearch/faiss
+.
