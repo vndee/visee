@@ -175,13 +175,13 @@ services:
     build:
       context: .
       dockerfile: ./docker/rest/Dockerfile
-#    entrypoint: ./run_rest.sh
+    entrypoint: ./run_rest.sh
     volumes:
       - ${PWD}:/visee
     working_dir: /visee
     networks:
       - elk
-#    restart: always
+    restart: always
 
 networks:
  elk:

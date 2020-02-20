@@ -1,5 +1,4 @@
 import os
-from yaml import load
 from collections import namedtuple
 
 
@@ -93,5 +92,5 @@ def get_prodenv():
     return conf
 
 
-env = get_devenv()
+env = get_prodenv()
 AppConf = namedtuple('AppConf', env.keys())(*env.values())

@@ -24,4 +24,3 @@ RUN apt-get install -y build-essential software-properties-common gcc g++ musl-d
 ADD ./requirements.txt .
 
 RUN pip install -r requirements.txt
-RUN pip install flask gunicorn
