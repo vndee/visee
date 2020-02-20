@@ -1,7 +1,4 @@
-import ssl
-from datetime import datetime
 from elasticsearch import Elasticsearch
-from elasticsearch.connection import create_ssl_context
 from common.config import AppConf
 
 
@@ -24,7 +21,7 @@ class ElasticsearchWrapper:
         response = self.elastic_instance.get(index=index, id=id)
         return response
 
-    def search(self, index):
+    def search(self, index, body):
         response = self.elastic_instance.search(index=index, body={'query': {'match_all': {}}})
         return response
 
@@ -34,5 +31,3 @@ class ElasticsearchWrapper:
             return response
         except Exception as ex:
             return
-
- 

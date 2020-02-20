@@ -9,7 +9,7 @@ from common.config import AppConf
 from common.logger import get_logger
 from crawler.application.scraper import BasicWebDriver
 
-logger = get_logger(__name__)
+logger = get_logger('Link Scraper')
 
 
 class ItemLinkWebDriver(BasicWebDriver):

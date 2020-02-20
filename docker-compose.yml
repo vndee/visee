@@ -170,6 +170,19 @@ services:
       - elk
     restart: always
 
+  rest:
+    container_name: visee_rest
+    build:
+      context: .
+      dockerfile: ./docker/rest/Dockerfile
+#    entrypoint: ./run_rest.sh
+    volumes:
+      - ${PWD}:/visee
+    working_dir: /visee
+    networks:
+      - elk
+#    restart: always
+
 networks:
  elk:
    driver: bridge

@@ -13,7 +13,7 @@ from crawler.application.scraper import BasicWebDriver
 from common.elastic import ElasticsearchWrapper
 from indexer.mwrapper import MilvusWrapper
 
-logger = get_logger(__name__)
+logger = get_logger('Product Scraper')
 
 
 def get_image_tiki(img_url):
