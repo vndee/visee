@@ -29,13 +29,12 @@ class MilvusWrapper:
                      'index_file_size': 1024, 'metric_type': milvus.MetricType.L2}
             response = self.milvus_instace.create_table(param)
             logger.info(response.message)
+            logger.info('Init milvus instance success')
 
         except Exception as ex:
             logger.error("An error occurred while init milvus instance")
             logger.exception(ex)
             self.milvus_instace = None
-        finally:
-            logger.info('Init milvus instance success')
 
         # try:
         #     self.redis_cursor = RedisConnector(host=AppConf.redis_host,
