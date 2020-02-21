@@ -47,7 +47,7 @@ def get_devenv():
     conf['mongodb_collection'] = os.environ.get('MONGODB_COLLECTION', 'visee')
 
     # other
-    conf['chromedriver_path'] = os.environ.get('CHROMEDRIVER_PATH', '/visee/static/chromedriver')
+    conf['chromedriver_path'] = os.environ.get('CHROMEDRIVER_PATH', 'static/chromedriver')
     conf['image_size'] = os.environ.get('IMAGE_SIZE', 1000)
     conf['download_image'] = os.environ.get('DOWNLOAD_IMAGE', True)
 
@@ -106,5 +106,5 @@ def get_prodenv():
     return conf
 
 
-env = get_devenv()
+env = get_prodenv()
 AppConf = namedtuple('AppConf', env.keys())(*env.values())
