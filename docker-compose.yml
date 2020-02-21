@@ -18,8 +18,6 @@ services:
     environment:
       ES_JAVA_OPTS: "-Xmx8g -Xms8g"
       ELASTIC_PASSWORD: changeme
-      # Use single node discovery in order to disable production mode and avoid bootstrap checks
-      # see https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
       discovery.type: single-node
     networks:
       - elk
@@ -120,13 +118,13 @@ services:
     environment:
       KAFKA_HOSTS: visee_kafka:9092
       REDIS_HOST: visee_redis
-    entrypoint: ./run_getlinks.sh
+#    entrypoint: ./run_getlinks.sh
     volumes:
       - ${PWD}:/visee
     working_dir: /visee
     networks:
       - elk
-    restart: always
+#    restart: always
 
   itemscraper:
     container_name: visee_itemscraper
