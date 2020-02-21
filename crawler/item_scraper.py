@@ -12,6 +12,8 @@ from common.config import AppConf
 from crawler.application.scraper import BasicWebDriver
 from common.elastic import ElasticsearchWrapper
 from indexer.mwrapper import MilvusWrapper
+from common.metadat import parse_meta_data
+from common.mongo import MongoDBWrapper
 
 logger = get_logger('Product Scraper')
 
@@ -74,6 +76,7 @@ class ItemWebDriver(BasicWebDriver):
         )
 
         self.elastic_cursor = ElasticsearchWrapper()
+        self.mongo_cursor = MongoDBWrapper()
         self.redis_connection = self.create_redis_connection()
         self.kafka_link_consumer = self.create_kafka_consummer()
         self.milvus_indexer = MilvusWrapper()
@@ -155,8 +158,16 @@ class ItemWebDriver(BasicWebDriver):
         for msg in self.kafka_link_consumer:
             try:
                 item_scraped = self.scrap_link(msg.value['domain'], msg.value['link'])
-                response = self.elastic_cursor.add(index=AppConf.elastic_index, body=item_scraped)
-                self.milvus_indexer.add(item_scraped['images'], response['_id'])
+                meta_data = parse_meta_data(item_scraped)
+
+                response = self.elastic_cursor.add(index=AppConf.elastic_index, body=meta_data)
+                item_scraped['_id'] = response['_id']
+
+                self.mongo_cursor.insert(collection=AppConf.mongodb_collection, doc=item_scraped)
+
+                for image in item_scraped['images']:
+                    self.milvus_indexer.add(image, response['_id'])
+
                 logger.info('Index {} completely.'.format(response['_id']))
             except Exception as ex:
                 logger.exception(ex)
