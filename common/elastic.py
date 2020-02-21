@@ -22,7 +22,7 @@ class ElasticsearchWrapper:
         return response
 
     def search(self, index, body):
-        response = self.elastic_instance.search(index=index, body={'query': {'match_all': {}}})
+        response = self.elastic_instance.search(index=index, body=body)
         return response
 
     def delete(self, index, id):
