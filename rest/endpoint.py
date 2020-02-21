@@ -35,8 +35,17 @@ def search():
             return jsonify(message='ERROR: Request format is invalid.'), 200
 
         if request.json['engine'] == AppConf.api_text_mode:
-            query = request.json['query']
+            query = {
+                'query': {
+                    'from': 0, 'size': 10,
+                    'query_string': {
+                        'query': request.json['query'],
+                    }
+                }
+            }
+
             response = elastic_cursor.search(index=AppConf.elastic_index, body=query)
+
             return jsonify(response), 200
         elif request.json['engine'] == AppConf.api_visual_mode:
             query = request.json['query']
