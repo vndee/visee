@@ -96,6 +96,7 @@ def get_prodenv():
     conf['mongodb_port'] = os.environ.get('MONGODB_PORT', 27017)
     conf['mongodb_user'] = os.environ.get('MONGODB_USER', 'visee')
     conf['mongodb_password'] = os.environ.get('MONGODB_PASSWORD', 'visee')
+    conf['mongodb_collection'] = os.environ.get('MONGODB_COLLECTION', 'visee')
 
     # other
     conf['chromedriver_path'] = os.environ.get('CHROMEDRIVER_PATH', '/visee/static/chromedriver')
