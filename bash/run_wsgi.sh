@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-export PYTHONPATH=$PWD
-cd rest/
+export PYTHONPATH=/visee
+cd /visee/rest/
 gunicorn endpoint:app

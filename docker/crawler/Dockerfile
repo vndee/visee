@@ -35,6 +35,10 @@ RUN pip install cmake
 # install selenium
 RUN pip install selenium
 
-ADD ./docker/crawler/requirements.txt .
+ADD ./requirements.txt .
+ADD ./bash/run_scraper.sh .
+ADD ./bash/run_getlinks.sh .
 
+RUN chmod +x run_scraper.sh
+RUN chmod +x run_getlinks.sh
 RUN pip install -r requirements.txt

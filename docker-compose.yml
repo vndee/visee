@@ -16,7 +16,7 @@ services:
       - "9200:9200"
       - "9300:9300"
     environment:
-      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ES_JAVA_OPTS: "-Xmx8g -Xms8g"
       ELASTIC_PASSWORD: changeme
       # Use single node discovery in order to disable production mode and avoid bootstrap checks
       # see https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
@@ -175,7 +175,9 @@ services:
     build:
       context: .
       dockerfile: ./docker/rest/wsgi.Dockerfile
-    entrypoint: ./bash/run_wsgi.sh
+    entrypoint: ./run_wsgi.sh
+    ports:
+      - "8000:8000"
     volumes:
       - ${PWD}:/visee
     working_dir: /visee
