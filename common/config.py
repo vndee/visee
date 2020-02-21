@@ -40,7 +40,7 @@ def get_devenv():
     conf['elastic_index'] = os.environ.get('ELASTIC_INDEX', 'visee')
 
     # mongodb configuration
-    conf['mongodb_host'] = os.environ.get('MONGODB_HOST', 'visee_mongodb')
+    conf['mongodb_host'] = os.environ.get('MONGODB_HOST', 'localhost')
     conf['mongodb_port'] = os.environ.get('MONGODB_PORT', 27017)
     conf['mongodb_user'] = os.environ.get('MONGODB_USER', 'visee')
     conf['mongodb_password'] = os.environ.get('MONGODB_PASSWORD', 'visee')
@@ -92,7 +92,7 @@ def get_prodenv():
     conf['elastic_index'] = os.environ.get('ELASTIC_INDEX', 'visee')
 
     # mongodb configuration
-    conf['mongodb_host'] = os.environ.get('MONGODB_HOST', 'localhost')
+    conf['mongodb_host'] = os.environ.get('MONGODB_HOST', 'visee_mongo')
     conf['mongodb_port'] = os.environ.get('MONGODB_PORT', 27017)
     conf['mongodb_user'] = os.environ.get('MONGODB_USER', 'visee')
     conf['mongodb_password'] = os.environ.get('MONGODB_PASSWORD', 'visee')
