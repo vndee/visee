@@ -25,10 +25,6 @@ class MilvusWrapper:
         try:
             self.milvus_instace = milvus.Milvus()
             self.milvus_instace.connect(host=self.milvus_host, port=self.milvus_port)
-            param = {'table_name': AppConf.milvus_table_name, 'dimension': self.feature_dim,
-                     'index_file_size': 1024, 'metric_type': milvus.MetricType.L2}
-            response = self.milvus_instace.create_table(param)
-            logger.info(response.message)
             logger.info('Init milvus instance success')
 
         except Exception as ex:
@@ -46,6 +42,16 @@ class MilvusWrapper:
         #     logger.exception(ex)
         # finally:
         #     logger.info('Init redis cursor success on db %d' % AppConf.redis_db_idx)
+
+    def create_tabel(self):
+        try:
+            param = {'table_name': AppConf.milvus_table_name, 'dimension': self.feature_dim,
+                     'index_file_size': 1024, 'metric_type': milvus.MetricType.L2}
+            response = self.milvus_instace.create_table(param)
+            logger.info(response.message)
+        except Exception as ex:
+            logger.error(f'Can not create table {AppConf.milvus_table_name}')
+            logger.exception(ex)
 
     def add(self, value, id):
         '''
