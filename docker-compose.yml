@@ -118,13 +118,12 @@ services:
     environment:
       KAFKA_HOSTS: visee_kafka:9092
       REDIS_HOST: visee_redis
-#    entrypoint: ./run_getlinks.sh
+    entrypoint: ./run_getlinks.sh
     volumes:
       - ${PWD}:/visee
-    working_dir: /visee
     networks:
       - elk
-#    restart: always
+    restart: always
 
   itemscraper:
     container_name: visee_itemscraper
@@ -140,7 +139,6 @@ services:
     entrypoint: ./run_scraper.sh
     volumes: 
       - ${PWD}:/visee
-    working_dir: /visee
     networks:
       - elk
     restart: always
@@ -178,7 +176,6 @@ services:
       - "8000:8000"
     volumes:
       - ${PWD}:/visee
-    working_dir: /visee
     networks:
       - elk
     restart: always
