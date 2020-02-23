@@ -14,6 +14,7 @@ from common.elastic import ElasticsearchWrapper
 from indexer.mwrapper import MilvusWrapper
 from common.metadat import parse_meta_data
 from common.mongo import MongoDBWrapper
+from common.dbconnector import DualRedisConnector
 
 logger = get_logger('Product Scraper')
 
@@ -78,6 +79,7 @@ class ItemWebDriver(BasicWebDriver):
         self.elastic_cursor = ElasticsearchWrapper()
         self.mongo_cursor = MongoDBWrapper()
         self.redis_connection = self.create_redis_connection()
+        self.dual_redis_connection = DualRedisConnector()
         self.kafka_link_consumer = self.create_kafka_consummer()
         self.milvus_indexer = MilvusWrapper()
         self.rules = json.loads(self.redis_connection.get('pages_rule'))
@@ -165,8 +167,17 @@ class ItemWebDriver(BasicWebDriver):
 
                 self.mongo_cursor.insert(collection=AppConf.mongodb_collection, doc=item_scraped)
 
+                pos = None
+                if self.redis_connection.exists('pos_counter'):
+                    pos = int(self.redis_connection.get('pos_counter'))
+                    pos = pos + 1
+                else:
+                    pos = 0
+
+                self.dual_redis_connection.set(item_scraped['_id'], pos)
+
                 for image in item_scraped['images']:
-                    self.milvus_indexer.add(image, response['_id'])
+                    self.milvus_indexer.add(image, pos)
 
                 logger.info('Index {} completely.'.format(response['_id']))
             except Exception as ex:

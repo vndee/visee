@@ -61,12 +61,27 @@ class MilvusWrapper:
 
         feature = self.feature_extractor.extract(value)
         try:
-            self.milvus_instace.add_vectors(table_name=AppConf.milvus_table_name, records=list(feature), ids=list(id))
+            self.milvus_instace.add_vectors(table_name=AppConf.milvus_table_name, records=[feature.tolist()], ids=[id])
             logger.info('Added {} to milvus table: {}'.format(id, AppConf.milvus_table_name))
             return True
         except Exception as ex:
             logger.exception(ex)
             return False
+
+    def add(self, value):
+        '''
+        Add retrieved data from kafka queue to elasticsearch and milvus indexes.
+        data is in json format
+        '''
+
+        feature = self.feature_extractor.extract(value)
+        try:
+            response, ids = self.milvus_instace.add_vectors(table_name=AppConf.milvus_table_name, records=[feature.tolist()])
+            logger.info('Added vector to milvus table: {}'.format(AppConf.milvus_table_name))
+            return response, ids
+        except Exception as ex:
+            logger.exception(ex)
+            return None, None
 
     def update(self, key, value):
         '''
@@ -82,7 +97,7 @@ class MilvusWrapper:
         @return: top k-item with the highest score of similarity
         '''
         feauture = self.feature_extractor.extract(key)
-        status, results = self.milvus_instace.search_vectors(table_name=AppConf.milvus_table_name, query_records=list(feauture), top_k=k, nprobe=16)
+        status, results = self.milvus_instace.search_vectors(table_name=AppConf.milvus_table_name, query_records=feauture.tolist(), top_k=k, nprobe=16)
 
         if status.code != 0:
             logger.error('Error when query vector')
