@@ -172,6 +172,7 @@ services:
       context: .
       dockerfile: ./docker/rest/wsgi.Dockerfile
 #    entrypoint: ./run_wsgi.sh
+    entrypoint: /bin/bash
     ports:
       - "8000:8000"
     volumes:
