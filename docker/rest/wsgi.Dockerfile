@@ -22,6 +22,6 @@ RUN locale-gen en_US.UTF-8
 RUN apt-get install -y build-essential software-properties-common gcc g++ musl-dev
 
 ADD ./requirements.txt .
-ADD ./bash/run_nginx.sh .
+ADD ./bash/run_wsgi.sh .
 
 RUN pip install -r requirements.txt
