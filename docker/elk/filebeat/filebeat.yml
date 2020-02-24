@@ -27,6 +27,9 @@ filebeat.config.modules:
 output.logstash:
   hosts: ["visee_logstash"]
 
+setup.kibana:
+  host: "visee_kibana"
+
 # Write Filebeat own logs only to file to avoid catching them with itself in docker log files
 logging.level: error
 logging.to_files: false
