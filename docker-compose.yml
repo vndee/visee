@@ -172,8 +172,6 @@ services:
       context: .
       dockerfile: ./docker/rest/wsgi.Dockerfile
     entrypoint: ./run_wsgi.sh
-    ports:
-      - "8000:8000"
     volumes:
       - ${PWD}:/visee
     networks:
