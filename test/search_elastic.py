@@ -6,13 +6,11 @@ if __name__ == '__main__':
     elastic = ElasticsearchWrapper()
     query = {
         'query': {
-            'from': 0, 'size': 10,
             'query_string': {
-                'query': 'bot cam',
-                # 'fuzziness': 4
-            }
+                'query': 'Bot cam',
+            },
         }
     }
-    response = elastic.search('test', query)
+
+    response = elastic.search(index='test', body=query)
     print(response)
-    pprint(response['hits']['hits'][0])

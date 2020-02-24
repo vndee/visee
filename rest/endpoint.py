@@ -39,23 +39,24 @@ def search():
         if request.json['engine'] == AppConf.api_text_mode:
             query = {
                 'query': {
-                    'from': 0, 'size': 10,
                     'query_string': {
                         'query': request.json['query'],
                     }
                 }
             }
 
-            response = elastic_cursor.search(index=AppConf.elastic_index, body=query)
-
-            return jsonify(response), 200
+            response = elastic_cursor.search(index='test', body=query)
+            if 'hits' not in response['hits']:
+                return jsonify(message='No hits in search result'), 500
+            else:
+                return jsonify(hits=response['hits']['hits']), 200
         elif request.json['engine'] == AppConf.api_visual_mode:
             query = request.json['query']
             response = milvus_cursor.search(key=query, k=10)
             return jsonify(response), 200
     except Exception as ex:
         logger.exception(ex)
-        return jsonify(message='Unspecific error'), 500
+        return jsonify(message=ex), 500
 
 
 if __name__ == '__main__':

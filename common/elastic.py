@@ -29,6 +29,10 @@ class ElasticsearchWrapper:
         response = self.elastic_instance.delete(index=index, id=id)
         return response
 
+    def delete_index(self, index):
+        response = self.elastic_instance.delete(index=index, ignore=[404, 404])
+        return response
+
     def create_index(self, index):
         try:
             response = self.elastic_instance.indices.create(index=index)
