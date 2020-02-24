@@ -23,6 +23,9 @@ def verify():
 
 @app.route('/api/rest/search/')
 def search():
+    """
+    response: top k=10 document with meta-data.
+    """
     try:
         headers = request.headers
         auth = headers.get('api_key')
