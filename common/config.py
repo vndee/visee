@@ -111,5 +111,5 @@ def get_prodenv():
     return conf
 
 
-env = get_devenv()
+env = get_prodenv()
 AppConf = namedtuple('AppConf', env.keys())(*env.values())
