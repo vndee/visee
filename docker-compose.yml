@@ -23,6 +23,29 @@ services:
       - elk
     restart: always
 
+  filebeat:
+    container_name: visee_filebeat
+    build:
+      context: ./docker/elk/filebeat
+      dockerfile: ./Dockerfile
+    hostname: visee-filebeat
+    user: root
+    volumes:
+      - ${PWD}/data/filebeat:/usr/share/filebeat/data
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/log/:/var/log/:ro
+      - /var/lib/docker/containers/:/usr/share/dockerlogs/data:ro
+    environment:
+      - ELASTICSEARCH_HOST=visee_elasticsearch
+      - KIBANA_HOST=visee_kibana
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=changeme
+    links:
+      - logstash
+    networks:
+      - elk
+    restart: always
+
   logstash:
     container_name: visee_logstash
     image: docker.elastic.co/logstash/logstash:${ELK_VERSION}

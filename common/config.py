@@ -81,8 +81,8 @@ def get_prodenv():
     conf['redis_password'] = os.environ.get('REDIS_PASSWORD', '')
     conf['redis_categories_db'] = os.environ.get('REDIS_CATEGORIES_DB', 0)
     conf['redis_link2scrape_db'] = os.environ.get('REDIS_LINK2SCRAPE_DB', 1)
-    conf['redis_db_index_first'] = os.environ.get('REDIS_DB_INDEX_FIRST', 2)
-    conf['redis_db_index_second'] = os.environ.get('REDIS_DB_INDEX_SECOND', 3)
+    conf['redis_db_idx_first'] = os.environ.get('REDIS_DB_INDEX_FIRST', 2)
+    conf['redis_db_idx_second'] = os.environ.get('REDIS_DB_INDEX_SECOND', 3)
 
     # milvus configuration
     conf['milvus_host'] = os.environ.get('MILVUS_HOST', 'visee_milvus')
