@@ -1,11 +1,11 @@
 import redis
-from application.crawler.environments import create_environments
-from application.helpers.get_chromedriver import download_chrome_driver
+from common.config import AppConf
+from crawler.application.utils import download_chrome_driver
 from application.helpers.logger import get_logger
 from kafka.errors import TopicAlreadyExistsError
 from kafka.admin import KafkaAdminClient, NewTopic
 
-config = create_environments()
+config = AppConf
 logger = get_logger('Check system')
 
 

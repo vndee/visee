@@ -25,17 +25,12 @@ class MilvusWrapper:
         try:
             self.milvus_instace = milvus.Milvus()
             self.milvus_instace.connect(host=self.milvus_host, port=self.milvus_port)
-            param = {'table_name': AppConf.milvus_table_name, 'dimension': self.feature_dim,
-                     'index_file_size': 1024, 'metric_type': milvus.MetricType.L2}
-            response = self.milvus_instace.create_table(param)
-            logger.info(response.message)
+            logger.info('Init milvus instance success')
 
         except Exception as ex:
             logger.error("An error occurred while init milvus instance")
             logger.exception(ex)
             self.milvus_instace = None
-        finally:
-            logger.info('Init milvus instance success')
 
         # try:
         #     self.redis_cursor = RedisConnector(host=AppConf.redis_host,
@@ -48,6 +43,16 @@ class MilvusWrapper:
         # finally:
         #     logger.info('Init redis cursor success on db %d' % AppConf.redis_db_idx)
 
+    def create_tabel(self):
+        try:
+            param = {'table_name': AppConf.milvus_table_name, 'dimension': self.feature_dim,
+                     'index_file_size': 1024, 'metric_type': milvus.MetricType.L2}
+            response = self.milvus_instace.create_table(param)
+            logger.info(response.message)
+        except Exception as ex:
+            logger.error(f'Can not create table {AppConf.milvus_table_name}')
+            logger.exception(ex)
+
     def add(self, value, id):
         '''
         Add retrieved data from kafka queue to elasticsearch and milvus indexes.
@@ -56,7 +61,7 @@ class MilvusWrapper:
 
         feature = self.feature_extractor.extract(value)
         try:
-            self.milvus_instace.add_vectors(table_name=AppConf.milvus_table_name, records=list(feature), ids=list(id))
+            self.milvus_instace.add_vectors(table_name=AppConf.milvus_table_name, records=[feature.tolist()], ids=[id])
             logger.info('Added {} to milvus table: {}'.format(id, AppConf.milvus_table_name))
             return True
         except Exception as ex:
@@ -77,7 +82,7 @@ class MilvusWrapper:
         @return: top k-item with the highest score of similarity
         '''
         feauture = self.feature_extractor.extract(key)
-        status, results = self.milvus_instace.search_vectors(table_name=AppConf.milvus_table_name, query_records=list(feauture), top_k=k, nprobe=16)
+        status, results = self.milvus_instace.search_vectors(table_name=AppConf.milvus_table_name, query_records=[feauture.tolist()], top_k=k, nprobe=16)
 
         if status.code != 0:
             logger.error('Error when query vector')

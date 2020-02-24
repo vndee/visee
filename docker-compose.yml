@@ -1,10 +1,6 @@
 version: '2.3'
 
 services:
-  #####################################
-  #                ELK                #
-  #####################################
-
   elasticsearch:
     container_name: visee_elasticsearch
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
@@ -20,11 +16,32 @@ services:
       - "9200:9200"
       - "9300:9300"
     environment:
-      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ES_JAVA_OPTS: "-Xmx8g -Xms8g"
       ELASTIC_PASSWORD: changeme
-      # Use single node discovery in order to disable production mode and avoid bootstrap checks
-      # see https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
       discovery.type: single-node
+    networks:
+      - elk
+    restart: always
+
+  filebeat:
+    container_name: visee_filebeat
+    build:
+      context: ./docker/elk/filebeat
+      dockerfile: ./Dockerfile
+    hostname: visee-filebeat
+    user: root
+    volumes:
+      - ${PWD}/data/filebeat:/usr/share/filebeat/data
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/log/:/var/log/:ro
+      - /var/lib/docker/containers/:/usr/share/dockerlogs/data:ro
+    environment:
+      - ELASTICSEARCH_HOST=visee_elasticsearch
+      - KIBANA_HOST=visee_kibana
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=changeme
+    links:
+      - logstash
     networks:
       - elk
     restart: always
@@ -67,11 +84,7 @@ services:
     depends_on:
       - elasticsearch
     restart: always
-  
-  #####################################
-  #              KAFKA                #
-  #####################################
-  
+
   zookeeper:
     container_name: visee_zookeeper
     image: wurstmeister/zookeeper
@@ -117,15 +130,11 @@ services:
       - ./data/redis:/data
     restart: always
 
-  #####################################
-  #              CRAWLER              #
-  #####################################
-
   getlinks:
     container_name: visee_getlinks
     build:
-      context: crawler/
-      dockerfile: ../docker/crawler/getlinks.Dockerfile
+      context: .
+      dockerfile: ./docker/crawler/Dockerfile
     depends_on:
       - kafka
       - redis
@@ -133,18 +142,17 @@ services:
       KAFKA_HOSTS: visee_kafka:9092
       REDIS_HOST: visee_redis
     entrypoint: ./run_getlinks.sh
-    volumes: 
-      - ${PWD}/crawler:/crawler
-    working_dir: /crawler
+    volumes:
+      - ${PWD}:/visee
     networks:
       - elk
-    # restart: always
+    restart: always
 
   itemscraper:
     container_name: visee_itemscraper
     build:
-      context: crawler/
-      dockerfile: ../docker/crawler/scraper.Dockerfile
+      context: .
+      dockerfile: ./docker/crawler/Dockerfile
     depends_on:
       - kafka
       - redis
@@ -153,15 +161,11 @@ services:
       REDIS_HOST: visee_redis
     entrypoint: ./run_scraper.sh
     volumes: 
-      - ${PWD}/crawler:/crawler
-    working_dir: /crawler
+      - ${PWD}:/visee
     networks:
       - elk
-    # restart: always
+    restart: always
 
-  #####################################
-  #              VISUAL               #
-  #####################################
   milvus:
     container_name: visee_milvus
     image: milvusdb/milvus:0.6.0-gpu-d120719-2b40dd
@@ -174,16 +178,55 @@ services:
         source: ./data/milvus/db
         target: /var/lib/milvus/db
       - type: bind
-        source: ./docker/feature_extractor/milvus/conf
+        source: ./docker/visual/milvus/conf
         target: /var/lib/milvus/conf
       - type: bind
-        source: ./docker/feature_extractor/milvus/logs
+        source: ./docker/visual/milvus/logs
         target: /var/lib/milvus/logs
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
     networks:
       - elk
     restart: always
+
+  rest:
+    container_name: visee_rest
+    build:
+      context: .
+      dockerfile: ./docker/rest/wsgi.Dockerfile
+    entrypoint: ./run_wsgi.sh
+    volumes:
+      - ${PWD}:/visee
+    networks:
+      - elk
+    restart: always
+
+  nginx:
+    container_name: visee_nginx
+    build:
+      context: .
+      dockerfile: ./docker/rest/nginx.Dockerfile
+    command: ["nginx", "-g", "daemon off;"]
+    volumes:
+      - ${PWD}/docker/rest/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8001:8001"
+    links:
+      - rest
+    networks:
+      - elk
+    restart: always
+
+#  mongodb:
+#    container_name: visee_mongodb
+#    image: mongo:latest
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: visee
+#      MONGO_INITDB_ROOT_PASSWORD: visee
+#    ports:
+#      - "27017:27017"
+#    volumes:
+#      - ${PWD}/data/mongodb:/data/db
 
 networks:
  elk:

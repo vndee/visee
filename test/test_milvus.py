@@ -1,10 +1,10 @@
 import unittest
-from indexer.mwrapper import MilvusIndexer
+from indexer.mwrapper import MilvusWrapper
 
 
 class MilvusTestCase(unittest.TestCase):
     def test_constructor(self):
-        self.milvus = MilvusIndexer()
+        self.milvus = MilvusWrapper()
         self.assertIsNotNone(self.milvus)
 
 

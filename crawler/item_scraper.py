@@ -12,8 +12,11 @@ from common.config import AppConf
 from crawler.application.scraper import BasicWebDriver
 from common.elastic import ElasticsearchWrapper
 from indexer.mwrapper import MilvusWrapper
+from common.metadat import parse_meta_data
+# from common.mongo import MongoDBWrapper
+from common.dbconnector import DualRedisConnector
 
-logger = get_logger(__name__)
+logger = get_logger('Product Scraper')
 
 
 def get_image_tiki(img_url):
@@ -74,7 +77,9 @@ class ItemWebDriver(BasicWebDriver):
         )
 
         self.elastic_cursor = ElasticsearchWrapper()
+        # self.mongo_cursor = MongoDBWrapper()
         self.redis_connection = self.create_redis_connection()
+        self.dual_redis_connection = DualRedisConnector()
         self.kafka_link_consumer = self.create_kafka_consummer()
         self.milvus_indexer = MilvusWrapper()
         self.rules = json.loads(self.redis_connection.get('pages_rule'))
@@ -153,13 +158,33 @@ class ItemWebDriver(BasicWebDriver):
     def run_scrap(self):
         logger.info('Waiting for links.')
         for msg in self.kafka_link_consumer:
-            item_scraped = self.scrap_link(msg.value['domain'], msg.value['link'])
-            response = self.elastic_cursor.add(index=AppConf.elastic_index, body=item_scraped)
-            self.milvus_indexer.add(item_scraped['images'], response['_id'])
+            try:
+                item_scraped = self.scrap_link(msg.value['domain'], msg.value['link'])
+                meta_data = parse_meta_data(item_scraped)
+
+                response = self.elastic_cursor.add(index=AppConf.elastic_index, body=meta_data)
+                item_scraped['_id'] = response['_id']
+
+                # self.mongo_cursor.insert(collection=AppConf.mongodb_collection, doc=item_scraped)
+
+                pos = None
+                if self.redis_connection.exists('pos_counter'):
+                    pos = int(self.redis_connection.get('pos_counter'))
+                    pos = pos + 1
+                else:
+                    pos = 0
+
+                self.dual_redis_connection.set(item_scraped['_id'], pos)
+
+                for image in item_scraped['images']:
+                    self.milvus_indexer.add(image, pos)
+
+                logger.info('Index {} completely.'.format(response['_id']))
+            except Exception as ex:
+                logger.exception(ex)
 
 
 if __name__ == "__main__":
-
     # create webdriver
     scraper = ItemWebDriver(AppConf)
     scraper.run_scrap()

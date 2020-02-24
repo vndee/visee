@@ -9,7 +9,7 @@ from common.config import AppConf
 from common.logger import get_logger
 from crawler.application.scraper import BasicWebDriver
 
-logger = get_logger(__name__)
+logger = get_logger('Link Scraper')
 
 
 class ItemLinkWebDriver(BasicWebDriver):
@@ -124,4 +124,4 @@ if __name__ == '__main__':
     except Exception as ex:
         logger.error("Some thing went wrong. Application will stop after 1200 seconds")
         logger.exception(str(ex))
-        time.sleep(1)
+    #     time.sleep(1)
