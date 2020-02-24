@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 export PYTHONPATH=/visee
 cd /visee/rest/
-gunicorn endpoint:app
+gunicorn --bind 0.0.0.0:8000 endpoint:app
