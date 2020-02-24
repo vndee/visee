@@ -15,7 +15,6 @@ milvus_cursor = MilvusWrapper()
 def verify():
     headers = request.headers
     auth = headers.get('api_key')
-
     if auth == AppConf.api_key:
         return jsonify(message='OK: Authorized'), 200
     else:
