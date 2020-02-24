@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from common.config import AppConf
 from common.elastic import ElasticsearchWrapper
+from common.dbconnector import DualRedisConnector
 from indexer.mwrapper import MilvusWrapper
 from common.logger import get_logger
 
@@ -9,6 +10,7 @@ app = Flask('ViSee - Visual Search Engine RESTful API Server')
 logger = get_logger('REST Server')
 elastic_cursor = ElasticsearchWrapper()
 milvus_cursor = MilvusWrapper()
+dual_redis_cursor = DualRedisConnector()
 
 
 @app.route('/api/rest/verify/')
@@ -53,7 +55,13 @@ def search():
         elif request.json['engine'] == AppConf.api_visual_mode:
             query = request.json['query']
             response = milvus_cursor.search(key=query, k=10)
-            return jsonify(response), 200
+
+            d = list()
+            for pos in response.id_array[0]:
+                _id = dual_redis_cursor.get_by_pos(pos)
+                d.append(elastic_cursor.get(index='test', id=_id))
+
+            return jsonify(hits=d), 200
     except Exception as ex:
         logger.exception(ex)
         return jsonify(message=ex), 500

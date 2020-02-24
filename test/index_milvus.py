@@ -15,6 +15,7 @@ milvus = MilvusWrapper()
 def generate_random(x=16):
     return ''.join([random.choice(string.ascii_letters + string.digits) for n in range(x)])
 
+cnt = 0
 
 if __name__ == '__main__':
     list_file = glob('data/json/*.json')
@@ -26,6 +27,7 @@ if __name__ == '__main__':
             id = generate_random(x=16)
             for image in data['images']:
                 img = bytes(image['base64_data'][2:-1], encoding='utf-8').decode()
-                _img = Image.open(BytesIO(base64.b64decode(img)))
-                response, ids = milvus.add(img)
-                print(response, ids)
+                # _img = Image.open(BytesIO(base64.b64decode(img)))
+                response = milvus.add(img, cnt)
+                cnt = cnt + 1
+                print(response)
