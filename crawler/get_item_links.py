@@ -4,11 +4,14 @@ import time
 import json
 import ssl
 import os
+from pyvirtualdisplay import Display
 from common.config import AppConf
 from common.logger import get_logger
 from crawler.application.scraper import BasicWebDriver
 
 logger = get_logger('Link Scraper')
+display = Display(visible=0, size=(800, 600))
+display.start()
 
 
 class GetLink:
