@@ -9,10 +9,21 @@ from common.config import AppConf
 
 def push_data_to_redis():
     redis_connect = redis.StrictRedis(
-        host=AppConf.redis_host, port=AppConf.redis_port, db=AppConf.redis_categories_db, password=AppConf.redis_password
+        host=AppConf.redis_host,
+        port=AppConf.redis_port,
+        db=AppConf.redis_categories_db,
+        password=AppConf.redis_password
     )
 
     homepages_dict = dict()
+    list_domain = list()
+    with open('rules/homepages.yaml', mode='r', encoding='utf-8') as stream:
+        yaml_data = yaml.safe_load(stream)
+        for i in yaml_data['list_domain']:
+            list_domain.append(i)
+
+    redis_connect.set('list_domain', json.dumps(list_domain))
+
     for yaml_file in glob.glob('rules/homepages/*.yaml'):
         with open(yaml_file, 'r') as stream:
             yaml_data = yaml.safe_load(stream)
