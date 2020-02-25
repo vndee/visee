@@ -98,9 +98,8 @@ class GetLink:
                     if loop_counter > 3:
                         break
                     page_counter = 99
-                    self.web_driver[domain].get_html('https://www.sendo.vn/thoi-trang-nu?p=12982')
-                    while True:
 
+                    while True:
                         try:
                             if domain == 'shopee.vn' and page_counter > 99:
                                 break
