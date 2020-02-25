@@ -6,6 +6,7 @@ import os
 import re
 import requests
 import base64
+from pyvirtualdisplay import Display
 from kafka import RoundRobinPartitioner
 from common.logger import get_logger
 from common.config import AppConf
@@ -17,6 +18,8 @@ from common.metadat import parse_meta_data
 from common.dbconnector import DualRedisConnector
 
 logger = get_logger('Product Scraper')
+display = Display(visible=0, size=(800, 600))
+display.start()
 
 
 def get_image_tiki(img_url):

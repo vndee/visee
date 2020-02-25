@@ -12,10 +12,11 @@ class BasicWebDriver:
         # ensure_dir(download_dir)
 
         selenium_options = Options()
-        selenium_options.add_argument('--headless')
+        selenium_options.add_argument('--disable-gpu')
         selenium_options.add_argument('--no-sandbox')
-        # selenium_options.add_argument('--disable-dev-shm-usage')
-        selenium_options.add_argument('--dns-prefetch-disable')
+        selenium_options.add_argument('--disable-setuid-sandbox')
+        selenium_options.add_argument("--disable-extensions")
+        selenium_options.add_argument('--disable-dev-shm-usage')
         selenium_options.headless = True
         selenium_options.add_experimental_option(
             'prefs',
