@@ -165,5 +165,5 @@ def get_hoangenv():
     return conf
 
 
-env = get_hoangenv()
+env = get_prodenv()
 AppConf = namedtuple('AppConf', env.keys())(*env.values())

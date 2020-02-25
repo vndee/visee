@@ -206,6 +206,8 @@ services:
     build:
       context: .
       dockerfile: ./docker/rest/nginx.Dockerfile
+    depends_on:
+      - rest
     command: ["nginx", "-g", "daemon off;"]
     volumes:
       - ${PWD}/docker/rest/nginx.conf:/etc/nginx/nginx.conf
