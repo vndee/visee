@@ -64,9 +64,7 @@ class GetLink:
         ) if self.config.kafka_user is None else self.create_kafka_producer_connect_with_user()
 
     def run(self):
-        print(self.redis_connection.get("list_domain"))
         list_domain = json.loads(self.redis_connection.get("list_domain"))
-        print(list_domain)
         while True:
             logger.info("Start/Restart get item's links")
 
@@ -74,15 +72,17 @@ class GetLink:
 
             for domain in list_domain:
                 logger.info("Processing {}".format(domain))
-                self.web_driver[domain] = self.ItemLinkWebDriver(
-                    executable_path=os.path.join(
-                        self.config.chromedriver_path
+                if domain not in self.web_driver:
+                    self.web_driver[domain] = self.ItemLinkWebDriver(
+                        executable_path=os.path.join(
+                            self.config.chromedriver_path
+                        )
                     )
-                )
-                if domain in []:
-                    continue
                 if domain not in self.visited:
                     self.visited[domain] = list()
+
+                loop_counter = 0
+
                 for category in self.rules[domain]['categories']:
                     if category not in self.visited[domain]:
                         self.web_driver[domain].get_html(self.rules[domain]['categories'][category])
@@ -94,20 +94,40 @@ class GetLink:
                         time.sleep(3)
                         self.web_driver[domain].execute_script(self.rules[domain]['newest_script'])
 
-                    link_counter, loop_counter = 0, 0
+                    link_counter = 0
+                    if loop_counter > 3:
+                        break
+                    page_counter = 99
+                    self.web_driver[domain].get_html('https://www.sendo.vn/thoi-trang-nu?p=12982')
                     while True:
+
                         try:
-                            if link_counter > 10:
-                                continue
+                            if domain == 'shopee.vn' and page_counter > 99:
+                                break
+
+                            if domain == 'lazada.vn' and page_counter < 30:
+                                try:
+                                    if self.web_driver[domain].driver.find_element_by_css_selector(
+                                        "li.ant-pagination-disabled.ant-pagination-next"
+                                    ) is not None:
+                                        print('new cate')
+                                        break
+                                except:
+                                    pass
+
+                            link_counter += 1
                             time.sleep(1)
                             all_items = self.web_driver[domain].driver.find_elements_by_class_name(
                                 self.rules[domain]['item_class']
                             )
+                            if all_items.__len__() == 0:
+                                break
+
                             time.sleep(2)
+                            link_success = 0
                             for item in all_items:
                                 self.web_driver[domain].driver.execute_script("arguments[0].scrollIntoView();", item)
                                 try:
-                                    link_counter += 1
                                     if self.rules[domain]['css_query_link'] is not None:
                                         item_link = item.find_element_by_css_selector(
                                             self.rules[domain]['css_query_link']
@@ -120,18 +140,27 @@ class GetLink:
                                         'domain': domain,
                                     }
                                     self.links_producer.send(self.config.kafka_link_topic, payload)
+                                    link_success += 1
                                 except:
                                     continue
 
                             logger.info(
-                                "Pushed {} link(s) from {} to kafka".format(all_items.__len__(), domain)
+                                "Pushed {} link(s) from {} to kafka".format(link_success, domain)
                             )
                             time.sleep(1)
                             self.web_driver[domain].execute_script(self.rules[domain]['next_page_script'])
-                            link_counter += 1
+
+                            if domain == 'sendo.vn':
+                                lps = self.web_driver[domain].driver.find_elements_by_css_selector("li.pageLink_3Urw")[
+                                    -1]
+                                if 'active_3BYx' in lps.get_attribute("class"):
+                                    break
+
+                            page_counter += 1
                         except Exception as exception:
                             time.sleep(3)
                             logger.error((str(exception)))
+                    loop_counter += 1
 
 
 if __name__ == '__main__':
