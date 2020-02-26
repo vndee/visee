@@ -122,12 +122,16 @@ class ItemWebDriver(BasicWebDriver):
             try:
                 if key == 'rating_point':
                     if _domain == 'tiki.vn':
-                        dict_item[key] = re.findall(
+                        rtp = re.findall(
                             r'\d+',
                             self.driver.find_element_by_css_selector(
                                 self.rules[_domain][key]
                             ).get_attribute('style')
-                        )[0]
+                        )
+                        if rtp is not None and len(rtp) > 0:
+                            dict_item[key] = [0]
+                        else:
+                            dict_item[key] = 'N/A'
 
                     else:
                         dict_item[key] = self.driver.find_element_by_css_selector(self.rules[_domain][key]).text
@@ -168,19 +172,23 @@ class ItemWebDriver(BasicWebDriver):
                 response = self.elastic_cursor.add(index=AppConf.elastic_index, body=meta_data)
                 item_scraped['_id'] = response['_id']
 
-                # self.mongo_cursor.insert(collection=AppConf.mongodb_collection, doc=item_scraped)
-
-                pos = None
-                if self.redis_connection.exists('pos_counter'):
-                    pos = int(self.redis_connection.get('pos_counter'))
-                    pos = pos + 1
-                else:
-                    pos = 0
-
-                self.dual_redis_connection.set(item_scraped['_id'], pos)
-
                 for image in item_scraped['images']:
-                    self.milvus_indexer.add(image, pos)
+                    pos = None
+                    if self.redis_connection.exists('pos_counter'):
+                        pos = int(self.redis_connection.get('pos_counter'))
+                        pos = pos + 1
+                        self.redis_connection.set('pos_counter', pos)
+                    else:
+                        pos = 0
+                        self.redis_connection.set('pos_counter', pos)
+
+                    self.dual_redis_connection.set(pos, item_scraped['_id'])
+                    r_miluvs = self.milvus_indexer.add(image['base64_data'], pos)
+
+                    if r_miluvs is True:
+                        logger.info(f'Added {item_scraped["_id"]} to milvus table at index {pos} success')
+                    else:
+                        logger.info(f'Added {item_scraped["_id"]} to milvus table at index {pos} failed')
 
                 logger.info('Index {} completely.'.format(response['_id']))
             except Exception as ex:
