@@ -1,4 +1,5 @@
 import os
+import sys
 import milvus
 from common.logger import get_logger
 from common.config import AppConf
@@ -62,10 +63,15 @@ class MilvusWrapper:
         feature = self.feature_extractor.extract(value)
         try:
             self.milvus_instace.add_vectors(table_name=AppConf.milvus_table_name, records=[feature.tolist()], ids=[id])
-            logger.info('Added {} to milvus table: {}'.format(id, AppConf.milvus_table_name))
             return True
         except Exception as ex:
             logger.exception(ex)
+            try:
+                _, _, lineno = sys.exc_info()
+                logger.error('Line error: {} - Error: {}'.format(lineno.tb_lineno, ex))
+            except:
+                logger.error('Cannot get line error - Error{}'.format(ex))
+
             return False
 
     def update(self, key, value):
