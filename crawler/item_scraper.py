@@ -14,7 +14,6 @@ from crawler.application.scraper import BasicWebDriver
 from common.elastic import ElasticsearchWrapper
 from indexer.mwrapper import MilvusWrapper
 from common.metadat import parse_meta_data
-# from common.mongo import MongoDBWrapper
 from common.dbconnector import DualRedisConnector
 
 logger = get_logger('Product Scraper')
@@ -80,7 +79,6 @@ class ItemWebDriver(BasicWebDriver):
         )
 
         self.elastic_cursor = ElasticsearchWrapper()
-        # self.mongo_cursor = MongoDBWrapper()
         self.redis_connection = self.create_redis_connection()
         self.dual_redis_connection = DualRedisConnector()
         self.kafka_link_consumer = self.create_kafka_consummer()
