@@ -32,8 +32,8 @@ categories:
   tui_xach: https://www.sendo.vn/tui-xach/
   vat_pham_phong_thuy: https://www.sendo.vn/vat-pham-phong-thuy/
   voucher_dich_vu: https://www.sendo.vn/voucher-dich-vu/
+css_query_link: null
 domain: https://www.sendo.vn/sitemap/
+item_class: item_3KnU
 newest_script: null
 next_page_script: document.getElementsByClassName('pageNext_2D_R')[0].click()
-item_class: item_3KnU
-css_query_link: null
