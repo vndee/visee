@@ -31,6 +31,14 @@ def push_data_to_redis():
             homepages_dict[key] = yaml_data
 
     redis_connect.set("homepages", json.dumps(homepages_dict))
+    redis_connect.close()
+
+    redis_connect = redis.StrictRedis(
+        host=AppConf.redis_host,
+        port=AppConf.redis_port,
+        db=AppConf.redis_link2scrape_db,
+        password=AppConf.redis_password
+    )
 
     pages_rule_dict = dict()
     for yaml_file in glob.glob('rules/pages/*.yaml'):
@@ -41,6 +49,7 @@ def push_data_to_redis():
 
     redis_connect.set("pages_rule", json.dumps(pages_rule_dict))
     redis_connect.set("obj_current_id", 0)
+    redis_connect.close()
 
 
 if __name__ == "__main__":
