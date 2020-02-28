@@ -219,17 +219,6 @@ services:
       - elk
     restart: always
 
-#  mongodb:
-#    container_name: visee_mongodb
-#    image: mongo:latest
-#    environment:
-#      MONGO_INITDB_ROOT_USERNAME: visee
-#      MONGO_INITDB_ROOT_PASSWORD: visee
-#    ports:
-#      - "27017:27017"
-#    volumes:
-#      - ${PWD}/data/mongodb:/data/db
-
 networks:
  elk:
    driver: bridge
