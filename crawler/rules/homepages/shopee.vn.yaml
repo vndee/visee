@@ -24,8 +24,8 @@ categories:
   thoi_trang_tre_em: https://shopee.vn/Th%E1%BB%9Di-Trang-Tr%E1%BA%BB-Em-cat.16770
   tui_vi: https://shopee.vn/T%C3%BAi-V%C3%AD-cat.162
   voucher_dich_vu: https://shopee.vn/Voucher-D%E1%BB%8Bch-v%E1%BB%A5-cat.12938
+css_query_link: a
 domain: https://shopee.vn/
+item_class: shopee-search-item-result__item
 newest_script: document.querySelector('div.shopee-sort-by-options__option:nth-of-type(2)').click();
 next_page_script: document.getElementsByClassName('shopee-mini-page-controller__next-btn')[0].click();
-item_class: shopee-search-item-result__item
-css_query_link: a

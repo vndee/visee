@@ -66,7 +66,9 @@ class CategoriesWebDriver(BasicWebDriver):
 
     def get_lazada_categories(self):
         dict_categories = dict()
-        list_categories_tag = self.driver.find_elements_by_css_selector('ul.lzd-site-menu-root > ul > li > a')
+        list_categories_tag = self.driver.find_elements_by_css_selector(
+            'ul.lzd-site-menu-root > ul > li > ul > li > a'
+        )
         for li_tag in list_categories_tag:
             _links = li_tag.get_attribute('href')
             if _links is None:
@@ -118,6 +120,6 @@ if __name__ == '__main__':
     wrapper = CategoriesWebDriver(
         list_website,
         dir_homepages,
-        executable_path=config.driver_path
+        executable_path=config.chromedriver_path
     )
     wrapper.get_categories()
