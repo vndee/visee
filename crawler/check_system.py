@@ -1,7 +1,7 @@
 import redis
 from common.config import AppConf
 from crawler.application.utils import download_chrome_driver
-from application.helpers.logger import get_logger
+from common.logger import get_logger
 from kafka.errors import TopicAlreadyExistsError
 from kafka.admin import KafkaAdminClient, NewTopic
 
@@ -70,4 +70,4 @@ def check_redis(_config):
 if __name__ == '__main__':
     check_redis(config)
     create_kafka_topic(config)
-    # download_chrome_driver()
+    download_chrome_driver()
