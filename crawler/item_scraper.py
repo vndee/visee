@@ -29,6 +29,14 @@ def get_image_tiki(img_url):
     )
 
 
+def get_image_sendo(img_url):
+    return re.sub(
+        r'_\d+x\d+_',
+        '_' + str(AppConf.image_size) + 'x' + str(AppConf.image_size) + '_',
+        img_url
+    )
+
+
 def create_kafka_producer_connect_with_user(_config, partitions):
     sasl_mechanism = 'PLAIN'
     security_protocol = 'SASL_PLAINTEXT'
@@ -84,6 +92,9 @@ class ItemWebDriver(BasicWebDriver):
         self.kafka_link_consumer = self.create_kafka_consummer()
         self.milvus_indexer = MilvusWrapper()
         self.rules = json.loads(self.redis_connection.get('pages_rule'))
+        self.scroll_script = 'for (let step = 20; step > 0; step--){'\
+            'await new Promise(resolve => setTimeout(resolve, 0.03));'\
+            'window.scrollTo(0,(document.body.scrollHeight/step));}'
 
     def update_rule(self):
         self.rules = json.loads(self.redis_connection.get('pages_rule'))
@@ -113,6 +124,7 @@ class ItemWebDriver(BasicWebDriver):
             'link': _link
         }
 
+        self.driver.execute_script(self.scroll_script)
         ignore_key = ['domain', 'image_holder']
         for key in self.rules[_domain]:
             if key in ignore_key:
@@ -149,6 +161,8 @@ class ItemWebDriver(BasicWebDriver):
 
                 if _domain == 'tiki.vn':
                     image_url = get_image_tiki(img_tag.get_attribute('src'))
+                elif _domain == 'sendo.vn':
+                    image_url = get_image_sendo(img_tag.get_attribute('src'))
                 else:
                     image_url = img_tag.get_attribute('src')
 
