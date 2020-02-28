@@ -153,8 +153,9 @@ class GetLink:
                             self.web_driver[domain].execute_script(self.rules[domain]['next_page_script'])
 
                             if domain == 'sendo.vn':
-                                lps = self.web_driver[domain].driver.find_elements_by_css_selector("li.pageLink_3Urw")[
-                                    -1]
+                                lps = self.web_driver[domain].driver.find_elements_by_css_selector(
+                                    "li.pageLink_3Urw"
+                                )[-1]
                                 if 'active_3BYx' in lps.get_attribute("class"):
                                     break
 

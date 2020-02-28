@@ -4,4 +4,4 @@ price: div.mainInfo_mfIT strong.currentPrice_2zpf
 description: div.details-block
 rating_point: div.number_3GG6 strong
 rating_count: span.rateNumber_RH_t em
-image_holder: div.details-block
+image_holder: div#sd-productdetail-SwiperThumbs

@@ -29,6 +29,22 @@ def get_image_tiki(img_url):
     )
 
 
+def get_image_sendo(img_url):
+    return re.sub(
+        r'_\d+x\d+_',
+        '_' + str(AppConf.image_size) + 'x' + str(AppConf.image_size) + '_',
+        img_url
+    )
+
+
+def get_image_lazada(img_url):
+    return re.sub(
+        r'_\d+x\d+q\d+.+',
+        '',
+        img_url
+    )
+
+
 def create_kafka_producer_connect_with_user(_config, partitions):
     sasl_mechanism = 'PLAIN'
     security_protocol = 'SASL_PLAINTEXT'
@@ -84,6 +100,9 @@ class ItemWebDriver(BasicWebDriver):
         self.kafka_link_consumer = self.create_kafka_consummer()
         self.milvus_indexer = MilvusWrapper()
         self.rules = json.loads(self.redis_connection.get('pages_rule'))
+        self.scroll_script = 'for (let step = 20; step > 0; step--){'\
+            'await new Promise(resolve => setTimeout(resolve, 0.03));'\
+            'window.scrollTo(0,(document.body.scrollHeight/step));}'
 
     def update_rule(self):
         self.rules = json.loads(self.redis_connection.get('pages_rule'))
@@ -112,7 +131,8 @@ class ItemWebDriver(BasicWebDriver):
             'domain': _domain,
             'link': _link
         }
-
+        if _domain != 'lazada.vn':
+            self.driver.execute_script(self.scroll_script)
         ignore_key = ['domain', 'image_holder']
         for key in self.rules[_domain]:
             if key in ignore_key:
@@ -130,7 +150,6 @@ class ItemWebDriver(BasicWebDriver):
                             dict_item[key] = [0]
                         else:
                             dict_item[key] = 'N/A'
-
                     else:
                         dict_item[key] = self.driver.find_element_by_css_selector(self.rules[_domain][key]).text
                 else:
@@ -141,22 +160,37 @@ class ItemWebDriver(BasicWebDriver):
                 dict_item[key] = None
 
         if AppConf.download_image:
-            image_holder = self.driver.find_element_by_css_selector(self.rules[_domain]['image_holder'])
             dict_item['images'] = list()
             dict_item['id'] = int(self.redis_connection.get('obj_current_id'))
             self.redis_connection.set('obj_current_id', int(dict_item['id']) + 1)
-            for img_tag in image_holder.find_elements_by_tag_name('img'):
 
-                if _domain == 'tiki.vn':
-                    image_url = get_image_tiki(img_tag.get_attribute('src'))
-                else:
-                    image_url = img_tag.get_attribute('src')
+            if _domain == 'shopee.vn':
+                list_img = self.driver.find_elements_by_css_selector(self.rules[_domain]['image_holder'])
+                for img_tag in list_img:
+                    list_url = re.findall(r'url\(".+"\);', img_tag.get_attribute('style'))
+                    if list_url.__len__() > 0:
+                        img_base64 = base64.b64encode(requests.get(list_url[0][5:-3]).content)
+                        dict_item['images'].append({
+                            'base64_data': img_base64,
+                            'img_link': list_url[0][5:-3]
+                        })
+            else:
+                image_holder = self.driver.find_element_by_css_selector(self.rules[_domain]['image_holder'])
+                for img_tag in image_holder.find_elements_by_tag_name('img'):
+                    if _domain == 'tiki.vn':
+                        image_url = get_image_tiki(img_tag.get_attribute('src'))
+                    elif _domain == 'sendo.vn':
+                        image_url = get_image_sendo(img_tag.get_attribute('src'))
+                    elif _domain == 'lazada.vn':
+                        image_url = get_image_lazada(img_tag.get_attribute('src'))
+                    else:
+                        image_url = img_tag.get_attribute('src')
 
-                img_base64 = base64.b64encode(requests.get(image_url).content)
-                dict_item['images'].append({
-                    'base64_data': img_base64,
-                    'img_link': image_url
-                })
+                    img_base64 = base64.b64encode(requests.get(image_url).content)
+                    dict_item['images'].append({
+                        'base64_data': img_base64,
+                        'img_link': image_url
+                    })
 
         return dict_item
 
@@ -171,7 +205,6 @@ class ItemWebDriver(BasicWebDriver):
                 item_scraped['_id'] = response['_id']
 
                 for image in item_scraped['images']:
-                    pos = None
                     if self.redis_connection.exists('pos_counter'):
                         pos = int(self.redis_connection.get('pos_counter'))
                         pos = pos + 1
