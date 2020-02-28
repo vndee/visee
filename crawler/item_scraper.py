@@ -171,7 +171,6 @@ class ItemWebDriver(BasicWebDriver):
                 item_scraped['_id'] = response['_id']
 
                 for image in item_scraped['images']:
-                    pos = None
                     if self.redis_connection.exists('pos_counter'):
                         pos = int(self.redis_connection.get('pos_counter'))
                         pos = pos + 1

@@ -62,6 +62,7 @@ def check_redis(_config):
     try:
         response = redis_connect.client_list()
         logger.info('Redis is ready')
+        response.close()
     except redis.exceptions.ConnectionError:
         logger.info('Redis is not available')
     logger.info('FINISH\n')
