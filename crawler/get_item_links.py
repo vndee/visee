@@ -87,6 +87,13 @@ class GetLink:
                 loop_counter = 0
 
                 for category in self.rules[domain]['categories']:
+                    logger.info('Process category: {}'.format(domain + '_' + category))
+                    if self.redis_connection.get(domain + '_' + category) is None:
+                        self.redis_connection.set(domain + '_' + category, 1)
+                    else:
+                        logger.info('Category link {} is processed'.format(domain + '_' + category))
+                        continue
+
                     if category not in self.visited[domain]:
                         self.web_driver[domain].get_html(self.rules[domain]['categories'][category])
                         self.visited[domain].append(category)
@@ -94,13 +101,13 @@ class GetLink:
                         continue
 
                     if self.rules[domain]['newest_script'] is not None:
-                        time.sleep(3)
+                        time.sleep(2.5)
                         self.web_driver[domain].execute_script(self.rules[domain]['newest_script'])
 
                     link_counter = 0
                     if loop_counter > 3:
                         break
-                    page_counter = 99
+                    page_counter = 0
 
                     while True:
                         try:
@@ -112,7 +119,6 @@ class GetLink:
                                     if self.web_driver[domain].driver.find_element_by_css_selector(
                                         "li.ant-pagination-disabled.ant-pagination-next"
                                     ) is not None:
-                                        print('new cate')
                                         break
                                 except:
                                     pass
@@ -167,10 +173,11 @@ class GetLink:
 
 
 if __name__ == '__main__':
-    try:
-        getlink = GetLink(AppConf)
-        getlink.run()
-    except Exception as ex:
-        logger.error("Some thing went wrong. Application will stop after 1200 seconds")
-        logger.exception(str(ex))
-        time.sleep(1)
+    while True:
+        try:
+            getlink = GetLink(AppConf)
+            getlink.run()
+        except Exception as ex:
+            logger.error("Some thing went wrong. Application will stop after 1200 seconds")
+            logger.exception(str(ex))
+            time.sleep(1)
