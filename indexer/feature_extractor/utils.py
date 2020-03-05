@@ -10,7 +10,8 @@ from functools import partial
 import torch
 from torch import nn
 from torch.nn import functional as F
-from torch.utils import model_zoo
+# from torch.utils import model_zoo
+from common.config import AppConf
 
 ########################################################################
 ############### HELPERS FUNCTIONS FOR MODEL ARCHITECTURE ###############
@@ -50,6 +51,7 @@ class SwishImplementation(torch.autograd.Function):
 class MemoryEfficientSwish(nn.Module):
     def forward(self, x):
         return SwishImplementation.apply(x)
+
 
 class Swish(nn.Module):
     def forward(self, x):
@@ -324,7 +326,8 @@ def load_pretrained_weights(model, model_name, load_fc=True, advprop=False):
     """ Loads pretrained weights, and downloads if loading for the first time. """
     # AutoAugment or Advprop (different preprocessing)
     url_map_ = url_map_advprop if advprop else url_map
-    state_dict = model_zoo.load_url(url_map_[model_name])
+    # state_dict = model_zoo.load_url(url_map_[model_name])
+    state_dict = torch.load(AppConf.effnet_weights)
     if load_fc:
         model.load_state_dict(state_dict)
     else:
