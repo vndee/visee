@@ -325,7 +325,7 @@ url_map_advprop = {
 def load_pretrained_weights(model, model_name, load_fc=True, advprop=False):
     """ Loads pretrained weights, and downloads if loading for the first time. """
     # AutoAugment or Advprop (different preprocessing)
-    url_map_ = url_map_advprop if advprop else url_map
+    # url_map_ = url_map_advprop if advprop else url_map
     # state_dict = model_zoo.load_url(url_map_[model_name])
     state_dict = torch.load(AppConf.effnet_weights)
     if load_fc:
