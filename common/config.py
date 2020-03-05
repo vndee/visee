@@ -107,7 +107,7 @@ def get_prodenv():
     conf['mongodb_collection'] = os.environ.get('MONGODB_COLLECTION', 'visee')
 
     # model extractor
-    conf['effnet_weights'] = os.environ.get('EFFNET_WEIGHTS', 'static/eff_b7.pth')
+    conf['effnet_weights'] = os.environ.get('EFFNET_WEIGHTS', '/visee/static/eff_b7.pth')
 
     # other
     conf['chromedriver_path'] = os.environ.get('CHROMEDRIVER_PATH', '/visee/static/chromedriver')
