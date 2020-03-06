@@ -112,7 +112,8 @@ class ItemWebDriver(BasicWebDriver):
             self.config.kafka_link_topic,
             bootstrap_servers=self.config.kafka_hosts,
             value_deserializer=lambda x: json.loads(x.decode('utf-8')),
-            group_id=self.config.kafka_consumer_group
+            group_id=self.config.kafka_consumer_group,
+            auto_offset_reset='earliest',
         )
 
     def create_redis_connection(self):
