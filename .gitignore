@@ -27,3 +27,4 @@ indexer/feature_extractor/faisslib/python/build/bdist.linux-x86_64/
 vscode.code-workspace
 .pytest_cache/
 crawler/chromedriver
+static/eff_b7.pth

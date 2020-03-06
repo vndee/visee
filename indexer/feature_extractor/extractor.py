@@ -11,7 +11,7 @@ logger = get_logger(logger_name=__name__)
 
 
 class FeatureExtractor:
-    def __init__(self, arch='efficientnet-b0'):
+    def __init__(self, arch='efficientnet-b7'):
         '''
         Load pretrained model for EfficientNet features extractor.
         '''

@@ -49,12 +49,15 @@ def search():
 
             response = elastic_cursor.search(index='test', body=query)
             if 'hits' not in response['hits']:
-                return jsonify(message='No hits in search result'), 500
+                return jsonify(message='No hits in search response'), 500
             else:
                 return jsonify(hits=response['hits']['hits']), 200
         elif request.json['engine'] == AppConf.api_visual_mode:
             query = request.json['query']
             response = milvus_cursor.search(key=query, k=10)
+
+            if response.__len__() <= 0:
+                return jsonify(message='No hits in search response'), 500
 
             d = list()
             for pos in response.id_array[0]:

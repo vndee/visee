@@ -170,10 +170,7 @@ class ItemWebDriver(BasicWebDriver):
                     list_url = re.findall(r'url\(".+"\);', img_tag.get_attribute('style'))
                     if list_url.__len__() > 0:
                         img_base64 = base64.b64encode(requests.get(list_url[0][5:-3]).content)
-                        dict_item['images'].append({
-                            'base64_data': img_base64,
-                            'img_link': list_url[0][5:-3]
-                        })
+                        dict_item['images'].append({'base64_data': img_base64, 'img_link': list_url[0][5:-3]})
             else:
                 image_holder = self.driver.find_element_by_css_selector(self.rules[_domain]['image_holder'])
                 for img_tag in image_holder.find_elements_by_tag_name('img'):
@@ -187,10 +184,7 @@ class ItemWebDriver(BasicWebDriver):
                         image_url = img_tag.get_attribute('src')
 
                     img_base64 = base64.b64encode(requests.get(image_url).content)
-                    dict_item['images'].append({
-                        'base64_data': img_base64,
-                        'img_link': image_url
-                    })
+                    dict_item['images'].append({'base64_data': img_base64, 'img_link': image_url})
 
         return dict_item
 

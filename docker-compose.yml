@@ -194,6 +194,10 @@ services:
     build:
       context: .
       dockerfile: ./docker/rest/wsgi.Dockerfile
+    depends_on:
+      - milvus
+      - elasticsearch
+      - redis
     entrypoint: ./run_wsgi.sh
     volumes:
       - ${PWD}:/visee
