@@ -12,7 +12,9 @@ class MongoDBWrapper:
                  mongodb_user=AppConf.mongodb_user,
                  mongodb_password=AppConf.mongodb_password):
         try:
-            self.mongo_instace = pymongo.MongoClient(f'mongodb://{mongodb_user}:{mongodb_password}@{mongdb_host}:{mongdb_port}/')
+            self.mongo_instace = pymongo.MongoClient(
+                f'mongodb://{mongodb_user}:{mongodb_password}@{mongdb_host}:{mongdb_port}/'
+            )
             self.mongodb = self.mongo_instace[AppConf.mongodb_collection]
             logger.info(f'Connect to MongoDB successful at {mongdb_host}:{mongdb_port}.')
         except Exception as ex:
