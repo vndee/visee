@@ -37,5 +37,5 @@ class ElasticsearchWrapper:
         try:
             response = self.elastic_instance.indices.create(index=index)
             return response
-        except Exception as ex:
+        except:
             return
