@@ -1,5 +1,3 @@
-<p align="center">
-<b> VISEE - Visual Search Engine </b>
+### VISEE - Visual Search Engine
 
-VISE Technologies, 2020
-</p>
+![System Architecture](imgs/visee.png)
