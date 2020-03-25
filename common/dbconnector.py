@@ -71,12 +71,12 @@ class DualRedisConnector:
 
     def get_by_id(self, id):
         try:
-            return self.first_cursor.get(id)
+            return self.second_cursor.get(id)
         except:
             return None
 
     def get_by_pos(self, pos):
         try:
-            return self.second_cursor.get(pos)
+            return self.first_cursor.get(pos)
         except:
             return None
