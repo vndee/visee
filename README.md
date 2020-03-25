@@ -4,7 +4,23 @@
 
 **VISEE** is an system that combine both full-text search and visual search (base on image) together. Our system focus on 
 Vietnam e-commerce product, which was collected from [**Tiki**](https://tiki.vn/), [**Lazada**](https://www.lazada.vn/), [**Shopee**](https://shopee.vn/),
-[**Sendo**](https://www.sendo.vn/).
+[**Sendo**](https://www.sendo.vn/). **VISEE** is completely dockerization.
+
+### Installation
+
+#### Requirements
+
+- docker, docker-dompose, nvidia-docker
+
+#### Quickstart
+
+To run all container and services: 
+
+    `./dev.sh up`
+
+Stop all services:
+
+    `./dev.sh down`
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/vndee/visee/master/imgs/visee.png?token=AGXWHAGPQ5HJLX5WGY5ZC326QTSKE">
