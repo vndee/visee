@@ -93,7 +93,7 @@ services:
     networks:
       - elk
     restart: always
-    
+
   kafka:
     container_name: visee_kafka
     image: wurstmeister/kafka
@@ -126,7 +126,7 @@ services:
       - "6379:6379"
     networks:
       - elk
-    volumes: 
+    volumes:
       - ./data/redis:/data
     restart: always
 
@@ -160,7 +160,7 @@ services:
       KAFKA_HOSTS: visee_kafka:9092
       REDIS_HOST: visee_redis
     entrypoint: ./run_scraper.sh
-    volumes: 
+    volumes:
       - ${PWD}:/visee
     networks:
       - elk
