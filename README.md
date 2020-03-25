@@ -27,11 +27,13 @@ from host machine to docker container. So just edit your code and restart contai
 
 ### Configuration
 
-List of environment variables can be use to config VISEE:
+List of environment variables can be use to config VISEE. All variables define in `.env`.
 
 | Variable | Description | Deafult value |
 |----------|-------------|---------------|
 |`API_KEY`| Authorization key for REST API.|`h$+wt&%3BtH*6rA^KfPzMKDm**GdH_wQaQebd&X9!h=nNVjrt+pn8GNB5%-_ug-U`|
+|`API_HOST`| REST API host binding (docker internal network).|`0.0.0.0`|
+|`API_PORT`| REST API port binding (docker internal network).|`7070`|
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/vndee/visee/master/imgs/visee.png?token=AGXWHAGPQ5HJLX5WGY5ZC326QTSKE">
