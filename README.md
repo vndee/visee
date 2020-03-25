@@ -1,3 +1,4 @@
+![](https://github.com/vndee/visee/workflows/CI/badge.svg)
 <p align="center">
   <img width="200" height="100" src="https://raw.githubusercontent.com/vndee/visee/master/imgs/logo.png?token=AGXWHAHFKIENLEQPVIJOZZK6QTQRQ">
 </p>
