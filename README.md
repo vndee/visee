@@ -37,6 +37,15 @@ List of environment variables can be use to config VISEE. All variables define i
 |`KAFKA_HOSTS`| Kafka hosts | `[visee_kafka:9092]`|
 |`KAFKA_USER`| Kafka user| `None`|
 
+### Libraries and framework
+
+- **Crawler:** Selenium, BeatifulSoup, Apache Kafka, Redis.
+- **Indexer:** PyTorch, Apache Kafka, Redis.
+- **Search Engine:** Elasticsearch, Milvus.
+- **RESTful Services:** Flask, Nginx, Gunicorn.
+- **User Interface:** NodeJS, Nginx, HTML + CSS + JS.
+- **Logging System:** ELK+ Stack (Elasticsearch, Beats, Logtash, Kibana).
+ 
 <p align="center">
   <img src="https://raw.githubusercontent.com/vndee/visee/master/imgs/visee.png?token=AGXWHAGPQ5HJLX5WGY5ZC326QTSKE">
   <p align="center">System Architecture and Technical Stack</p>
