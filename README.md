@@ -23,7 +23,15 @@ Stop all services:
     ./dev.sh down
     
 You can use `docker-compose` command alternatively. Especially when a service is running, its code were mount directly
-from host machine to docker container. So just edit your code and restart container.
+from host machine to docker container. So just edit your code and restart container, you will see your changes.
+
+#### Configuration
+
+List of environment variables can be use to config VISEE:
+
+| Variable | Description | Deafult value |
+|----------|-------------|---------------|
+|`API_KEY`| Authorization key for REST API.|`h$+wt&%3BtH*6rA^KfPzMKDm**GdH_wQaQebd&X9!h=nNVjrt+pn8GNB5%-_ug-U`|
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/vndee/visee/master/imgs/visee.png?token=AGXWHAGPQ5HJLX5WGY5ZC326QTSKE">
