@@ -22,7 +22,8 @@ Stop all services:
 
     ./dev.sh down
     
-You can use `docker-compose` command alternatively.
+You can use `docker-compose` command alternatively. Especially when a service is running, its code were mount directly
+from host machine to docker container. So just edit your code and restart container.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/vndee/visee/master/imgs/visee.png?token=AGXWHAGPQ5HJLX5WGY5ZC326QTSKE">
