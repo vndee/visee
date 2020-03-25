@@ -1,4 +1,5 @@
 ![](https://github.com/vndee/visee/workflows/CI/badge.svg)
+[![DepShield Badge](https://depshield.sonatype.org/badges/vndee/visee/depshield.svg)](https://depshield.github.io)
 <p align="center">
   <img width="200" height="100" src="https://raw.githubusercontent.com/vndee/visee/master/imgs/logo.png?token=AGXWHAHFKIENLEQPVIJOZZK6QTQRQ">
 </p>
