@@ -25,7 +25,7 @@ Stop all services:
 You can use `docker-compose` command alternatively. Especially when a service is running, its code were mount directly
 from host machine to docker container. So just edit your code and restart container, you will see your changes.
 
-### Configuration
+### Configurations
 
 List of environment variables can be use to config VISEE. All variables define in `.env`.
 
@@ -37,7 +37,7 @@ List of environment variables can be use to config VISEE. All variables define i
 |`KAFKA_HOSTS`| Kafka hosts | `[visee_kafka:9092]`|
 |`KAFKA_USER`| Kafka user| `None`|
 
-### Libraries and framework
+### Libraries and frameworks
 
 - **Crawler:** Selenium, BeatifulSoup, Apache Kafka, Redis.
 - **Indexer:** PyTorch, Apache Kafka, Redis.
