@@ -31,9 +31,11 @@ List of environment variables can be use to config VISEE. All variables define i
 
 | Variable | Description | Deafult value |
 |----------|-------------|---------------|
-|`API_KEY`| Authorization key for REST API.|`h$+wt&%3BtH*6rA^KfPzMKDm**GdH_wQaQebd&X9!h=nNVjrt+pn8GNB5%-_ug-U`|
-|`API_HOST`| REST API host binding (docker internal network).|`0.0.0.0`|
-|`API_PORT`| REST API port binding (docker internal network).|`7070`|
+|`API_KEY`| Authorization key for REST API|`h$+wt&%3BtH*6rA^KfPzMKDm**GdH_wQaQebd&X9!h=nNVjrt+pn8GNB5%-_ug-U`|
+|`API_HOST`| REST API host binding (docker internal network)|`0.0.0.0`|
+|`API_PORT`| REST API port binding (docker internal network)|`7070`|
+|`KAFKA_HOSTS`| Kafka hosts | `[visee_kafka:9092]`|
+|`KAFKA_USER`| Kafka user| `None`|
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/vndee/visee/master/imgs/visee.png?token=AGXWHAGPQ5HJLX5WGY5ZC326QTSKE">
