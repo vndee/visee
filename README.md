@@ -6,13 +6,13 @@
 Vietnam e-commerce product, which was collected from [**Tiki**](https://tiki.vn/), [**Lazada**](https://www.lazada.vn/), [**Shopee**](https://shopee.vn/),
 [**Sendo**](https://www.sendo.vn/). **VISEE** is completely dockerization.
 
-### Installation
+## Installation
 
-#### Requirements
+### Requirements
 
 - docker, docker-dompose, nvidia-docker
 
-#### Quickstart
+### Quickstart
 
 To run all containers and services: 
 
@@ -25,7 +25,7 @@ Stop all services:
 You can use `docker-compose` command alternatively. Especially when a service is running, its code were mount directly
 from host machine to docker container. So just edit your code and restart container, you will see your changes.
 
-#### Configuration
+### Configuration
 
 List of environment variables can be use to config VISEE:
 
