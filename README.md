@@ -7,4 +7,7 @@ Vietnam e-commerce product from: [Tiki](https://tiki.vn/), [Lazada](https://www.
 [Sendo](https://www.sendo.vn/).
 
 Contributor: Duy V. Huynh (@vndee), Hoang N. Truong (@hoangperry), Linh Q. Tran (@tql247)
-![System Architecture](imgs/visee.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/vndee/visee/master/imgs/visee.png?token=AGXWHAGPQ5HJLX5WGY5ZC326QTSKE">
+  <p>System Architecture and Technical Stack </p>
+</p>
