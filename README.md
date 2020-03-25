@@ -51,4 +51,4 @@ List of environment variables can be use to config VISEE. All variables define i
   <p align="center">System Architecture and Technical Stack</p>
 </p>
 
-Contributor: [**Duy V. Huynh**](https://github.com/vndee), [**Hoang N. Truong**](https://github.com/hoangperry/), [**Linh Q. Tran**](https://github.com/tql247/)
+Developers: [**Duy V. Huynh**](https://github.com/vndee), [**Hoang N. Truong**](https://github.com/hoangperry/), [**Linh Q. Tran**](https://github.com/tql247/)
