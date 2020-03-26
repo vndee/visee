@@ -10,7 +10,7 @@ logger = get_logger(logger_name=__name__)
 
 class MilvusWrapper:
     def __init__(self):
-        self.feature_dim = 1280 if not os.getenv('FEATURE_DIM') else int(os.getenv('FEATURE_DIM'))
+        self.feature_dim = 2560 if not os.getenv('FEATURE_DIM') else int(os.getenv('FEATURE_DIM'))
         self.milvus_host = AppConf.milvus_host
         self.milvus_port = AppConf.milvus_port
 
@@ -33,6 +33,7 @@ class MilvusWrapper:
             logger.exception(ex)
             self.milvus_instace = None
 
+        self.create_table()
         # try:
         #     self.redis_cursor = RedisConnector(host=AppConf.redis_host,
         #                                        port=AppConf.redis_port,
@@ -44,7 +45,7 @@ class MilvusWrapper:
         # finally:
         #     logger.info('Init redis cursor success on db %d' % AppConf.redis_db_idx)
 
-    def create_tabel(self):
+    def create_table(self):
         try:
             param = {'table_name': AppConf.milvus_table_name, 'dimension': self.feature_dim,
                      'index_file_size': 1024, 'metric_type': milvus.MetricType.L2}
@@ -92,6 +93,8 @@ class MilvusWrapper:
 
         if status.code != 0:
             logger.error('Error when query vector')
+            print(status)
+            print(results)
             return []
         else:
             return results

@@ -13,7 +13,7 @@ milvus_cursor = MilvusWrapper()
 dual_redis_cursor = DualRedisConnector()
 
 
-@app.route('/api/rest/verify/')
+@app.route('/api/rest/verify/', methods=['GET'])
 def verify():
     headers = request.headers
     auth = headers.get('api_key')
@@ -23,7 +23,7 @@ def verify():
         return jsonify(message='ERROR: Unauthorized'), 401
 
 
-@app.route('/api/rest/search/')
+@app.route('/api/rest/search/', methods=['POST'])
 def search():
     """
     response: top k=10 document with meta-data.
@@ -47,23 +47,29 @@ def search():
                 }
             }
 
-            response = elastic_cursor.search(index='test', body=query)
+            response = elastic_cursor.search(index='visee', body=query)
             if 'hits' not in response['hits']:
+                logger.info('Empty response')
                 return jsonify(message='No hits in search response'), 500
             else:
+                logger.info('Healthy response')
                 return jsonify(hits=response['hits']['hits']), 200
         elif request.json['engine'] == AppConf.api_visual_mode:
             query = request.json['query']
             response = milvus_cursor.search(key=query, k=10)
 
             if response.__len__() <= 0:
+                logger.info('Empty response from Milvus')
                 return jsonify(message='No hits in search response'), 500
 
             d = list()
             for pos in response.id_array[0]:
                 _id = dual_redis_cursor.get_by_pos(pos)
-                d.append(elastic_cursor.get(index='test', id=_id))
+                if _id is None:
+                    continue
+                d.append(elastic_cursor.get(index='visee', id=_id))
 
+            logger.info('Healthy response')
             return jsonify(hits=d), 200
     except Exception as ex:
         logger.exception(ex)

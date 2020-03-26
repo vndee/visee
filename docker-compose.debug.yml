@@ -130,42 +130,6 @@ services:
       - ./data/redis:/data
     restart: always
 
-  getlinks:
-    container_name: visee_getlinks
-    build:
-      context: .
-      dockerfile: ./docker/crawler/Dockerfile
-    depends_on:
-      - kafka
-      - redis
-    environment:
-      KAFKA_HOSTS: visee_kafka:9092
-      REDIS_HOST: visee_redis
-    entrypoint: ./run_getlinks.sh
-    volumes:
-      - ${PWD}:/visee
-    networks:
-      - elk
-    restart: always
-
-  itemscraper:
-    container_name: visee_itemscraper
-    build:
-      context: .
-      dockerfile: ./docker/crawler/Dockerfile
-    depends_on:
-      - kafka
-      - redis
-    environment:
-      KAFKA_HOSTS: visee_kafka:9092
-      REDIS_HOST: visee_redis
-    entrypoint: ./run_scraper.sh
-    volumes: 
-      - ${PWD}:/visee
-    networks:
-      - elk
-    restart: always
-
   milvus:
     container_name: visee_milvus
     image: milvusdb/milvus:0.6.0-gpu-d120719-2b40dd
@@ -194,6 +158,10 @@ services:
     build:
       context: .
       dockerfile: ./docker/rest/wsgi.Dockerfile
+    depends_on:
+      - milvus
+      - elasticsearch
+      - redis
     entrypoint: ./run_wsgi.sh
     volumes:
       - ${PWD}:/visee

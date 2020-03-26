@@ -12,5 +12,5 @@ if __name__ == '__main__':
         }
     }
 
-    response = elastic.search(index='test', body=query)
+    response = elastic.search(index='visee', body=query)
     print(response)
