@@ -57,7 +57,7 @@
         </div>
         <div id="sz" class="col-md-10 col-sm-9" >
             <div style="border: 1px solid rgba(190, 190, 190, 0.548); height: 40px; border-radius: 45px; width: 580px; max-width: 100%; display: flex; align-items: center; justify-content: space-between;">
-                <input style="width: 75%; margin: 0px 10px 0px 20px; font-size: 16px;">
+                <input id="text-search" style="width: 75%; margin: 0px 10px 0px 20px; font-size: 16px;">
                 <div style="display: flex; margin: 0px 20px 0px 10px;">
                     <div id='ims'></div>
                     <div id='sbt'></div>
@@ -107,13 +107,12 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script>
 
-        // if (des.scrollHeight > des.offsetHeight) {
-        //     // article element has a scrollbar
-            
-        // }
-    
-		// var result = sessionStorage.getItem('result');
-		// sessionStorage.setItem('result', result);
+       
+
+        // var data = JSON.parse(localStorage.getItem("result"));
+
+
+
 	var data = {
     "hits": [
         {
@@ -507,6 +506,58 @@
     // $('#select-seller').change(function() {
     //     alert(this.value);
     // })
+
+    
+    function search(typeRequest) {
+        var query;
+
+        if (typeRequest == "text") {
+            query = $("#text-search").val();
+        }
+        else {
+            query = document.getElementById("target").src;
+        }
+
+        var data = {
+            "api_key": "put your damn api key here!",
+            "engine" : typeRequest,
+            "query" : query
+        }
+
+        var request = {
+            method : "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body : JSON.stringify(data)
+        }
+
+        fetch(url, request).then(res => res.json()).then(res => {
+            result = res;
+            console.log(result);
+            localStorage.setItem("result", JSON.stringify(result));
+            return res;
+        });
+    }
+
+    var url = "";
+    var result;
+
+    
+
+    $("#sbt").click(function () {
+        if (url == "") 
+            alert("Put your damn url first");
+        
+        search("text")
+    });
+
+    $("#submit-crop").click(function () {
+        if (url == "") 
+            alert("Put your damn url first");
+        
+        search("visual")
+    });
 
 
     </script>
