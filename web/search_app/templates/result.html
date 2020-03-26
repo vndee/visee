@@ -63,19 +63,19 @@
             </div>
         <div id="sz" class="col-md-10 col-sm-9" >
             <div style="border: 1px solid rgba(190, 190, 190, 0.548); height: 40px; border-radius: 45px; width: 580px; max-width: 100%; display: flex; align-items: center; justify-content: space-between;">
-                <form action="" method="post">
+                <form action="" method="post" style="width: 100%;" id="text_f" name="text_search_form">
                 {% csrf_token %}
                     <input type="hidden" name="engine" value="text">
                     <input
-                            id="text-search"
-                            style="width: 75%;
-                            margin: 0px 10px 0px 20px;
-                            font-size: 16px;"
-                            value="{{search_text}}"
-                            name="search_text"
+                        id="text_search_id"
+                        style="width: 100%;
+                        margin: 0px 0px 0px 3%;
+                        font-size: 16px;"
+                        value="{{search_text}}"
+                        name="search_text"
                     >
                 </form>
-                <div style="display: flex; margin: 0px 20px 0px 10px;">
+                <div style="display: flex; margin: 0px 0px 0px 5%;">
                     <div id='ims'></div>
                     <div id='sbt'></div>
                 </div>
@@ -210,16 +210,6 @@
         crr_des.textContent = crr_des.getAttribute("data-value").substr(0, num_char_des);
         crr_des.innerHTML += "<span onclick='seemore(event)' class='see'> ...see more</span>";
     }
-    
-    $('#ims').click(function () {
-        $('#overlay').addClass('active');
-        $('#crop-img-zone').addClass('active');
-    })
-
-    $('#close-button').click(function() {
-        $('#overlay').removeClass('active');
-        $('#crop-img-zone').removeClass('active');
-    })
 
     var filter = ""; 
     var filterPrice = "";
@@ -287,38 +277,26 @@
         filter = filterPrice + (((filterSeller.length != 0) && (filterPrice.length != 0))?",":"") + filterSeller;
         filterResult();
     })
-    
-    function search(typeRequest) {
-        var query;
 
-        if (typeRequest == "text") {
-            query = $("#text-search").val();
-        }
-        else {
-            query = document.getElementById("target").src;
-        }
 
-        var data = {
-            "api_key": "put your damn api key here!",
-            "engine" : typeRequest,
-            "query" : query
-        }
+    $('#ims').click(function () {
+        $('#overlay').addClass('active');
+        $('#crop-img-zone').addClass('active');
+    })
 
-        var request = {
-            method : "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body : JSON.stringify(data)
-        }
+    $('#close-button').click(function() {
+        $('#overlay').removeClass('active');
+        $('#crop-img-zone').removeClass('active');
+    })
 
-        fetch(url, request).then(res => res.json()).then(res => {
-            result = res;
-            console.log(result);
-            localStorage.setItem("result", JSON.stringify(result));
-            return res;
-        });
-    }
+    $("#sbt").click(function () {
+        console.log()
+        if ($('#text_search_id').val().trim() == "")
+            alert("Search something");
+        else
+            $('#text_f').submit();
+    });
+
     </script>
 
     <script src="{% static 'js/jquery.min.js' %}"></script>
