@@ -105,7 +105,7 @@
         </div>
     </div>
 
-    <div class="container" style="margin-left: 10%">
+    <div class="container" style="margin-left: 7%; min-width: 80%;">
         <div id="track">{{num_result}} in <span id="time">{{time_process}}s</span></div>
 
         <div class="resultlist"></div>
@@ -182,14 +182,14 @@
             price = item._source.price;
             status = item._source.domain;
             
-            var resultItem ="<div class='row item'>"
-            resultItem +=    "<div class='col-md-2 item-img'><img src='" + src_image + "'></div>"
+            var resultItem ="<div class='row item' style='min-width: 83%;'>"
+            resultItem +=    "<div class='col-md-2 item-img' style='max-width: 12%'><img src='" + src_image + "'></div>"
             
             resultItem +=    "<div class='col-md-10 item-content'>"
             resultItem +=        "<a href='" + link + "'><div class='item-content-title'>" + title + "</a></div>"
-            resultItem +=        "<div class='item-content-value'>"
+            resultItem +=        "<div class='item-content-value' style='justify-content: start'>"
             resultItem +=           "<div class='item-content-value-price'>Price: " + price + "</div>"
-            resultItem +=           "<div class='item-content-value-link'><a href='" + link + "'>" + dis_link + "</a></div>"
+            resultItem +=           "<div class='item-content-value-link' style='margin-left: 3%;'><a href='" + link + "'>" + dis_link + "</a></div>"
             resultItem +=        "</div>"
             resultItem +=        "<div data-value='" + description +"' class='item-content-des'>" + dis_des + "</div>"
             resultItem +=    "</div>"
