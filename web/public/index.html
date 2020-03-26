@@ -160,7 +160,13 @@
         search("visual");
     });
 
-
+        $("#text-search").focusin(function(input) {
+            $("#text-search").keydown(function(e) {
+                if (e.keyCode == 13) {
+                    alert("Do later!");
+                }
+            });
+        });
 
 </script>
 </body>
