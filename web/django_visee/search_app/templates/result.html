@@ -63,13 +63,18 @@
             </div>
         <div id="sz" class="col-md-10 col-sm-9" >
             <div style="border: 1px solid rgba(190, 190, 190, 0.548); height: 40px; border-radius: 45px; width: 580px; max-width: 100%; display: flex; align-items: center; justify-content: space-between;">
-                <input
-                        id="text-search"
-                        style="width: 75%;
-                        margin: 0px 10px 0px 20px;
-                        font-size: 16px;"
-                        value="{{search_text}}"
-                >
+                <form action="" method="post">
+                {% csrf_token %}
+                    <input type="hidden" name="engine" value="text">
+                    <input
+                            id="text-search"
+                            style="width: 75%;
+                            margin: 0px 10px 0px 20px;
+                            font-size: 16px;"
+                            value="{{search_text}}"
+                            name="search_text"
+                    >
+                </form>
                 <div style="display: flex; margin: 0px 20px 0px 10px;">
                     <div id='ims'></div>
                     <div id='sbt'></div>
@@ -314,33 +319,6 @@
             return res;
         });
     }
-
-    var url = "";
-    var result;
-
-    
-
-    $("#sbt").click(function () {
-        if (url == "") 
-            alert("Put your damn url first");
-        
-        search("text")
-    });
-
-    $("#submit-crop").click(function () {
-        if (url == "") 
-            alert("Put your damn url first");
-        
-        search("visual")
-    });
-
-    $("#text-search").focusin(function(input) {
-            $("#text-search").keydown(function(e) {
-                if (e.keyCode == 13) {
-                    alert("Do later!");
-                }
-            });
-        });
     </script>
 
     <script src="{% static 'js/jquery.min.js' %}"></script>
