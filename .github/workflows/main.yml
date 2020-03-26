@@ -26,3 +26,6 @@ jobs:
     - name: Run a one-line script
       run: echo Hello, world
 
+    - name: Trivy Action
+      uses: homoluctus/gitrivy@v2
+
