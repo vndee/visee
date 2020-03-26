@@ -120,7 +120,7 @@
         }
 
         var data = {
-            "api_key": "h$+wt&%3BtH*6rA^KfPzMKDm**GdH_wQaQebd&X9!h=nNVjrt+pn8GNB5%-_ug-U",
+            "api_key": "put your damn api key here!",
             "engine" : typeRequest,
             "query" : query
         }
@@ -141,7 +141,7 @@
         });
     }
 
-    var url = "http://127.0.0.1:8001/api/rest/search/";
+    var url = "";
     var result;
 
     
@@ -160,7 +160,13 @@
         search("visual");
     });
 
-
+        $("#text-search").focusin(function(input) {
+            $("#text-search").keydown(function(e) {
+                if (e.keyCode == 13) {
+                    alert("Do later!");
+                }
+            });
+        });
 
 </script>
 </body>
