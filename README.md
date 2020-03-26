@@ -39,6 +39,9 @@ List of environment variables can be use to config VISEE. All variables define i
 |`API_PORT`| REST API port binding (docker internal network)|`7070`|
 |`KAFKA_HOSTS`| Kafka hosts | `[visee_kafka:9092]`|
 |`KAFKA_USER`| Kafka user| `None`|
+|`KAFKA_PASSWORD`| Kafka password| `None`|
+|`KAFKA_NUM_PARTITION`| Kafka number of partitions| `10`|
+|`KAFKA_LINK_TOPIC`| Kafka topic for links scraper| `Link item`|
 
 ### Libraries and frameworks
 
