@@ -19,19 +19,15 @@
 <style>
 	#logo {
         height: 100%;
-        /* height: 100px; */
-        /* width: 100px; */
-        background-image: url("../../static/images/logo.png") !important;
+        background-image: url("{% static 'images/logo.png' %}") !important;
         background-size: 300px !important;
         background-repeat: no-repeat;
         background-position: center;
         cursor: pointer;
         padding-bottom: 50px;
-
     }
 </style>
 <body>
-    <!-- modal -->
     <div id="overlay"></div>
     <div id='crop-img-zone'>
         <div id='crop-img-zone-header'>
@@ -41,9 +37,7 @@
         <div id='crop-img-zone-body'>
             <div style="display: flex; justify-content: space-between;">
                 <div style="display: flex;">
-
                         <input type="file" name="search_text" style="max-width: 85px; font-size: 13px;" onchange="previewImage(event)">
-
                     <div id="crop_button"></div>
                 </div>
                 <div id="submit-crop"></div>
@@ -59,15 +53,22 @@
         </div>
         <div align="center" id="sz">
             <div align="center" style="border: 1px solid rgba(190, 190, 190, 0.548); height: 40px; border-radius: 45px; width: 580px; max-width: 100%; display: flex; align-items: center; justify-content: space-between;">
-                <form action="" method="post">
+                <form action="" method="post" id="text_f" name="text_search_form">
                     {% csrf_token %}
                     <input type="hidden" name="engine" value="text">
-                    <input name="search_text" id="text-search" style="width: 75%; margin: 0px 10px 0px 20px; font-size: 16px;">
+                    <input
+                        name="search_text"
+                        id="text_search_id"
+                        style="width: 75%;
+                        margin: 0px 10px 0px 20px;
+                        font-size: 16px;"
+                    >
                 </form>
                 <div align="center" style="display: flex; margin: 0px 20px 0px 10px;">
                     <div id='ims'></div>
                     <div id='sbt'></div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -86,10 +87,27 @@
 
 		</div>
 	</div>
-	<div id="overlay"></div>
     <footer>&copy;2019 DIMEST</footer>
+    <script>
+        $('#ims').click(function () {
+            $('#overlay').addClass('active');
+            $('#crop-img-zone').addClass('active');
+        })
 
-    <script src="../../static/js/image-clipper.js"></script>
-    <script src="../../static/js/crop_image.js"></script>
+        $('#close-button').click(function() {
+            $('#overlay').removeClass('active');
+            $('#crop-img-zone').removeClass('active');
+        })
+
+        $("#sbt").click(function () {
+            console.log()
+            if ($('#text_search_id').val().trim() == "")
+                alert("Search something");
+            else
+                $('#text_f').submit();
+        });
+    </script>
+    <script src="{% static 'js/image-clipper.js' %}"></script>
+    <script src="{% static 'js/crop_image.js' %}"></script>
 </body>
 </html>

@@ -417,8 +417,7 @@ input {
 	cursor: pointer;
 	height: 20px;
 	width: 20px;
-	margin-top: 3px;
-	margin-right: 5px;
+	margin: 8px;
 	opacity: 0.6;
 }
 
@@ -429,8 +428,7 @@ input {
 	cursor: pointer;
 	height: 20px;
 	width: 20px;
-	margin-top: 3px;
-	margin-left: 5px;
+	margin: 8px;
 	opacity: 0.6;
 }
 
