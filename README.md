@@ -50,6 +50,17 @@ List of environment variables can be use to config VISEE. All variables define i
 |`REDIS_DB_IDX_FIRST`| Redis first database for `DualRedisConnector`|`2`|
 |`REDIS_DB_IDX_SECOND`| Redis second database for `DualRedisConnector`|`3`|
 |`MILVUS_HOST`| Milvus host (docker internal network)| `visee_milvus`|
+|`MILVUS_PORT`| Milvus port| `19530`|
+|`MILVUS_TABLE_NAME`| Milvus table name|`visee`|
+|`ELASTIC_HOSTS`| Elasticearch hosts (docker internal network)|`[visee_elasticsearch]`|
+|`ELASTIC_PORT`| Elasticsearch port| `9200`|
+|`ELASTIC_USER`| Elasticsearch username| `elastic`|
+|`ELASTIC_PASSWORD`| Elasticsearch password|`changeme`|
+|`ELASTIC_INDEX`| Elasticsearch index|`visee`|
+|`EFFNET_WEIGHT`| EfficientNet weights path (in container)| `/visee/static/eff_b7.pth`|
+|`CHROME_DRIVER_PATH`| Path to chrome driver (in container)| `/visee/static/chromedriver`|
+|`IMAGE_SIZE`| Image downloaded size| `1000`|
+|`DOWNLOAD_IMAGE`| Download image or not| `True`|
 
 ### Libraries and frameworks
 
@@ -58,7 +69,7 @@ List of environment variables can be use to config VISEE. All variables define i
 - **Search Engine:** Elasticsearch, Milvus.
 - **RESTful Services:** Flask, Nginx, Gunicorn.
 - **User Interface:** NodeJS, Nginx, HTML + CSS + JS.
-- **Logging System:** ELK+ Stack (Elasticsearch, Beats, Logtash, Kibana).
+- **Logging System:** ELK+ Stack (Elasticsearch, Logtash, Kibana, Beats).
  
 <p align="center">
   <img src="https://raw.githubusercontent.com/vndee/visee/master/imgs/visee.png?token=AGXWHAGPQ5HJLX5WGY5ZC326QTSKE">
