@@ -53,14 +53,14 @@
         </div>
         <div align="center" id="sz">
             <div align="center" style="border: 1px solid rgba(190, 190, 190, 0.548); height: 40px; border-radius: 45px; width: 580px; max-width: 100%; display: flex; align-items: center; justify-content: space-between;">
-                <form action="" method="post" id="text_f" name="text_search_form">
+                <form action="" method="post" id="text_f" name="text_search_form" style="width: 100%">
                     {% csrf_token %}
                     <input type="hidden" name="engine" value="text">
                     <input
                         name="search_text"
                         id="text_search_id"
-                        style="width: 75%;
-                        margin: 0px 10px 0px 20px;
+                        style="width: 100%;
+                        margin: 0px 0px 0px 3%;
                         font-size: 16px;"
                     >
                 </form>
