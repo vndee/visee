@@ -4,7 +4,7 @@
     {% load static %}
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Product seeker</title>
+	<title>VISEE</title>
 	<link href="{% static 'css/singlePageTemplate.css' %}" rel="stylesheet" type="text/css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 	<link
@@ -13,20 +13,22 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous"
     >
-    <link rel="stylesheet" href="{% static 'static/css/jquery.Jcrop.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/jquery.Jcrop.css' %}" type="text/css" />
 
 
 
     <style>
         #logo {
-            height: 100%;
+            height: 99%;
+            width: 98%;
+            max-width: 30%;
             /* height: 100px; */
             /* width: 100px; */
             background-image: url("{% static 'images/logo.png' %}") !important;
             background-size: 170px !important;
             background-repeat: no-repeat;
             cursor: pointer;
-            
+            margin: 5px 0 0 12px;
         }        
 
     </style>
@@ -59,10 +61,9 @@
         
     <div class="row" id="header" style="height: 80px;  margin: 0; align-items: center; display: flex;">
 
-            <div id="logo" class="col-md-2 col-sm-3" style="text-align: center;">
-            </div>
-        <div id="sz" class="col-md-10 col-sm-9" >
-            <div style="border: 1px solid rgba(190, 190, 190, 0.548); height: 40px; border-radius: 45px; width: 580px; max-width: 100%; display: flex; align-items: center; justify-content: space-between;">
+        <a id="logo" class="col-md-2 col-sm-3" href=""></a>
+        <div id="sz" class="col-md-10 col-sm-9" style="max-width: 70%;">
+            <div style="border: 1px solid rgba(190, 190, 190, 0.548); height: 40px; border-radius: 45px; width: 100%; max-width: 100%; display: flex; align-items: center; justify-content: space-between;">
                 <form action="" method="post" style="width: 100%;" id="text_f" name="text_search_form">
                 {% csrf_token %}
                     <input type="hidden" name="engine" value="text">
@@ -104,7 +105,7 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" style="margin-left: 10%">
         <div id="track">{{num_result}} in <span id="time">{{time_process}}s</span></div>
 
         <div class="resultlist"></div>
@@ -114,7 +115,7 @@
 
     <div style="height: 40px;"></div>
 
-    <div id="footer" style="background-color: rgba(243, 239, 239, 0.26); position: static; bottom: 0; left: 0; right: 0;" align="center">&copy;2019 DIMEST</div>
+
 
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -133,6 +134,10 @@
     var num_char_des = 125;
     
     function makePageIndex() {
+        $("#page").html("");
+        if (data_length == 0)
+            $("#page").html("Have nothing to show");
+
         for (i = 1; i <= Math.ceil(data_length/num_result_each); i++) {
             $("#page").html($("#page").html() + "<span class='index'>" + i + "</span>");
         }
@@ -143,20 +148,20 @@
     document.getElementsByClassName("index")[0].classList.add("active");
 
     $(".index").click(function (event) {
-            crr_index = event.currentTarget.textContent;
-            $(".index").each(function() {
-                $(this).removeClass("active");
-            });
-            event.currentTarget.classList.add("active");
-            show_result();
+        crr_index = event.currentTarget.textContent;
+        $(".index").each(function() {
+            $(this).removeClass("active");
+        });
+        event.currentTarget.classList.add("active");
+        show_result();
 
-            if ($(document).height() == $(window).height()) {
-                $("#footer").css("position", "fixed");
-            } else {
-                $("#footer").css("position", "static");
-            }
+        if ($(document).height() == $(window).height()) {
+            $("#footer").css("position", "fixed");
+        } else {
+            $("#footer").css("position", "static");
+        }
 
-        })
+    })
     show_result();
 
     function show_result() {
@@ -211,72 +216,90 @@
         crr_des.innerHTML += "<span onclick='seemore(event)' class='see'> ...see more</span>";
     }
 
-    var filter = ""; 
-    var filterPrice = "";
-    var filterSeller = "";
     var ls_index = [];
 
+    function load(){
+        ls_index = [];
+        data_length = data.hits.length;
+        for (i = 0; i < data_length; i++) {
+            ls_index.push(i);
+        }
+    }
+
+    load();
+    show_result();
+
     function sort() {
+        var ls_increase = [];
         var minPrice = 1000000000000;
         var border = 0;
         var itemPrice;
 
-        while (ls_index.length < data_length) {
+        while (ls_increase.length < data_length) {
 
             for (i = 0; i < data.hits.length;i++) {
                 itemPrice = parseFloat(data.hits[i]._source.price.substr(0, data.hits[i]._source.price.length - 2));
                 if(minPrice > itemPrice && itemPrice > border)
                     minPrice = itemPrice
-                    
+
             }
 
             for (i = 0; i < data.hits.length;i++) {
                 itemPrice = parseFloat(data.hits[i]._source.price.substr(0, data.hits[i]._source.price.length - 2));
                 if(minPrice == itemPrice)
-                    ls_index.push(i);
+                ls_increase.push(i);
             }
 
             border = minPrice;
             minPrice = 1000000000000;
         }
+
+        return ls_increase;
     }
 
-    function filterResult() {
-        filter.split(",").forEach(element => {
-            switch(element) {
-                case "Increase":
-                    sort();
-                    show_result();
-                    break;
-                case "Decrease":
-                    sort();
-                    ls_index = ls_index.reverse();
-                    show_result();
-                    break;
-                case "Tiki":
-                    console.log(element)
-                    break;
-                case "Lazada":
-                    console.log(element)
-                    break;
-                default:
-                    // code block
+    function filterSeller(seller) {
+        var new_ls = [];
+        var map_domain = {
+            "Tiki": "tiki.vn",
+            "Lazada": "lazada.vn",
+            "Shopee": "shopee.vn",
+            "Sendo": "sendo.vn"
+        }
+
+        for (let i = 0; i < data_length; i++) {
+            // item = ;
+            item = data.hits[ls_index[i]];
+            if (item._source.domain == map_domain[seller]) {
+                new_ls.push(ls_index[i]);
             }
-        });
+        }
+
+        return new_ls;
     }
 
     $('#select-price').change(function() {
-        filterPrice = this.value;
+        ls_index = this.value=="Increase"?sort():sort().reverse();
+        show_result();
     })
 
     $('#select-seller').change(function() {
-        filterSeller = this.value;
+        load();
+        data_length = ls_index.length;
+        if (this.value == "All") {
+            show_result();
+        }
+        else {
+            ls_index = filterSeller(this.value);
+            data_length = ls_index.length;
+            makePageIndex();
+            show_result();
+        }
     })
 
-    $('select').change(function() {
-        filter = filterPrice + (((filterSeller.length != 0) && (filterPrice.length != 0))?",":"") + filterSeller;
-        filterResult();
-    })
+    // $('select').change(function() {
+    //     filter = filterPrice + (((filterSeller.length != 0) && (filterPrice.length != 0))?",":"") + filterSeller;
+    //     filterResult();
+    // })
 
 
     $('#ims').click(function () {
@@ -290,7 +313,6 @@
     })
 
     $("#sbt").click(function () {
-        console.log()
         if ($('#text_search_id').val().trim() == "")
             alert("Search something");
         else
