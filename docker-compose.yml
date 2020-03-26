@@ -223,6 +223,22 @@ services:
       - elk
     restart: always
 
+  web:
+    container_name: visee_web
+    image: node:10
+    working_dir: /visee/web
+    entrypoint: ./run.sh
+    ports:
+      - "8080:8080"
+    volumes:
+      - ${PWD}:/visee
+    depends_on:
+      - rest
+    links:
+      - rest
+    networks:
+      - elk
+
 networks:
  elk:
    driver: bridge
