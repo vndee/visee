@@ -1,7 +1,7 @@
 # accounts/urls.py
 from django.urls import path
-from .views import *
+from .views import search
 
 urlpatterns = [
-    path('', VerifyView.as_view(), name='verify_view'),
+    path('', search, name='search view'),
 ]
