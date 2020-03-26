@@ -42,6 +42,14 @@ List of environment variables can be use to config VISEE. All variables define i
 |`KAFKA_PASSWORD`| Kafka password| `None`|
 |`KAFKA_NUM_PARTITION`| Kafka number of partitions| `10`|
 |`KAFKA_LINK_TOPIC`| Kafka topic for links scraper| `Link item`|
+|`KAFKA_CONSUMER_GROUP`| Kafka consumer group| `default`|
+|`REDIS_HOST`| Redis host (docker internal network)| `visee_redis`|
+|`REDIS_PASSWORD`| Redis password| `None`|
+|`REDIS_CATEGORIES_DB`| Redis database for website categories| `0`|
+|`REDIS_LINK2SCRAPE_DB`| Redis database for link to scraper|`1`|
+|`REDIS_DB_IDX_FIRST`| Redis first database for `DualRedisConnector`|`2`|
+|`REDIS_DB_IDX_SECOND`| Redis second database for `DualRedisConnector`|`3`|
+|`MILVUS_HOST`| Milvus host (docker internal network)| `visee_milvus`|
 
 ### Libraries and frameworks
 
