@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en-US" style="height:95%;">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Product seeker</title>
+
+
+	<link href="css/singlePageTemplate.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    
+        
+    
+    <script src="js/jquery.min.js"></script>
+	<script src="js/jquery.Jcrop.min.js"></script>
+	
+    <link rel="stylesheet" href="css/jquery.Jcrop.css" type="text/css" />
+
+
+
+</head>
+<body>
+	<button data-modal-target="#modal">Crop imgage</button>
+	
+	<div class="modal" id="modal">
+		<div class="modal-header">
+			<div class="title">Crop image</div>
+			<button data-close-button class="close-button">&times;</button>
+		</div>
+		<div class="modal-body">
+			<input type="file" onchange="previewImage(event)">
+			<button id="crop_button">Crop</button>
+			<input type="submit">
+			<div id="image-field">
+				<img src="#" id="target" style="max-width: 400px; max-height: 400px;" />
+			</div>
+
+		</div>
+	</div>
+	<div id="overlay"></div>
+
+	<script src="js/image-clipper.js"></script>
+	<script src="js/crop_image.js"></script>
+</body>
+</html>
