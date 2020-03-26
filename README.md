@@ -1,3 +1,4 @@
+[![GitHub contributors](https://img.shields.io/github/contributors/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/contributors/)
 ![CI](https://github.com/vndee/visee/workflows/CI/badge.svg)
 [![CodeFactor](https://www.codefactor.io/repository/github/vndee/visee/badge?s=9f1351e9a1c480decd19a6bbb7e8b19b447d8474)](https://www.codefactor.io/repository/github/vndee/visee)
 ![](https://www.code-inspector.com/project/5387/score/svg)
