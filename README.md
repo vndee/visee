@@ -75,7 +75,7 @@ List of environment variables can be use to config VISEE. All variables define i
 - **Logging System:** ELK+ Stack (Elasticsearch, Logtash, Kibana, Beats).
  
 <p align="center">
-  <img src="https://raw.githubusercontent.com/vndee/visee/master/imgs/visee.png?token=AGXWHAGPQ5HJLX5WGY5ZC326QTSKE">
+  <img src="https://raw.githubusercontent.com/vndee/visee/master/imgs/visee.png?token=AGXWHAAP3HDB3NXCA7HRFMC6QYEAY">
   <p align="center">System Architecture and Technical Stack</p>
 </p>
 
