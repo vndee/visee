@@ -48,6 +48,7 @@ def search():
             }
 
             response = elastic_cursor.search(index='visee', body=query)
+            print(response)
             if 'hits' not in response['hits']:
                 logger.info('Empty response')
                 return jsonify(message='No hits in search response'), 500

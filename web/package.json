@@ -1,5 +1,5 @@
 {
-  "name": "product seeker",
+  "name": "VISEE",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "image-clipper": "^0.4.4",
     "socket.io": "^2.3.0"
   },

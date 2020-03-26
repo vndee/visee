@@ -229,7 +229,7 @@ services:
     working_dir: /visee/web
     entrypoint: ./run.sh
     ports:
-      - "8080:8080"
+      - "8081:8000"
     volumes:
       - ${PWD}:/visee
     depends_on:
