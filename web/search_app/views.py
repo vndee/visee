@@ -20,11 +20,16 @@ def search(request):
                 'Accept': 'text/plain',
             }
         )
-
+        _result = search_result.json()
+        print(_result)
         res = {
-            'res_text': json.dumps(search_result.json()),
+            'res_text': json.dumps(_result),
             'search_text': querry['search_text'][0],
             'time_process': str(time.time() - begin_time)[0:4],
+            'num_result': "{} result{}".format(
+                len(_result['hits']),
+                's' if len(_result['hits']) > 1 else '',
+            )
         }
         return render(request, 'result.html', res)
     return render(request, 'index.html')
