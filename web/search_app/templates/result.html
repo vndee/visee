@@ -105,7 +105,7 @@
     </div>
 
     <div class="container">
-        <div id="track"><span id="num-result"></span> results in <span id="time">{{time_process}}s</span></div>
+        <div id="track">{{num_result}} in <span id="time">{{time_process}}s</span></div>
 
         <div class="resultlist"></div>
     </div>
@@ -126,8 +126,6 @@
 	// console.log(data.hits.length);
 	var item;
     var data_length = data.hits.length;
-
-    $("#num-result").text(data_length);
 
     var crr_index = 1;
     var num_result_each = 5;
