@@ -1,6 +1,7 @@
 ![CI](https://github.com/vndee/visee/workflows/CI/badge.svg)
 [![CodeFactor](https://www.codefactor.io/repository/github/vndee/visee/badge?s=9f1351e9a1c480decd19a6bbb7e8b19b447d8474)](https://www.codefactor.io/repository/github/vndee/visee)
-![Known Vulnerabilities](https://snyk.io/test/github/vndee/visee/badge.svg)
+![](https://www.code-inspector.com/project/5387/score/svg)
+![](https://www.code-inspector.com/project/5387/status/svg)
 [![DepShield Badge](https://depshield.sonatype.org/badges/vndee/visee/depshield.svg)](https://depshield.github.io)
 <p align="center">
   <img width="200" height="100" src="https://raw.githubusercontent.com/vndee/visee/master/imgs/logo.png?token=AGXWHAHFKIENLEQPVIJOZZK6QTQRQ">
