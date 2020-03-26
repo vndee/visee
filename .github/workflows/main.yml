@@ -28,3 +28,6 @@ jobs:
 
     - name: shellcheck
       uses: ludeeus/action-shellcheck@0.1.0
+
+    - name: Count Lines of Code (cloc)
+      uses: djdefi/cloc-action@2
