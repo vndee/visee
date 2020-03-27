@@ -2,6 +2,7 @@ import subprocess
 import platform
 import os
 
+
 link_chromedriver = {
     '80': {
         'linux': 'https://chromedriver.storage.googleapis.com/80.0.3987.16/chromedriver_linux64.zip',
@@ -58,9 +59,14 @@ def download_chrome_driver():
         print('\tsudo apt install ./google-chrome*.deb')
 
     chrome_version = result.decode("utf-8").strip().split(' ')[-1].split('.')[0]
-    os.system("wget -q {} -O tmp_file_chromedriver.zip".format(link_chromedriver[chrome_version][operation_system]))
-    os.system("unzip -o tmp_file_chromedriver.zip")
-    os.system("rm -f tmp_file_chromedriver.zip")
+    subprocess.call(
+        "wget -q {} -O tmp_file_chromedriver.zip".format(
+            link_chromedriver[chrome_version][operation_system]
+        ),
+        shell=False
+    )
+    subprocess.call("unzip -o tmp_file_chromedriver.zip", shell=False)
+    subprocess.call("rm -f tmp_file_chromedriver.zip", shell=False)
 
 
 def ensure_dir(file_path):
