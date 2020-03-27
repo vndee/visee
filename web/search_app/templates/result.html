@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en-US">
+<html lang="en-US" style="height: 100%;">
 <head>
     {% load static %}
 	<meta charset="utf-8">
@@ -33,7 +33,7 @@
 
     </style>
 </head>
-<body>
+<body style="height: 100%;">
     <!-- modal -->
     <div id="overlay"></div>
 
@@ -52,7 +52,12 @@
             </div>
             <div align="center">
                 <div id="image-field"></div>
-				<img src="#" id="target" style="max-height: 380px; max-width: 450px;" />
+				<img
+                    src="#"
+                    id="target"
+                    style="max-height: 380px; max-width: 450px;"
+                    onerror="arguments[0].currentTarget.style.display='none'"
+                />
 			</div>
         </div>
     </div>
@@ -144,8 +149,6 @@
     }
 
     makePageIndex();
-    
-    document.getElementsByClassName("index")[0].classList.add("active");
 
     $(".index").click(function (event) {
         crr_index = event.currentTarget.textContent;
