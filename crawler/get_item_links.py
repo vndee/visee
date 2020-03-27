@@ -120,8 +120,8 @@ class GetLink:
                                         "li.ant-pagination-disabled.ant-pagination-next"
                                     ) is not None:
                                         break
-                                except:
-                                    pass
+                                except Exception as domain_get_img_ex:
+                                    logger.error(domain_get_img_ex)
 
                             link_counter += 1
                             time.sleep(1)
@@ -149,7 +149,8 @@ class GetLink:
                                     }
                                     self.links_producer.send(self.config.kafka_link_topic, payload)
                                     link_success += 1
-                                except:
+                                except Exception as item_ex:
+                                    logger.error(item_ex)
                                     continue
 
                             logger.info(
