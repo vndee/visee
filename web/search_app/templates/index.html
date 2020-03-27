@@ -34,7 +34,7 @@
             <div id="title">Crop image</div>
 			<div id="close-button">&times;</div>
         </div>
-        <form  action="" method="post" onsubmit="return checkCrop();">
+        <form  action="" method="post" onsubmit="event.preventDefault(); return checkCrop();">
         <div id='crop-img-zone-body'>
             <div style="display: flex; justify-content: space-between;">
 
