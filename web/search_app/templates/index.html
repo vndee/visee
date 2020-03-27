@@ -34,19 +34,27 @@
             <div id="title">Crop image</div>
 			<div id="close-button">&times;</div>
         </div>
+        <form  action="" method="post">
         <div id='crop-img-zone-body'>
             <div style="display: flex; justify-content: space-between;">
-                <div style="display: flex;">
-                        <input type="file" name="search_text" style="max-width: 85px; font-size: 13px;" onchange="previewImage(event)">
-                    <div id="crop_button"></div>
-                </div>
-                <div id="submit-crop"></div>
+
+                    {% csrf_token %}
+                    <input type="hidden" name="engine" value="visual">
+                    <input type="hidden" name="base64_img" id="b64_img" value="">
+                    <div style="display: flex;">
+
+                        <input type="file" name="file" style="max-width: 85px; font-size: 13px;" onchange="previewImage(event)">
+                        <div id="crop_button"></div>
+                    </div>
+                    <button id="submit-crop" type="submit"></button>
+
             </div>
             <div align="center">
                 <div id="image-field"></div>
-				<img src="#" id="target" style="max-height: 380px; max-width: 450px;" />
+				<img src="#" id="target" style="max-height: 380px; max-width: 450px;" onerror="arguments[0].currentTarget.style.display='none'"/>
 			</div>
         </div>
+        </form>
     </div>
     <div id="header" style="height: 80px;  margin: 0; align-items: center; margin-top: 130px;">
         <div id="logo" style="text-align: center;" align="center">
@@ -72,21 +80,21 @@
             </div>
         </div>
     </div>
-    <div class="modal" id="modal">
-		<div class="modal-header">
-			<div class="title">Crop image</div>
-			<button data-close-button class="close-button">&times;</button>
-		</div>
-		<div class="modal-body">
-			<input type="file" onchange="previewImage(event)">
-			<button id="crop_button">Crop</button>
-			<input type="submit">
-			<div id="image-field">
-				<img src="#" id="target" style="max-width: 400px; max-height: 400px;" />
-			</div>
+<!--    <div class="modal" id="modal">-->
+<!--		<div class="modal-header">-->
+<!--			<div class="title">Crop image</div>-->
+<!--			<button data-close-button class="close-button">&times;</button>-->
+<!--		</div>-->
+<!--		<div class="modal-body">-->
+<!--			<input type="file" name="file" onchange="previewImage(event)">-->
+<!--			<button id="crop_button">Crop</button>-->
+<!--			<input type="submit">-->
+<!--			<div id="image-field">-->
+<!--				<img src="#" id="target" style="max-width: 400px; max-height: 400px;" />-->
+<!--			</div>-->
 
-		</div>
-	</div>
+<!--		</div>-->
+<!--	</div>-->
 
     <script>
         $('#ims').click(function () {
@@ -106,6 +114,7 @@
             else
                 $('#text_f').submit();
         });
+
     </script>
     <script src="{% static 'js/image-clipper.js' %}"></script>
     <script src="{% static 'js/crop_image.js' %}"></script>

@@ -83,17 +83,19 @@ function showCoords(c) {
 	}
 }
 
-$('#crop_button').click(function() {
-	var preview = document.getElementById('target');
-
-	src_img = document.getElementById('target').src
-	imageClipper(src_img, function() {
-		this.crop(x, y, width, height)
-		.toDataURL(function(dataUrl) {
-			console.log('cropped!');
-			preview.src = dataUrl;
-		});
+	$('#crop_button').click(function() {
+		var preview = document.getElementById('target');
+		var input_hidden_img = document.getElementById('b64_img');
+		let src_img = document.getElementById('target').src
+		imageClipper(src_img, function() {
+			this.crop(x, y, width, height)
+			.toDataURL(function(dataUrl) {
+				console.log('cropped!');
+				preview.src = dataUrl;
+				input_hidden_img.value = dataUrl;
+			});
 	});
+
 
 
 	document.getElementsByClassName("jcrop-holder")[0].style.display = "none"

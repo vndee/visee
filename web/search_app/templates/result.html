@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en-US">
+<html lang="en-US" style="height: 100%;">
 <head>
     {% load static %}
 	<meta charset="utf-8">
@@ -33,7 +33,7 @@
 
     </style>
 </head>
-<body>
+<body style="height: 100%;">
     <!-- modal -->
     <div id="overlay"></div>
 
@@ -42,19 +42,27 @@
             <div id="title">Crop image</div>
 			<div id="close-button">&times;</div>
         </div>
+        <form  action="" method="post">
         <div id='crop-img-zone-body'>
             <div style="display: flex; justify-content: space-between;">
-                <div style="display: flex;">
-                    <input type="file" style="max-width: 85px; font-size: 13px;" onchange="previewImage(event)">
-                    <div id="crop_button"></div>
-                </div>
-                <div id="submit-crop"></div>
+
+                    {% csrf_token %}
+                    <input type="hidden" name="engine" value="visual">
+                    <input type="hidden" name="base64_img" id="b64_img" value="">
+                    <div style="display: flex;">
+
+                        <input type="file" name="file" style="max-width: 85px; font-size: 13px;" onchange="previewImage(event)">
+                        <div id="crop_button"></div>
+                    </div>
+                    <button id="submit-crop" type="submit"></button>
+
             </div>
             <div align="center">
                 <div id="image-field"></div>
-				<img src="#" id="target" style="max-height: 380px; max-width: 450px;" />
+				<img src="#" id="target" style="max-height: 380px; max-width: 450px;" onerror="arguments[0].currentTarget.style.display='none'"/>
 			</div>
         </div>
+        </form>
     </div>
     <!-- modal -->
 
@@ -89,6 +97,8 @@
         <div class="col-md-2 col-sm-3" style="padding: 0;">
         <p></p>
         </div>
+                <img src="data:image/png;base64,{{search_img_ret}}" style="height: 50px; width: 50px;" onerror="arguments[0].currentTarget.style.display='none'"/>
+
         <div style="height: 40px; display: flex; align-items: flex-end; margin-bottom: 1%">
             <select id="select-price" class="form-control" style="border-radius: 30px;border: 0;margin-right: 3%;">
                 <option value="" disabled selected hidden>Price</option>
@@ -144,8 +154,6 @@
     }
 
     makePageIndex();
-    
-    document.getElementsByClassName("index")[0].classList.add("active");
 
     $(".index").click(function (event) {
         crr_index = event.currentTarget.textContent;
