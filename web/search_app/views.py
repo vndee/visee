@@ -4,6 +4,8 @@ import json
 import time
 import os
 import base64
+from io import BytesIO
+from PIL import Image
 
 
 def ensure_dir(file_path):
@@ -21,6 +23,16 @@ def handle_uploaded_file(f):
     return section_dir
 
 
+def rbga_to_rbg(b64):
+    buffered = BytesIO()
+    a = Image.open(BytesIO(base64.b64decode(b64)))
+    background = Image.new("RGB", a.size, (255, 255, 255))
+    background.paste(a, mask=a.split()[3])
+    background.save(buffered, format="PNG")
+    a.save("static/usr_img/{}.png".format(str(time.time()).replace(".", "_")), format="PNG")
+    return str(base64.b64encode(buffered.getvalue()))[2:-1]
+
+
 def search(request):
     if request.method == 'POST':
         begin_time = time.time()
@@ -29,7 +41,7 @@ def search(request):
         query_text = (
             client_query['search_text'][0].strip() if
             client_query['engine'][0] == 'text' else
-            client_query['base64_img'][0].strip()[22:]
+            rbga_to_rbg(client_query['base64_img'][0].strip()[22:])
         )
 
         server_query = json.dumps({
@@ -54,7 +66,8 @@ def search(request):
             'num_result': "{} result{}".format(
                 len(_result['hits']),
                 's' if len(_result['hits']) > 1 else '',
-            )
+            ),
+            'search_img_ret': query_text,
         }
         return render(request, 'result.html', res)
     return render(request, 'index.html')
