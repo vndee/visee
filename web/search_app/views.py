@@ -32,9 +32,8 @@ def rbga_to_rbg(b64):
         background.paste(user_img, mask=user_img.split()[3])
         background.save(buffered, format="PNG")
         return str(base64.b64encode(buffered.getvalue()))[2:-1]
-    elif user_img.mode == "RGB":
-        user_img.save(buffered, format="PNG")
-        return str(base64.b64encode(buffered.getvalue()))[2:-1]
+    user_img.save(buffered, format="PNG")
+    return str(base64.b64encode(buffered.getvalue()))[2:-1]
 
 
 def search(request):

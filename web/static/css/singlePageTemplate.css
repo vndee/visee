@@ -467,13 +467,6 @@ select {
 
 /* Result page */
 
-
-footer {
-    font-family: Consolas;
-	font-size: 14px;
-}
-
-
 @media (max-width: 767px) {
 
 
