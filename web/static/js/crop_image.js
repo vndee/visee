@@ -3,6 +3,7 @@ const closeModalBtn = document.querySelectorAll('[data-close-button]')
 const overlay = document.getElementById('overlay')
 
 var x = 0
+var isCrop = false;
 var y = 0
 var width = 0
 var height = 0
@@ -42,6 +43,7 @@ function closeModal(modal) {
 
 
 function previewImage(event) {
+    isCrop = false;
     var reader = new FileReader()
     var imageFile = document.getElementById("target")
 	
@@ -84,6 +86,7 @@ function showCoords(c) {
 }
 
 	$('#crop_button').click(function() {
+		isCrop = true;
 		var preview = document.getElementById('target');
 		var input_hidden_img = document.getElementById('b64_img');
 		let src_img = document.getElementById('target').src
