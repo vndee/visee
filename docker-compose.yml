@@ -225,9 +225,9 @@ services:
 
   web:
     container_name: visee_web
-    image: node:10
+    image: python:3.6
     working_dir: /visee/web
-    entrypoint: ./run.sh
+    command: ["python", "/visee/web/manage.py", "runserver"]
     ports:
       - "8081:8000"
     volumes:
