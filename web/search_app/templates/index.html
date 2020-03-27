@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en-US" style="height:95%;">
+
 <head>
     {% load static %}
     <title>VISEE</title>
@@ -17,7 +18,7 @@
     <script src="{% static 'js/jquery.Jcrop.min.js' %}"></script>
 </head>
 <style>
-	#logo {
+    #logo {
         height: 100%;
         background-image: url("{% static 'images/logo.png' %}") !important;
         background-size: 300px !important;
@@ -27,17 +28,17 @@
         padding-bottom: 50px;
     }
 </style>
+
 <body>
     <div id="overlay"></div>
     <div id='crop-img-zone'>
         <div id='crop-img-zone-header'>
             <div id="title">Crop image</div>
-			<div id="close-button">&times;</div>
+            <div id="close-button">&times;</div>
         </div>
-        <form  action="" method="post" onsubmit="event.preventDefault(); return checkCrop();">
-        <div id='crop-img-zone-body'>
-            <div style="display: flex; justify-content: space-between;">
-
+        <form action="" method="post" onsubmit="event.preventDefault(); return checkCrop();">
+            <div id='crop-img-zone-body'>
+                <div style="display: flex; justify-content: space-between;">
                     {% csrf_token %}
                     <input type="hidden" name="engine" value="visual">
                     <input type="hidden" name="base64_img" id="b64_img" value="">
@@ -47,16 +48,15 @@
                         <div id="crop_button"></div>
                     </div>
                     <button id="submit-crop" type="submit"></button>
-
+                </div>
+                <div align="center">
+                    <div id="image-field"></div>
+                    <img src="#" id="target" style="max-height: 380px; max-width: 450px;" onerror="arguments[0].currentTarget.style.display='none'"  alt=""/>
+                </div>
             </div>
-            <div align="center">
-                <div id="image-field"></div>
-				<img src="#" id="target" style="max-height: 380px; max-width: 450px;" onerror="arguments[0].currentTarget.style.display='none'"/>
-			</div>
-        </div>
         </form>
     </div>
-    <div id="header" style="height: 80px;  margin: 0; align-items: center; margin-top: 130px;">
+    <div id="header" style="height: 80px; align-items: center; margin-top: 130px;">
         <div id="logo" style="text-align: center;" align="center">
         </div>
         <div align="center" id="sz">
@@ -64,15 +64,12 @@
                 <form action="" method="post" id="text_f" name="text_search_form" style="width: 100%">
                     {% csrf_token %}
                     <input type="hidden" name="engine" value="text">
-                    <input
-                        name="search_text"
-                        id="text_search_id"
-                        style="width: 100%;
-                        margin: 0px 0px 0px 3%;
-                        font-size: 16px;"
-                    >
+                    <label for="text_search_id"></label>
+                    <input name="search_text" id="text_search_id" style="width: 100%;
+                        margin-left: 3%;
+                        font-size: 16px;">
                 </form>
-                <div align="center" style="display: flex; margin: 0px 20px 0px 10px;">
+                <div align="center" style="display: flex; margin: 0 20px 0 10px;">
                     <div id='ims'></div>
                     <div id='sbt'></div>
                 </div>
@@ -80,44 +77,29 @@
             </div>
         </div>
     </div>
-<!--    <div class="modal" id="modal">-->
-<!--		<div class="modal-header">-->
-<!--			<div class="title">Crop image</div>-->
-<!--			<button data-close-button class="close-button">&times;</button>-->
-<!--		</div>-->
-<!--		<div class="modal-body">-->
-<!--			<input type="file" name="file" onchange="previewImage(event)">-->
-<!--			<button id="crop_button">Crop</button>-->
-<!--			<input type="submit">-->
-<!--			<div id="image-field">-->
-<!--				<img src="#" id="target" style="max-width: 400px; max-height: 400px;" />-->
-<!--			</div>-->
-
-<!--		</div>-->
-<!--	</div>-->
 
     <script>
-        $('#ims').click(function () {
+        $('#ims').click(function() {
             $('#overlay').addClass('active');
             $('#crop-img-zone').addClass('active');
-        })
+        });
 
         $('#close-button').click(function() {
             $('#overlay').removeClass('active');
             $('#crop-img-zone').removeClass('active');
-        })
+        });
 
-        $("#sbt").click(function () {
-            console.log()
-            if ($('#text_search_id').val().trim() == "")
+        $("#sbt").click(function() {
+            console.log();
+            if ($('#text_search_id').val().trim() === "")
                 alert("Search something");
             else
                 $('#text_f').submit();
         });
-
     </script>
     <script src="{% static 'js/image-clipper.js' %}"></script>
     <script src="{% static 'js/crop_image.js' %}"></script>
 </body>
 <footer class="l_footer">&copy;2019 DIMEST</footer>
+
 </html>
