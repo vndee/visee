@@ -230,7 +230,7 @@
             status = item._source.domain;
             
             var resultItem ="<div class='row item' style='min-width: 83%;'>"
-            resultItem +=    "<div class='col-md-2 item-img' style='max-width: 12%'><img src='" + src_image + "'></div>"
+            resultItem +=    "<div class='col-md-2 item-img'><img onclick='viewLarge(event)' src='" + src_image + "'></div>"
             
             resultItem +=    "<div class='col-md-10 item-content'>"
             resultItem +=        "<a target='_blank' href='" + link + "'><div class='item-content-title'>" + title + "</a></div>"
