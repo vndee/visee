@@ -5,16 +5,15 @@
 html {
 	height: 100%;
 }
+
 body {
 	height: 100%;
 	font-family: Arial, Helvetica, sans-serif;
 	background-color: #FFFFFF;
-	margin-bottom:50px;
+	margin-bottom: 50px;
 }
 
-
-
-footer{
+footer {
 	height: 50px;
 	text-align: center;
 	position: fixed;
@@ -29,9 +28,8 @@ footer{
 	width: 40%;
 }
 
-
 .hero_header {
-	 font-family: 'Roboto', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	color: #000000;
 	text-align: center;
 	margin: 0;
@@ -39,8 +37,11 @@ footer{
 	font-size: 40px;
 	padding-bottom: 20px;
 }
+
+
 /* Content Section */
-.content{
+
+.content {
 	position: fixed;
 	right: 0;
 	left: 0;
@@ -51,54 +52,49 @@ footer{
 
 /* Home page */
 
-
-
 .wrapper {
-  position: relative;
+	position: relative;
 }
 
-
 .wrapper button {
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-  width: 21px;
-  height: 21px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
+	width: 21px;
+	height: 21px;
 }
 
 .wrapper input[type=submit] {
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-  width: 27px;
-  height: 27px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
+	width: 27px;
+	height: 27px;
 }
-
 
 .camera {
 	padding: 3px 0 6px;
-    background: url("../images/imgbtn.png") 0 0 no-repeat;
-    background-size: 21px;
+	background: url("../images/imgbtn.png") 0 0 no-repeat;
+	background-size: 21px;
 	opacity: 0.5;
 }
 
-.camera:hover{
+.camera:hover {
 	opacity: 1;
 }
 
-
-input[type=text], select {
-  width: 100%;
-  padding: 8px 0 8px;
-  display: inline-block;
-  border: none;
-  border-radius: 25px;
+input[type=text],
+select {
+	width: 100%;
+	padding: 8px 0;
+	display: inline-block;
+	border: none;
+	border-radius: 25px;
 }
 
-
-.searchzone{
+.searchzone {
 	position: relative;
 	width: 45%;
 	height: 32px;
@@ -106,14 +102,14 @@ input[type=text], select {
 	border-radius: 25px;
 }
 
-.textsearch{
+.textsearch {
 	position: absolute;
 	right: 85px;
- 	top: 0;
+	top: 0;
 	left: 0;
 }
 
-.imgsearch{
+.imgsearch {
 	position: absolute;
 	right: 30px;
 	top: 5px;
@@ -122,18 +118,18 @@ input[type=text], select {
 .glass {
 	padding: 4px 0 6px;
 	background: url("../images/searchglass.png") 0 0 no-repeat;
-    background-size: 22px;
+	background-size: 22px;
 	opacity: 0.65;
 }
 
-.glass:hover{
+.glass:hover {
 	opacity: 1;
 }
 
 .searchbtn {
 	position: absolute;
 	right: -5px;
- 	top: 9px;
+	top: 9px;
 }
 
 .crop-img {
@@ -141,6 +137,7 @@ input[type=text], select {
 	height: 200px;
 	width: 200px;
 }
+
 
 /* modal */
 
@@ -193,6 +190,7 @@ input[type=text], select {
 	pointer-events: all;
 }
 
+
 /* Home page */
 
 
@@ -210,7 +208,7 @@ input[type=text], select {
 	width: 80%;
 }
 
-.searchzone-small{
+.searchzone-small {
 	position: relative;
 	width: 75%;
 	height: 32px;
@@ -220,13 +218,13 @@ input[type=text], select {
 
 .item {
 	width: 600px;
-	max-width: 100%;	
+	max-width: 100%;
 	margin-left: 130px !important;
 	padding: 0;
 }
 
 .item-img {
-	padding: 0; 
+	padding: 0;
 	height: 100px;
 	object-fit: cover;
 	overflow: hidden;
@@ -237,7 +235,6 @@ input[type=text], select {
 	height: 100%;
 	width: auto;
 }
-
 
 .item-content {
 	padding: 0 0 0 5px;
@@ -252,7 +249,7 @@ input[type=text], select {
 }
 
 .item-content-value {
-	display: flex; 
+	display: flex;
 	justify-content: space-between;
 }
 
@@ -268,34 +265,38 @@ input[type=text], select {
 }
 
 .item-content-des {
-	color: #3C4043; 
+	color: #3C4043;
 	font-size: 14px;
 }
 
 .see {
-	color: #385898; 
+	color: #385898;
 	cursor: pointer;
 }
 
-
-.index{
+.index {
 	/* border-bottom: 1px solid black; */
 	margin: 10px 5px 0;
 	color: rgb(88, 87, 87);
 	cursor: pointer;
-	-webkit-touch-callout: none; /* iOS Safari */
-	-webkit-user-select: none; /* Safari */
+	-webkit-touch-callout: none;
+	/* iOS Safari */
+	-webkit-user-select: none;
+	/* Safari */
 	/*-khtml-user-select: none; !* Konqueror HTML *!*/
-	-moz-user-select: none; /* Old versions of Firefox */
-	-ms-user-select: none; /* Internet Explorer/Edge */
-	user-select: none; /* Non-prefixed version, currently
+	-moz-user-select: none;
+	/* Old versions of Firefox */
+	-ms-user-select: none;
+	/* Internet Explorer/Edge */
+	user-select: none;
+	/* Non-prefixed version, currently
 									supported by Chrome, Opera and Firefox */
 }
 
-.index.active{
+.index.active {
 	color: rgb(49, 49, 209);
-	border-bottom: 1px solid  rgb(49, 49, 209);
-	cursor:default;
+	border-bottom: 1px solid rgb(49, 49, 209);
+	cursor: default;
 }
 
 #track {
@@ -303,7 +304,7 @@ input[type=text], select {
 	color: grey;
 }
 
-#crop-img-zone{
+#crop-img-zone {
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -345,16 +346,21 @@ input[type=text], select {
 	background: none;
 	font-size: 1.25rem;
 	font-weight: bold;
-	-webkit-touch-callout: none; /* iOS Safari */
-	-webkit-user-select: none; /* Safari */
+	-webkit-touch-callout: none;
+	/* iOS Safari */
+	-webkit-user-select: none;
+	/* Safari */
 	/*-khtml-user-select: none; !* Konqueror HTML *!*/
-	-moz-user-select: none; /* Old versions of Firefox */
-	-ms-user-select: none; /* Internet Explorer/Edge */
-	user-select: none; /* Non-prefixed version, currently
+	-moz-user-select: none;
+	/* Old versions of Firefox */
+	-ms-user-select: none;
+	/* Internet Explorer/Edge */
+	user-select: none;
+	/* Non-prefixed version, currently
 									supported by Chrome, Opera and Firefox */
 }
 
-#crop-img-zone-body{
+#crop-img-zone-body {
 	padding: 10px 15px;
 }
 
@@ -364,8 +370,6 @@ input {
 	border: 0;
 	outline: none;
 }
-
-
 
 #crop_button {
 	cursor: pointer;
@@ -387,7 +391,7 @@ input {
 	margin-top: 3px;
 }
 
-#ims{
+#ims {
 	background-image: url("../images/imgbtn.png");
 	background-size: 20px;
 	background-repeat: no-repeat;
@@ -409,7 +413,8 @@ input {
 	opacity: 0.6;
 }
 
-#sbt:hover,#ims:hover{
+#sbt:hover,
+#ims:hover {
 	opacity: 1;
 }
 
@@ -417,12 +422,17 @@ input {
 	padding: 0 10px 10px 0;
 	color: rgb(92, 94, 95);
 	cursor: pointer;
-	-webkit-touch-callout: none; /* iOS Safari */
-	-webkit-user-select: none; /* Safari */
+	-webkit-touch-callout: none;
+	/* iOS Safari */
+	-webkit-user-select: none;
+	/* Safari */
 	/*-khtml-user-select: none; !* Konqueror HTML *!*/
-	-moz-user-select: none; /* Old versions of Firefox */
-	-ms-user-select: none; /* Internet Explorer/Edge */
-	user-select: none; /* Non-prefixed version, currently
+	-moz-user-select: none;
+	/* Old versions of Firefox */
+	-ms-user-select: none;
+	/* Internet Explorer/Edge */
+	user-select: none;
+	/* Non-prefixed version, currently
 									supported by Chrome, Opera and Firefox */
 }
 
@@ -432,52 +442,49 @@ select {
 	margin: 0 15px 0 0;
 }
 
+
 /* Result page */
 
 @media (max-width: 767px) {
-
-
-	.item {	
+	.item {
 		margin-left: 0 !important;
 	}
-
-	
 	#track {
 		padding-left: 0 !important;
 	}
 }
 
-
 @media (min-width: 767px)and (max-width: 991px) {
 	#track {
-		padding-left: 35px !important; 
+		padding-left: 35px !important;
 	}
-
-	.item {	
+	.item {
 		margin-left: 20px !important;
 	}
 }
 
+
 /* Mobile */
+
 @media (max-width: 575px) {
-	#option{
+	#option {
 		margin-top: 50px !important;
 	}
-
 	#logo {
 		width: 300px;
 	}
 }
 
-
 @media (max-width: 720px) {
-	.searchzone{
+	.searchzone {
 		width: 80%;
 	}
 }
 
+
 /* Small Tablets */
-@media  (max-width: 660px) {
+
+@media (max-width: 660px) {
 	#logo {
 		/* display: none !important; */
 		/* opacity: 0; */
@@ -486,7 +493,10 @@ select {
 		/* width: 30px !important; */
 		/* background-color: red !important; */
 	}
-}/* Small Tablets */
+}
+
+
+/* Small Tablets */
 
 @media (min-width: 767px) and (max-width: 990px) {
 	#logo {
@@ -500,33 +510,37 @@ select {
 }
 
 
-/* Small Desktops */
-@media (min-width: 768px) and (max-width: 1096px) {
-
-}
-
-/*Iphone X*/
-@media (min-width: 374px) and (max-width: 376px) {
-	
-}
-
-/*Iphone 6/7/8 and Plus*/
-@media (min-width: 413px) and (max-width: 415px) {
-	
-}	
-
-/*Iphone 5 and Plus*/
-@media (min-width: 319px) and (max-width: 321px) {
-	
-}	
+/*!* Small Desktops *!*/
 
 
-/*Pixel 2 XL*/
-@media (min-width: 410px) and (max-width: 412px) {
-	
-}
+/*@media (min-width: 768px) and (max-width: 1096px) {}*/
 
-/*Galaxy S5*/
-@media (min-width : 354px ) and ( max-width : 361px ){
-	
-}
+
+/*!*Iphone X*!*/
+
+
+/*@media (min-width: 374px) and (max-width: 376px) {}*/
+
+
+/*!*Iphone 6/7/8 and Plus*!*/
+
+
+/*@media (min-width: 413px) and (max-width: 415px) {}	*/
+
+
+/*!*Iphone 5 and Plus*!*/
+
+
+/*@media (min-width: 319px) and (max-width: 321px) {}	*/
+
+
+/*!*Pixel 2 XL*!*/
+
+
+/*@media (min-width: 410px) and (max-width: 412px) {}*/
+
+
+/*!*Galaxy S5*!*/
+
+
+/*@media (min-width : 354px ) and ( max-width : 361px ){}*/
