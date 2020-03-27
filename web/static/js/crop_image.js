@@ -108,3 +108,15 @@ function showCoords(c) {
 	$("#target").css("height","");
 
 })
+
+
+function checkCrop() {
+  if(isCrop == false)
+  { 
+    alert("Please crop the image before sending!");
+    window.history.back();
+    return false;
+  }
+
+  return true;
+}
