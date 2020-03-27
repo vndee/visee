@@ -22,8 +22,6 @@ footer{
 	left: 0;
 	right: 0;
 	background: #FFFFFF;
-/*	display: block;*/
-/*	margin-bottom: 1000px;*/
 }
 
 .logo {
@@ -36,10 +34,7 @@ footer{
 	 font-family: 'Roboto', sans-serif;
 	color: #000000;
 	text-align: center;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	margin-left: 0px;
+	margin: 0;
 	letter-spacing: 3px;
 	font-size: 40px;
 	padding-bottom: 20px;
@@ -83,7 +78,7 @@ footer{
 
 
 .camera {
-	padding: 3px 0px 5.5px 0px;
+	padding: 3px 0 6px;
     background: url("../images/imgbtn.png") 0 0 no-repeat;
     background-size: 21px;
 	opacity: 0.5;
@@ -96,7 +91,7 @@ footer{
 
 input[type=text], select {
   width: 100%;
-  padding: 8px 0px 8px 0px;
+  padding: 8px 0 8px;
   display: inline-block;
   border: none;
   border-radius: 25px;
@@ -106,7 +101,6 @@ input[type=text], select {
 .searchzone{
 	position: relative;
 	width: 45%;
-/*	border: 1px solid red;*/
 	height: 32px;
 	box-shadow: 3px 3px 10px grey;
 	border-radius: 25px;
@@ -114,8 +108,6 @@ input[type=text], select {
 
 .textsearch{
 	position: absolute;
-	/* font-family: R; */
-/*	border: none;*/
 	right: 85px;
  	top: 0;
 	left: 0;
@@ -124,13 +116,11 @@ input[type=text], select {
 .imgsearch{
 	position: absolute;
 	right: 30px;
-	 top: 5px;
-	 right: 40px;
+	top: 5px;
 }
 
-
 .glass {
-	padding: 4px 0px 5.5px 0px;
+	padding: 4px 0 6px;
 	background: url("../images/searchglass.png") 0 0 no-repeat;
     background-size: 22px;
 	opacity: 0.65;
@@ -143,39 +133,16 @@ input[type=text], select {
 .searchbtn {
 	position: absolute;
 	right: -5px;
- 	top: 8.7px;
+ 	top: 9px;
 }
 
 .crop-img {
-/*
-	position: fixed;
-	right: 0;
-	left: 0;
-*/
-/*	display: block;*/
-/*	top: 27%;*/
 	border: 1px solid red;
 	height: 200px;
 	width: 200px;
 }
 
 /* modal */
-
-.modal {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%) scale(0);
-	transition: 200ms ease-in-out;
-	border: 1px solid black;
-	border-radius: 10px;
-	z-index: 10;
-	background-color: white;
-	width: 500px;
-	max-width: 80%;
-	height: 600px;
-	max-height: 80%;
-}
 
 .modal.active {
 	transform: translate(-50%, -50%) scale(1);
@@ -273,7 +240,7 @@ input[type=text], select {
 
 
 .item-content {
-	padding: 0px 0px 0px 5px;
+	padding: 0 0 0 5px;
 }
 
 .item-content-title {
@@ -313,12 +280,12 @@ input[type=text], select {
 
 .index{
 	/* border-bottom: 1px solid black; */
-	margin: 10px 5px 0px 5px;
+	margin: 10px 5px 0;
 	color: rgb(88, 87, 87);
 	cursor: pointer;
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Safari */
-	-khtml-user-select: none; /* Konqueror HTML */
+	/*-khtml-user-select: none; !* Konqueror HTML *!*/
 	-moz-user-select: none; /* Old versions of Firefox */
 	-ms-user-select: none; /* Internet Explorer/Edge */
 	user-select: none; /* Non-prefixed version, currently
@@ -332,7 +299,7 @@ input[type=text], select {
 }
 
 #track {
-	padding: 15px 0px 25px 150px; 
+	padding: 15px 0 25px 150px;
 	color: grey;
 }
 
@@ -380,7 +347,7 @@ input[type=text], select {
 	font-weight: bold;
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Safari */
-	-khtml-user-select: none; /* Konqueror HTML */
+	/*-khtml-user-select: none; !* Konqueror HTML *!*/
 	-moz-user-select: none; /* Old versions of Firefox */
 	-ms-user-select: none; /* Internet Explorer/Edge */
 	user-select: none; /* Non-prefixed version, currently
@@ -392,9 +359,9 @@ input[type=text], select {
 }
 
 input {
-	font-family: Roboto;
+	font-family: Roboto, serif;
 	padding: 0;
-	border: 0px;
+	border: 0;
 	outline: none;
 }
 
@@ -447,12 +414,12 @@ input {
 }
 
 .option {
-	padding: 0px 10px 10px 0px; 
+	padding: 0 10px 10px 0;
 	color: rgb(92, 94, 95);
 	cursor: pointer;
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Safari */
-	-khtml-user-select: none; /* Konqueror HTML */
+	/*-khtml-user-select: none; !* Konqueror HTML *!*/
 	-moz-user-select: none; /* Old versions of Firefox */
 	-ms-user-select: none; /* Internet Explorer/Edge */
 	user-select: none; /* Non-prefixed version, currently
@@ -462,7 +429,7 @@ input {
 select {
 	outline: none;
 	width: 90px;
-	margin: 0px 15px 0px 0px;
+	margin: 0 15px 0 0;
 }
 
 /* Result page */
@@ -471,12 +438,12 @@ select {
 
 
 	.item {	
-		margin-left: 0px !important;
+		margin-left: 0 !important;
 	}
 
 	
 	#track {
-		padding-left: 0px !important; 
+		padding-left: 0 !important;
 	}
 }
 
