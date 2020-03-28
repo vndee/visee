@@ -34,6 +34,7 @@ class FeatureExtractor:
         logger.info('Start features extraction')
         try:
             img = FeatureExtractor.base64toPIL(img)
+            logger.info(f'Decode {img.mode} successfully')
         except Exception as ex:
             logger.error('Input must be a base64 encoded object')
             logger.exception(ex)

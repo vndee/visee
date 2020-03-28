@@ -25,14 +25,12 @@ def handle_uploaded_file(f):
 
 def rbga_to_rbg(b64):
     buffered = BytesIO()
-    user_img = Image.open(BytesIO(base64.b64decode(b64)))
-    user_img.save("static/usr_img/{}.png".format(str(time.time()).replace(".", "_")), format="PNG")
-    if user_img.mode == "RGBA":
-        background = Image.new("RGB", user_img.size, (255, 255, 255))
-        background.paste(user_img, mask=user_img.split()[3])
-        background.save(buffered, format="PNG")
-        return str(base64.b64encode(buffered.getvalue()))[2:-1]
-    user_img.save(buffered, format="PNG")
+    a = Image.open(BytesIO(base64.b64decode(b64)))
+    print(a.mode)
+    background = Image.new("RGB", a.size, (255, 255, 255))
+    background.paste(a, mask=a.split()[3])
+    background.save(buffered, format="PNG")
+    a.save("static/usr_img/{}.png".format(str(time.time()).replace(".", "_")), format="PNG")
     return str(base64.b64encode(buffered.getvalue()))[2:-1]
 
 
