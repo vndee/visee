@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django_visee import settings
 import requests
 import json
 import time
@@ -55,10 +56,10 @@ def search(request):
         })
 
         search_result = requests.post(
-            'http://192.168.191.235:8001/api/rest/search/',
+            settings.API_HOST,
             data=server_query,
             headers={
-                'api_key': 'h$+wt&%3BtH*6rA^KfPzMKDm**GdH_wQaQebd&X9!h=nNVjrt+pn8GNB5%-_ug-U',
+                'api_key': settings.API_KEY,
                 'Content-Type': 'application/json',
                 'Accept': 'text/plain',
             }
