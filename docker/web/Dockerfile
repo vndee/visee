@@ -22,3 +22,5 @@ RUN locale-gen en_US.UTF-8
 RUN apt-get install -y build-essential software-properties-common gcc g++ musl-dev
 
 RUN pip install gunicorn django djangorestframework
+ADD ./bash/run_web.sh .
+
