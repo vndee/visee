@@ -26,6 +26,8 @@ def handle_uploaded_file(f):
 def rbga_to_rbg(b64):
     buffered = BytesIO()
     user_img = Image.open(BytesIO(base64.b64decode(b64)))
+
+    os.makedirs(os.path.join('static', 'usr_img'), exist_ok=True)
     user_img.save("static/usr_img/{}.png".format(str(time.time()).replace(".", "_")), format="PNG")
     if user_img.mode == "RGBA":
         background = Image.new("RGB", user_img.size, (255, 255, 255))
