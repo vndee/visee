@@ -21,11 +21,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'zpgz@e*8v62p8pw#m7d392$(3u(l8yvaq^-w4sj9_b5qg-9&4e'
-
+API_KEY = 'h$+wt&%3BtH*6rA^KfPzMKDm**GdH_wQaQebd&X9!h=nNVjrt+pn8GNB5%-_ug-U'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '*']
 
 
 # Application definition
@@ -120,6 +120,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+API_HOST = 'http://localhost:8001/api/rest/search/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
