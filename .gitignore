@@ -351,3 +351,4 @@ web/node_modules/xdg-basedir/
 web/node_modules/xmlhttprequest-ssl/
 web/node_modules/yallist/
 web/node_modules/yeast/
+/web/static/usr_img/

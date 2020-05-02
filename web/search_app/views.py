@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django_visee import settings
 import requests
 import json
 import time
@@ -26,6 +27,8 @@ def handle_uploaded_file(f):
 def rbga_to_rbg(b64):
     buffered = BytesIO()
     user_img = Image.open(BytesIO(base64.b64decode(b64)))
+
+    os.makedirs(os.path.join('static', 'usr_img'), exist_ok=True)
     user_img.save("static/usr_img/{}.png".format(str(time.time()).replace(".", "_")), format="PNG")
     if user_img.mode == "RGBA":
         background = Image.new("RGB", user_img.size, (255, 255, 255))
@@ -53,10 +56,10 @@ def search(request):
         })
 
         search_result = requests.post(
-            'http://192.168.191.235:8001/api/rest/search/',
+            settings.API_HOST,
             data=server_query,
             headers={
-                'api_key': 'h$+wt&%3BtH*6rA^KfPzMKDm**GdH_wQaQebd&X9!h=nNVjrt+pn8GNB5%-_ug-U',
+                'api_key': settings.API_KEY,
                 'Content-Type': 'application/json',
                 'Accept': 'text/plain',
             }
