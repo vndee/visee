@@ -1,0 +1,623 @@
+Start testing: Jun 08 17:07 +07
+----------------------------------------------------------
+1/9 Testing: test_autocomplete
+1/9 Test: test_autocomplete
+Command: "/home/hoang/Desktop/autocomplete/build/test_autocomplete"
+Directory: /home/hoang/Desktop/autocomplete/build
+"test_autocomplete" start time: Jun 08 17:07 +07
+Output:
+----------------------------------------------------------
+[doctest] doctest version is "2.3.5"
+[doctest] run with "--help" for options
+2020-06-08 17:07:23: building completion_trie...
+2020-06-08 17:07:24: DONE
+2020-06-08 17:07:24: building fc_dictionary with bucket size 16...
+7.19283 characters per string
+2020-06-08 17:07:24: DONE
+2020-06-08 17:07:24: building inverted_index...
+avg. list size = 3.99926
+max_list_size = 1711
+min_list_size = 1
+2020-06-08 17:07:24: DONE
+2020-06-08 17:07:24: building forward_index...
+using 29421 words
+2020-06-08 17:07:24: DONE
+2020-06-08 17:07:24: building unsorted_list...
+	using 16 [bpi]
+2020-06-08 17:07:24: DONE
+2020-06-08 17:07:24: building minimal_docids...
+	using 16 [bpi]
+2020-06-08 17:07:24: DONE
+2020-06-08 17:07:24: testing prefix_topk()...
+top-7 completions for 'a':
+(11, 'army knowledge online')
+(16, 'army uniforms in long beach california')
+(22, 'aya no ceres')
+(40, 'aol headquarters address')
+(42, 'airborne express tracking')
+(58, 'auto dealer finder')
+(88, 'allcapecod willowbend pro am')
+top-7 completions for '10':
+(1242, '100 pound johnson american bulldogs')
+(8557, '107 5 the river')
+(9760, '105 9 orlando')
+(9947, '100 years')
+(11344, '104 7')
+(11473, '10picturersofdrug free')
+(12306, '103 9 bakersfield ca')
+top-7 completions for 'african':
+(7589, 'african euphoria braids')
+(7709, 'african soccer news')
+(8151, 'african wall hangings')
+(11079, 'african street festival ny')
+(12394, 'african bulldog')
+(16782, 'african american history in bridgeton n c')
+(22929, 'african bell plant')
+top-7 completions for 'air':
+(42, 'airborne express tracking')
+(492, 'air condition')
+(949, 'air soft guns')
+(1152, 'airparks in florida')
+(1914, 'air fare')
+(2428, 'airplanemodels')
+(2767, 'airplane video')
+top-7 completions for 'commercial':
+(137, 'commercial swimming pool slides')
+(1408, 'commercial lesson plans')
+(1816, 'commercial winery leasing in the state of washin')
+(4769, 'commercial insurance carriers')
+(9704, 'commercial leasing beverly hill')
+(9786, 'commercial loan rates in illinois')
+(10398, 'commercial tanning beds')
+top-7 completions for 'internet':
+(3034, 'internet explorer 6 0')
+(7986, 'internet explorer')
+(12747, 'internet sports magazines dallas ft worth')
+(14555, 'internet options')
+(14716, 'internet spades')
+(15769, 'internet checkersa')
+(17051, 'internet screen fornt size for aol to print smal')
+top-7 completions for 'paris':
+(2689, 'paris hilton butt')
+(3681, 'parishilton')
+(9454, 'paris and pamela free clips')
+(10015, 'paris hilton hotel rate')
+(11809, 'paris the eiffel tower')
+(11877, 'parisians')
+(11945, 'paris hilton short hair')
+top-2 completions for 'somerset':
+(19918, 'somerset lake pa')
+(21012, 'somerset ky')
+top-7 completions for 'the':
+(234, 'the spinners')
+(435, 'the card game phase ten')
+(672, 'the village of stonewood lufkin texas')
+(679, 'the abbey hotel davenport')
+(808, 'the lost boy pelzer')
+(919, 'the bottom line stamford')
+(921, 'the lost vikings downloads')
+top-6 completions for 'the new':
+(13285, 'the newark news delaware')
+(17859, 'the new york post')
+(23303, 'the new york times')
+(24407, 'the new laguna beach')
+(29514, 'the news and record')
+(31496, 'the new shemp')
+top-3 completions for 'the perfect':
+(16400, 'the perfect storm movie')
+(19405, 'the perfect man movie')
+(32992, 'the perfect score movie')
+top-2 completions for 'the starting line':
+(16150, 'the starting line lyrics')
+(33888, 'the starting line')
+top-7 completions for 'yu gi oh':
+(4343, 'yu gi oh rare cards')
+(13105, 'yu gi oh cards')
+(17305, 'yu gi oh cards list')
+(32348, 'yu gi oh card values')
+(39817, 'yu gi oh')
+(40751, 'yu gi oh the movie movie')
+(41698, 'yu gi oh the movie')
+top-6 completions for 'for sale':
+(20589, 'for sale by owner tv asheville')
+(27044, 'for sale by owner pa')
+(27344, 'for sale buy owners')
+(30608, 'for sale autoscrubber')
+(31828, 'for sale by owner')
+(35010, 'for sale sites')
+top-3 completions for 'dave mat':
+(23047, 'dave matthews band tickets')
+(25201, 'dave matthews band')
+(41057, 'dave mattews band')
+top-5 completions for 'florence':
+(19860, 'florence and charley scott truman arkansas')
+(20127, 'florence times daily')
+(31276, 'florence darlington technical college')
+(34852, 'florence nightingale')
+(35574, 'florence italy')
+top-4 completions for 'florida be':
+(5882, 'florida beaches hotels')
+(11448, 'florida beach volleyball')
+(24885, 'florida beaches')
+(40902, 'florida beach campgrounds')
+top-6 completions for 'for s':
+(20589, 'for sale by owner tv asheville')
+(27044, 'for sale by owner pa')
+(27344, 'for sale buy owners')
+(30608, 'for sale autoscrubber')
+(31828, 'for sale by owner')
+(35010, 'for sale sites')
+top-6 completions for 'for sa':
+(20589, 'for sale by owner tv asheville')
+(27044, 'for sale by owner pa')
+(27344, 'for sale buy owners')
+(30608, 'for sale autoscrubber')
+(31828, 'for sale by owner')
+(35010, 'for sale sites')
+top-6 completions for 'for sal':
+(20589, 'for sale by owner tv asheville')
+(27044, 'for sale by owner pa')
+(27344, 'for sale buy owners')
+(30608, 'for sale autoscrubber')
+(31828, 'for sale by owner')
+(35010, 'for sale sites')
+top-6 completions for 'for sale':
+(20589, 'for sale by owner tv asheville')
+(27044, 'for sale by owner pa')
+(27344, 'for sale buy owners')
+(30608, 'for sale autoscrubber')
+(31828, 'for sale by owner')
+(35010, 'for sale sites')
+top-5 completions for 'ford a':
+(6739, 'ford auto dealers')
+(8911, 'ford aeromax')
+(19274, 'ford announcements')
+(22329, 'ford airbag codes')
+(32798, 'ford auto parts')
+top-2 completions for 'ford au':
+(6739, 'ford auto dealers')
+(32798, 'ford auto parts')
+top-4 completions for 'ford m':
+(7435, 'ford motor company')
+(25140, 'ford mustang ii cobra kemp')
+(37349, 'ford mustang 67 at a low price')
+(40590, 'ford mustang')
+top-3 completions for 'ford mu':
+(25140, 'ford mustang ii cobra kemp')
+(37349, 'ford mustang 67 at a low price')
+(40590, 'ford mustang')
+top-7 completions for 'for':
+(565, 'forever 21 stores')
+(614, 'fortune small business magazine')
+(764, 'forrest hills mountain hideaway resort')
+(1413, 'forensics for kids')
+(1706, 'formal wear for plus sizes')
+(1982, 'ford 302 engine')
+(2206, 'ford grill')
+top-7 completions for 'fo':
+(132, 'foxvalleyicearena')
+(565, 'forever 21 stores')
+(614, 'fortune small business magazine')
+(764, 'forrest hills mountain hideaway resort')
+(839, 'foot leg pain')
+(1343, 'fox 2 news detroit')
+(1413, 'forensics for kids')
+top-7 completions for 'f':
+(2, 'fast free software for downloading music')
+(80, 'fiesta hotel panama city baech fla')
+(103, 'fishing psp tubes')
+(124, 'father s day gift ideas')
+(132, 'foxvalleyicearena')
+(156, 'free or low cost help for filing bankruptcy in s')
+(187, 'free black hoes pic')
+top-7 completions for 'matt':
+(5884, 'matthew kirkland and pennsylvania hospital')
+(6683, 'matthew lewis')
+(10557, 'matt floberg')
+(12433, 'mattel juice box utilities')
+(12635, 'mattel free coloring pages')
+(18228, 'matthew perry')
+(19698, 'matteo ianni')
+top-7 completions for 'fl':
+(416, 'floral source west monroe la')
+(552, 'florida health alliance physician directory')
+(699, 'florid')
+(739, 'florida fishing guides')
+(1123, 'florida restraining orders')
+(1362, 'flush cut saw')
+(1396, 'florida department of incorporation')
+top-0 completions for 'florir':
+top-7 completions for 'fly':
+(23382, 'flyi')
+(23843, 'fly fishing knots')
+(28491, 'flyrite choppers')
+(30719, 'fly or die')
+(31935, 'fly fishing videos')
+(35017, 'flying j norman ok')
+(36826, 'flyin')
+top-2 completions for 'the starting l':
+(16150, 'the starting line lyrics')
+(33888, 'the starting line')
+top-0 completions for 'floridaaa':
+2020-06-08 17:07:24: DONE
+2020-06-08 17:07:24: testing conjunctive_topk()...
+top-5 completions for 'dave mat':
+(8755, 'little thing dave matthews band')
+(14950, 'early interviews with dave matthews')
+(23047, 'dave matthews band tickets')
+(25201, 'dave matthews band')
+(41057, 'dave mattews band')
+top-6 completions for 'florence':
+(11888, 'map of florence italy')
+(19860, 'florence and charley scott truman arkansas')
+(20127, 'florence times daily')
+(31276, 'florence darlington technical college')
+(34852, 'florence nightingale')
+(35574, 'florence italy')
+top-7 completions for 'florida be':
+(4617, 'map of west palm beach florida')
+(5882, 'florida beaches hotels')
+(11448, 'florida beach volleyball')
+(16486, 'landscape service in west palm beach florida')
+(23672, 'bethel baptist church miami florida')
+(24885, 'florida beaches')
+(25020, 'florida west coast beach rental cottages')
+top-7 completions for 'for s':
+(2, 'fast free software for downloading music')
+(156, 'free or low cost help for filing bankruptcy in s')
+(539, 'simple summer cooking for kids')
+(556, 'samples of avertaising letters for new business')
+(711, 'used rooftop air conditioner for rv s')
+(783, 'capybara for sale')
+(861, 'surgery for dogs for ear drainage')
+top-7 completions for 'for sa':
+(556, 'samples of avertaising letters for new business')
+(783, 'capybara for sale')
+(1047, 'homes for sale/illinois')
+(1178, 'jordan for sale')
+(1267, 'free samples for students')
+(1294, 'sample regents for u s history january 2005')
+(1439, 'lots for sale east moline il')
+top-7 completions for 'for sal':
+(783, 'capybara for sale')
+(1047, 'homes for sale/illinois')
+(1178, 'jordan for sale')
+(1439, 'lots for sale east moline il')
+(1689, 'businesses for sale')
+(2045, 'horses for sale')
+(2067, 'homes for sale in nw indaina')
+top-7 completions for 'for sale':
+(783, 'capybara for sale')
+(1047, 'homes for sale/illinois')
+(1178, 'jordan for sale')
+(1439, 'lots for sale east moline il')
+(1689, 'businesses for sale')
+(2045, 'horses for sale')
+(2067, 'homes for sale in nw indaina')
+top-7 completions for 'ford a':
+(6739, 'ford auto dealers')
+(8911, 'ford aeromax')
+(19274, 'ford announcements')
+(20173, 'oem part numbers for a 1990 ford bronco')
+(21153, 'ford parts and accessories')
+(22329, 'ford airbag codes')
+(25935, 'ford truck amarillo package')
+top-2 completions for 'ford au':
+(6739, 'ford auto dealers')
+(32798, 'ford auto parts')
+top-7 completions for 'ford m':
+(4285, 'black ford mustang 2005')
+(7145, 'midway ford truck center')
+(7435, 'ford motor company')
+(15268, 'melyssa ford')
+(16968, 'outside mirrors for my ford excursion')
+(21612, 'pre owned ford mustang')
+(24447, 'melissa ford')
+top-6 completions for 'ford mu':
+(4285, 'black ford mustang 2005')
+(21612, 'pre owned ford mustang')
+(24952, '2005 ford mustang')
+(25140, 'ford mustang ii cobra kemp')
+(37349, 'ford mustang 67 at a low price')
+(40590, 'ford mustang')
+top-7 completions for 'for':
+(2, 'fast free software for downloading music')
+(18, 'clip art for hot air balloons')
+(23, 'online price guide for coin collectors')
+(82, 'research lawyer for nc')
+(156, 'free or low cost help for filing bankruptcy in s')
+(248, 'weather for va beach 6 17 05 to 6 20 05')
+(268, 'a action replay code for both tents in pokemon e')
+top-7 completions for 'fo':
+(2, 'fast free software for downloading music')
+(18, 'clip art for hot air balloons')
+(23, 'online price guide for coin collectors')
+(82, 'research lawyer for nc')
+(132, 'foxvalleyicearena')
+(156, 'free or low cost help for filing bankruptcy in s')
+(248, 'weather for va beach 6 17 05 to 6 20 05')
+top-7 completions for 'f':
+(2, 'fast free software for downloading music')
+(6, 'illinois book fair')
+(18, 'clip art for hot air balloons')
+(23, 'online price guide for coin collectors')
+(58, 'auto dealer finder')
+(66, 'multiple births and fertility drugs')
+(80, 'fiesta hotel panama city baech fla')
+top-7 completions for 'matt':
+(697, '1971 mattel')
+(2675, 'nothing else matters')
+(2939, 'bryton mcclure from family matters')
+(5884, 'matthew kirkland and pennsylvania hospital')
+(6648, 'cheap mattress in palm beach county')
+(6683, 'matthew lewis')
+(8755, 'little thing dave matthews band')
+top-7 completions for 'fl':
+(80, 'fiesta hotel panama city baech fla')
+(91, 'time zone in florida')
+(162, 'max grill ft lauderdale florida')
+(412, 'i faintly remember breathing on your bedroom flo')
+(416, 'floral source west monroe la')
+(439, 'destin florida sovenir')
+(472, 'micco fl')
+top-7 completions for 'flor':
+(91, 'time zone in florida')
+(162, 'max grill ft lauderdale florida')
+(416, 'floral source west monroe la')
+(439, 'destin florida sovenir')
+(474, 'naples florida homes')
+(552, 'florida health alliance physician directory')
+(588, 'miami florida news')
+top-7 completions for 'fly':
+(1876, 'father hugh j flynn/ fla')
+(5550, 'airlines that fly to missoula montana')
+(6189, 'catalina flyer')
+(8400, 'watt age micro flyer rtf')
+(9083, 'cheap fly deals')
+(11353, 'melanie flynn somerville new jerse')
+(11965, 'photograde flying eagle')
+top-2 completions for 'the starting l':
+(16150, 'the starting line lyrics')
+(33888, 'the starting line')
+2020-06-08 17:07:24: DONE
+===============================================================================
+[doctest] test cases:      1 |      1 passed |      0 failed |      0 skipped
+[doctest] assertions:      0 |      0 passed |      0 failed |
+[doctest] Status: SUCCESS!
+<end of output>
+Test time =   0.11 sec
+----------------------------------------------------------
+Test Passed.
+"test_autocomplete" end time: Jun 08 17:07 +07
+"test_autocomplete" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/9 Testing: test_blocked_inverted_index
+2/9 Test: test_blocked_inverted_index
+Command: "/home/hoang/Desktop/autocomplete/build/test_blocked_inverted_index"
+Directory: /home/hoang/Desktop/autocomplete/build
+"test_blocked_inverted_index" start time: Jun 08 17:07 +07
+Output:
+----------------------------------------------------------
+[doctest] doctest version is "2.3.5"
+[doctest] run with "--help" for options
+2020-06-08 17:07:24: building inverted_index...
+avg. list size = 3.99926
+max_list_size = 1711
+min_list_size = 1
+2020-06-08 17:07:24: DONE
+2020-06-08 17:07:24: building blocked_inverted_index with c = 0.012500...
+2020-06-08 17:07:24: DONE
+1
+2020-06-08 17:07:24: building blocked_inverted_index with c = 0.025000...
+2020-06-08 17:07:24: DONE
+1
+2020-06-08 17:07:25: building blocked_inverted_index with c = 0.050000...
+2020-06-08 17:07:25: DONE
+1
+2020-06-08 17:07:27: building blocked_inverted_index with c = 0.100000...
+2020-06-08 17:07:27: DONE
+1
+===============================================================================
+[doctest] test cases:      1 |      1 passed |      0 failed |      0 skipped
+[doctest] assertions:  40014 |  40014 passed |      0 failed |
+[doctest] Status: SUCCESS!
+<end of output>
+Test time =   7.52 sec
+----------------------------------------------------------
+Test Passed.
+"test_blocked_inverted_index" end time: Jun 08 17:07 +07
+"test_blocked_inverted_index" time elapsed: 00:00:07
+----------------------------------------------------------
+
+3/9 Testing: test_compact_forward_index
+3/9 Test: test_compact_forward_index
+Command: "/home/hoang/Desktop/autocomplete/build/test_compact_forward_index"
+Directory: /home/hoang/Desktop/autocomplete/build
+"test_compact_forward_index" start time: Jun 08 17:07 +07
+Output:
+----------------------------------------------------------
+[doctest] doctest version is "2.3.5"
+[doctest] run with "--help" for options
+2020-06-08 17:07:31: building forward_index...
+using 29421 words
+2020-06-08 17:07:31: DONE
+===============================================================================
+[doctest] test cases:      1 |      1 passed |      0 failed |      0 skipped
+[doctest] assertions: 124213 | 124213 passed |      0 failed |
+[doctest] Status: SUCCESS!
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"test_compact_forward_index" end time: Jun 08 17:07 +07
+"test_compact_forward_index" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/9 Testing: test_completion_trie
+4/9 Test: test_completion_trie
+Command: "/home/hoang/Desktop/autocomplete/build/test_completion_trie"
+Directory: /home/hoang/Desktop/autocomplete/build
+"test_completion_trie" start time: Jun 08 17:07 +07
+Output:
+----------------------------------------------------------
+[doctest] doctest version is "2.3.5"
+[doctest] run with "--help" for options
+2020-06-08 17:07:31: building completion_trie...
+2020-06-08 17:07:31: DONE
+===============================================================================
+[doctest] test cases:      1 |      1 passed |      0 failed |      0 skipped
+[doctest] assertions:  42171 |  42171 passed |      0 failed |
+[doctest] Status: SUCCESS!
+<end of output>
+Test time =   0.13 sec
+----------------------------------------------------------
+Test Passed.
+"test_completion_trie" end time: Jun 08 17:07 +07
+"test_completion_trie" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/9 Testing: test_fc_dictionary
+5/9 Test: test_fc_dictionary
+Command: "/home/hoang/Desktop/autocomplete/build/test_fc_dictionary"
+Directory: /home/hoang/Desktop/autocomplete/build
+"test_fc_dictionary" start time: Jun 08 17:07 +07
+Output:
+----------------------------------------------------------
+[doctest] doctest version is "2.3.5"
+[doctest] run with "--help" for options
+2020-06-08 17:07:31: building fc_dictionary with bucket size 16...
+7.19283 characters per string
+2020-06-08 17:07:31: DONE
+===============================================================================
+[doctest] test cases:      1 |      1 passed |      0 failed |      0 skipped
+[doctest] assertions: 511544 | 511544 passed |      0 failed |
+[doctest] Status: SUCCESS!
+<end of output>
+Test time =   0.32 sec
+----------------------------------------------------------
+Test Passed.
+"test_fc_dictionary" end time: Jun 08 17:07 +07
+"test_fc_dictionary" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/9 Testing: test_integer_fc_dictionary
+6/9 Test: test_integer_fc_dictionary
+Command: "/home/hoang/Desktop/autocomplete/build/test_integer_fc_dictionary"
+Directory: /home/hoang/Desktop/autocomplete/build
+"test_integer_fc_dictionary" start time: Jun 08 17:07 +07
+Output:
+----------------------------------------------------------
+[doctest] doctest version is "2.3.5"
+[doctest] run with "--help" for options
+2020-06-08 17:07:32: building integer_fc_dictionary with bucket size 16...
+2020-06-08 17:07:32: DONE
+===============================================================================
+[doctest] test cases:      1 |      1 passed |      0 failed |      0 skipped
+[doctest] assertions: 294205 | 294205 passed |      0 failed |
+[doctest] Status: SUCCESS!
+<end of output>
+Test time =   0.10 sec
+----------------------------------------------------------
+Test Passed.
+"test_integer_fc_dictionary" end time: Jun 08 17:07 +07
+"test_integer_fc_dictionary" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/9 Testing: test_inverted_index
+7/9 Test: test_inverted_index
+Command: "/home/hoang/Desktop/autocomplete/build/test_inverted_index"
+Directory: /home/hoang/Desktop/autocomplete/build
+"test_inverted_index" start time: Jun 08 17:07 +07
+Output:
+----------------------------------------------------------
+[doctest] doctest version is "2.3.5"
+[doctest] run with "--help" for options
+2020-06-08 17:07:32: building inverted_index...
+avg. list size = 3.99926
+max_list_size = 1711
+min_list_size = 1
+2020-06-08 17:07:32: DONE
+2020-06-08 17:07:32: building inverted_index...
+avg. list size = 3.99926
+max_list_size = 1711
+min_list_size = 1
+2020-06-08 17:07:32: DONE
+===============================================================================
+[doctest] test cases:      2 |      2 passed |      0 failed |      0 skipped
+[doctest] assertions: 1156155 | 1156155 passed |      0 failed |
+[doctest] Status: SUCCESS!
+<end of output>
+Test time =   2.34 sec
+----------------------------------------------------------
+Test Passed.
+"test_inverted_index" end time: Jun 08 17:07 +07
+"test_inverted_index" time elapsed: 00:00:02
+----------------------------------------------------------
+
+8/9 Testing: test_locate_prefix
+8/9 Test: test_locate_prefix
+Command: "/home/hoang/Desktop/autocomplete/build/test_locate_prefix"
+Directory: /home/hoang/Desktop/autocomplete/build
+"test_locate_prefix" start time: Jun 08 17:07 +07
+Output:
+----------------------------------------------------------
+[doctest] doctest version is "2.3.5"
+[doctest] run with "--help" for options
+2020-06-08 17:07:34: building fc_dictionary with bucket size 16...
+7.19283 characters per string
+2020-06-08 17:07:34: DONE
+2020-06-08 17:07:34: loading all strings...
+2020-06-08 17:07:34: loaded 42169 strings
+2020-06-08 17:07:34: building completion_trie...
+2020-06-08 17:07:34: DONE
+2020-06-08 17:07:34: building integer_fc_dictionary with bucket size 16...
+2020-06-08 17:07:34: DONE
+percentage 0%, num_terms 1
+percentage 0%, num_terms 2
+percentage 0%, num_terms 3
+percentage 0%, num_terms 4
+percentage 0%, num_terms 5
+percentage 0%, num_terms 6
+percentage 0%, num_terms 7
+cannot open file '../test_data/trec_05_efficiency_queries/trec_05_efficiency_queries.completions.queries/queries.length=7'
+===============================================================================
+[doctest] test cases:      1 |      1 passed |      0 failed |      0 skipped
+[doctest] assertions:   3602 |   3602 passed |      0 failed |
+[doctest] Status: SUCCESS!
+<end of output>
+Test time =   0.18 sec
+----------------------------------------------------------
+Test Passed.
+"test_locate_prefix" end time: Jun 08 17:07 +07
+"test_locate_prefix" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/9 Testing: test_unsorted_list
+9/9 Test: test_unsorted_list
+Command: "/home/hoang/Desktop/autocomplete/build/test_unsorted_list"
+Directory: /home/hoang/Desktop/autocomplete/build
+"test_unsorted_list" start time: Jun 08 17:07 +07
+Output:
+----------------------------------------------------------
+[doctest] doctest version is "2.3.5"
+[doctest] run with "--help" for options
+2020-06-08 17:07:34: building unsorted_list...
+	using 16 [bpi]
+2020-06-08 17:07:34: DONE
+2020-06-08 17:07:42: building unsorted_list...
+	using 16 [bpi]
+2020-06-08 17:07:42: DONE
+===============================================================================
+[doctest] test cases:      2 |      2 passed |      0 failed |      0 skipped
+[doctest] assertions: 109972 | 109972 passed |      0 failed |
+[doctest] Status: SUCCESS!
+<end of output>
+Test time =  13.03 sec
+----------------------------------------------------------
+Test Passed.
+"test_unsorted_list" end time: Jun 08 17:07 +07
+"test_unsorted_list" time elapsed: 00:00:13
+----------------------------------------------------------
+
+End testing: Jun 08 17:07 +07
