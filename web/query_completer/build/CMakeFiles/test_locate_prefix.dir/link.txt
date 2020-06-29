@@ -1,0 +1,1 @@
+/usr/bin/c++   -DNDEBUG -std=c++17 -O3 -march=native -ggdb -Wall -Wextra -Wno-missing-braces -O3 -DNDEBUG  -rdynamic CMakeFiles/test_locate_prefix.dir/test/test_locate_prefix.cpp.o  -o test_locate_prefix 

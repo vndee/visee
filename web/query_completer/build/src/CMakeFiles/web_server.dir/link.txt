@@ -1,0 +1,1 @@
+/usr/bin/c++   -DNDEBUG -std=c++17 -O3 -march=native -ggdb -Wall -Wextra -Wno-missing-braces -O3 -DNDEBUG  -rdynamic CMakeFiles/web_server.dir/web_server.cpp.o CMakeFiles/web_server.dir/__/external/mongoose/mongoose.c.o  -o ../web_server 
