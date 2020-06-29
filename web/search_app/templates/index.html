@@ -9,13 +9,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="{% static 'css/singlePageTemplate.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/autocomp.css' %}" rel="stylesheet" type="text/css">
+
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/jquery.Jcrop.css' %}" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet" />
 
     <script src="http://use.edgefonts.net/source-sans-pro:n2:default.js" type="text/javascript"></script>
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/jquery.Jcrop.min.js' %}"></script>
+    <script src="{% static 'js/jquery.autocomplete.js' %}"></script>
+    <script src="{% static 'js/topkcomp.js' %}"></script>
+
 </head>
 <style>
     #logo {
@@ -64,8 +70,8 @@
                 <form action="" method="post" id="text_f" name="text_search_form" style="width: 100%">
                     {% csrf_token %}
                     <input type="hidden" name="engine" value="text">
-                    <label for="text_search_id"></label>
-                    <input name="search_text" id="text_search_id" style="width: 100%;
+<!--                    <label for="autocomplete"></label>-->
+                    <input type="text"  name="search_text" id="autocomplete" style="width: 100%;
                         margin-left: 3%;
                         font-size: 16px;">
                 </form>
@@ -77,6 +83,7 @@
             </div>
         </div>
     </div>
+    <div id="query_time"></div>
 
     <script>
         $('#ims').click(function() {
