@@ -7,7 +7,7 @@ $(function () {
     $('#autocomplete').autocomplete({
         noCache: true,
         serviceUrl: 'http://127.0.0.1:8080/topcomp',
-        dataType: 'jsonp',
+        dataType: 'json',
         minChars: '0',
         params: {k: 10},
         formatResult: function(suggestion, currentValue) {
