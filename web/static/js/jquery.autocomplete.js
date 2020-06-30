@@ -583,14 +583,9 @@
                 ajaxSettings = {
                     url: serviceUrl,
                     data: params,
-                    crossDomain:true,
+                    crossDomain: true,
                     method: "GET",
-                    dataType: options.dataType,
-                    headers: {
-                        'Access-Control-Allow-Origin': '*',
-                        "Access-Control-Allow-Methods": "PATCH, POST, GET, PUT, DELETE, OPTIONS",
-                        "Access-Control-Allow-Headers": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
-                    }
+                    dataType: options.dataType
                 };
 
                 $.extend(ajaxSettings, options.ajaxSettings);
