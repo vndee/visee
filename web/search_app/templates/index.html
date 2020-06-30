@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link href="styles.css" rel="stylesheet" />
 
-    <script src="http://use.edgefonts.net/source-sans-pro:n2:default.js" type="text/javascript"></script>
+    <script src="{% static 'source-sans-pro:n2:default.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/jquery.Jcrop.min.js' %}"></script>
     <script src="{% static 'js/jquery.autocomplete.js' %}"></script>
@@ -55,17 +55,17 @@
                     </div>
                     <button id="submit-crop" type="submit"></button>
                 </div>
-                <div align="center">
+                <div>
                     <div id="image-field"></div>
                     <img src="#" id="target" style="max-height: 380px; max-width: 450px;" onerror="arguments[0].currentTarget.style.display='none'"  alt=""/>
                 </div>
             </div>
         </form>
     </div>
-    <div id="header" style="height: 60vh; align-items: center;">
-        <div id="logo" style="text-align: center; height: 50%; margin-top: 20vh; padding-bottom: 0;" align="center"></div>
-        <div align="center" id="sz">
-            <div align="center" style="border: 1px solid rgba(190, 190, 190, 0.548); height: 40px; border-radius: 45px; width: 580px; max-width: 100%; display: flex; align-items: center; justify-content: space-between;">
+    <div align="center"  id="header" style="height: 60vh; align-items: center;">
+        <div id="logo" style="text-align: center; height: 50%; margin-top: 20vh; padding-bottom: 0;"></div>
+        <div id="sz">
+            <div style="border: 1px solid rgba(190, 190, 190, 0.548); height: 40px; border-radius: 45px; width: 580px; max-width: 100%; display: flex; align-items: center; justify-content: space-between;">
                 <form action="" method="post" id="text_f" name="text_search_form" style="width: 100%">
                     {% csrf_token %}
                     <input type="hidden" name="engine" value="text">
@@ -76,7 +76,7 @@
                         font-size: 16px;">
                     <div id="query_time"></div>
                 </form>
-                <div align="center" style="display: flex; margin: 0 20px 0 10px;">
+                <div style="display: flex; margin: 0 20px 0 10px;">
                     <div id='ims'></div>
                     <div id='sbt'></div>
                 </div>
