@@ -1,1 +1,0 @@
-/usr/bin/c++   -DNDEBUG -std=c++17 -O3 -march=native -ggdb -Wall -Wextra -Wno-missing-braces -O3 -DNDEBUG  -rdynamic CMakeFiles/statistics.dir/statistics.cpp.o  -o ../statistics 
