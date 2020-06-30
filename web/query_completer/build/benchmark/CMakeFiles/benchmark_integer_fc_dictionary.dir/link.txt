@@ -1,1 +1,0 @@
-/usr/bin/c++   -DNDEBUG -std=c++17 -O3 -march=native -ggdb -Wall -Wextra -Wno-missing-braces -O3 -DNDEBUG  -rdynamic CMakeFiles/benchmark_integer_fc_dictionary.dir/benchmark_integer_fc_dictionary.cpp.o  -o ../benchmark_integer_fc_dictionary 
