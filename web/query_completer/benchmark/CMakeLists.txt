@@ -1,0 +1,7 @@
+# add_executable(benchmark_topk benchmark_topk.cpp)
+add_executable(benchmark_prefix_topk benchmark_prefix_topk.cpp)
+add_executable(benchmark_conjunctive_topk benchmark_conjunctive_topk.cpp)
+add_executable(benchmark_fc_dictionary benchmark_fc_dictionary.cpp)
+add_executable(benchmark_integer_fc_dictionary benchmark_integer_fc_dictionary.cpp)
+add_executable(benchmark_locate_prefix benchmark_locate_prefix.cpp)
+add_executable(effectiveness effectiveness.cpp)
