@@ -19,7 +19,7 @@ opencv-python==4.2.0.32
 packaging==20.1
 Pillow==6.2.3
 pluggy==0.13.1
-protobuf==3.11.3
+protobuf==3.18.3
 py==1.10.0
 pymilvus==0.2.7
 pymongo==3.10.1
@@ -58,7 +58,7 @@ opencv-python==4.2.0.32
 packaging==20.1
 Pillow==6.2.3
 pluggy==0.13.1
-protobuf==3.11.3
+protobuf==3.18.3
 py==1.10.0
 pymilvus==0.2.7
 pymongo==3.10.1
