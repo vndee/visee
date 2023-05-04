@@ -3,7 +3,7 @@ certifi==2019.11.28
 chardet==3.0.4
 Click==7.0
 elasticsearch==7.5.1
-Flask==1.1.1
+Flask==2.2.5
 grpcio==1.27.2
 grpcio-tools==1.27.2
 gunicorn==20.0.4
@@ -42,7 +42,7 @@ certifi==2019.11.28
 chardet==3.0.4
 Click==7.0
 elasticsearch==7.5.1
-Flask==1.1.1
+Flask==2.2.5
 grpcio==1.27.2
 grpcio-tools==1.27.2
 gunicorn==20.0.4
