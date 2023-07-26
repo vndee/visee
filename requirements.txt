@@ -1,5 +1,5 @@
 attrs==19.3.0
-certifi==2019.11.28
+certifi==2023.7.22
 chardet==3.0.4
 Click==7.0
 elasticsearch==7.5.1
@@ -38,7 +38,7 @@ wcwidth==0.1.8
 Werkzeug==1.0.0
 zipp==3.0.0
 attrs==19.3.0
-certifi==2019.11.28
+certifi==2023.7.22
 chardet==3.0.4
 Click==7.0
 elasticsearch==7.5.1
